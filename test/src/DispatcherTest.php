@@ -106,4 +106,34 @@ class DispatcherTest extends TestCase
         $this->gateway->triggerOrderRefunded($this->order, $this->timestamp);
         $this->assertTrue($event_triggered);
     }
+
+    /**
+     * Test if partial order refund properly triggers an event
+     */
+    public function testOrderPartiallyRefundedTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, function(GatewayInterface $gateway, RefundInterface $refund, OrderInterface $order) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(RefundInterface::class, $refund);
+            $this->assertInstanceOf(OrderInterface::class, $order);
+
+            $this->assertEquals($refund->getOrderId(), $order->getOrderId());
+            $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
+
+            $this->assertInternalType('array', $refund->getItems());
+            $this->assertCount(1, $refund->getItems());
+            $this->assertEquals('Expensive product', $refund->getItems()[0]->getDescription());
+
+            $this->assertTrue($refund->isPartial());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerOrderPartiallyRefunded($this->order, [
+            new OrderItem('Expensive product', 1, 1000),
+        ], $this->timestamp);
+        $this->assertTrue($event_triggered);
+    }
 }

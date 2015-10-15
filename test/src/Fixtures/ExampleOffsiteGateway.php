@@ -7,6 +7,7 @@ use ActiveCollab\Payments\Gateway;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
 use ActiveCollab\Payments\Refund\Refund;
+use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 use DateTime;
 use DateTimeZone;
@@ -113,10 +114,27 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * Trigger order has been partially refunded
      *
-     * @param OrderInterface $order
+     * @param OrderInterface       $order
+     * @param OrderItemInterface[] $items
+     * @param DateTime|null        $timestamp
      */
-    public function triggerOrderPartiallyRefunded(OrderInterface $order)
+    public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTime $timestamp = null)
     {
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, $this, $order);
+        $this->orders[$order->getOrderId()] = $order;
+
+        if (empty($timestamp)) {
+            $timestamp = new DateTime('now', new DateTimeZone('UTC'));
+        }
+
+        $refund = new Refund($order->getOrderId() . '-X', $order->getOrderId(), $timestamp, 200);
+        $refund->setGateway($this);
+
+        if (!empty($items)) {
+            $refund->setItems($items);
+        }
+
+        $this->refunds[$refund->getRefundId()] = $refund;
+
+        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, $this, $refund, $order);
     }
 }
