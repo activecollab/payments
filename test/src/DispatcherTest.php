@@ -2,11 +2,14 @@
 
 namespace ActiveCollab\Payments\Test;
 
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Customer\Customer;
 use ActiveCollab\Payments\DispatcherInterface;
+use ActiveCollab\Payments\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
+use ActiveCollab\Payments\Refund\RefundInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use DateTime;
 use DateTimeZone;
@@ -77,6 +80,30 @@ class DispatcherTest extends TestCase
         });
 
         $this->gateway->triggerOrderCompleted($this->order);
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if order refund properly triggers an event
+     */
+    public function testOrderRefundedTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_REFUNDED, function(GatewayInterface $gateway, RefundInterface $refund, OrderInterface $order) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(RefundInterface::class, $refund);
+            $this->assertInstanceOf(OrderInterface::class, $order);
+
+            $this->assertEquals($refund->getOrderId(), $order->getOrderId());
+            $this->assertEquals($refund->getTotal(), $order->getTotal());
+
+            $this->assertFalse($refund->isPartial());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerOrderRefunded($this->order, $this->timestamp);
         $this->assertTrue($event_triggered);
     }
 }

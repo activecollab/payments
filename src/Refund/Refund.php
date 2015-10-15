@@ -2,8 +2,12 @@
 
 namespace ActiveCollab\Payments\Refund;
 
+use ActiveCollab\Payments\Gateway;
+use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
+use RuntimeException;
 use DateTime;
 
 /**
@@ -11,6 +15,11 @@ use DateTime;
  */
 class Refund implements RefundInterface
 {
+    /**
+     * @var GatewayInterface
+     */
+    private $gateway;
+
     /**
      * @var string
      */
@@ -70,6 +79,29 @@ class Refund implements RefundInterface
     }
 
     /**
+     * Return parent gateway
+     *
+     * @return GatewayInterface
+     */
+    public function &getGateway()
+    {
+        return $this->gateway;
+    }
+
+    /**
+     * Set parent gateway
+     *
+     * @param  GatewayInterface $gateway
+     * @return $this
+     */
+    public function &setGateway(GatewayInterface &$gateway)
+    {
+        $this->gateway = $gateway;
+
+        return $this;
+    }
+
+    /**
      * Return refund ID
      *
      * @return string
@@ -87,6 +119,20 @@ class Refund implements RefundInterface
     public function getOrderId()
     {
         return $this->order_id;
+    }
+
+    /**
+     * Return order by order ID
+     *
+     * @return OrderInterface
+     */
+    public function getOrder()
+    {
+        if ($this->gateway instanceof GatewayInterface) {
+            return $this->gateway->getOrderById($this->getOrderId());
+        }
+
+        throw new RuntimeException('Gateway is not set');
     }
 
     /**
@@ -149,5 +195,15 @@ class Refund implements RefundInterface
         $this->our_identifier = trim($value);
 
         return $this;
+    }
+
+    /**
+     * Return true if this refund is partial
+     *
+     * @return boolean
+     */
+    public function isPartial()
+    {
+        return $this->getTotal() < $this->getOrder()->getTotal();
     }
 }

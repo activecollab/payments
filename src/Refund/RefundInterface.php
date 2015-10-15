@@ -2,11 +2,29 @@
 
 namespace ActiveCollab\Payments\Refund;
 
+use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
+
 /**
  * @package ActiveCollab\Payments\Refund
  */
 interface RefundInterface
 {
+    /**
+     * Return parent gateway
+     *
+     * @return GatewayInterface
+     */
+    public function &getGateway();
+
+    /**
+     * Set parent gateway
+     *
+     * @param  GatewayInterface $gateway
+     * @return $this
+     */
+    public function &setGateway(GatewayInterface &$gateway);
+
     /**
      * @return string
      */
@@ -16,6 +34,13 @@ interface RefundInterface
      * @return string
      */
     public function getOrderId();
+
+    /**
+     * Return order by order ID
+     *
+     * @return OrderInterface
+     */
+    public function getOrder();
 
     /**
      * @return \DateTime
@@ -52,4 +77,11 @@ interface RefundInterface
      * @return $this
      */
     public function &setOurIdentifier($value);
+
+    /**
+     * Return true if this refund is partial
+     *
+     * @return boolean
+     */
+    public function isPartial();
 }
