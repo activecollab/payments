@@ -58,11 +58,21 @@ class Dispatcher implements DispatcherInterface
         $this->trigger(self::ON_ORDER_COMPLETED, $gateway, $order);
     }
 
+    /**
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
+     * @param RefundInterface  $refund
+     */
     public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
         $this->trigger(self::ON_ORDER_REFUNDED, $gateway, $order, $refund);
     }
 
+    /**
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
+     * @param RefundInterface  $refund
+     */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
         $this->trigger(self::ON_ORDER_PARTIALLY_REFUNDED, $gateway, $order, $refund);
