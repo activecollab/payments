@@ -3,7 +3,6 @@
 namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\Payments\DispatcherInterface;
-use ActiveCollab\Payments\GatewayInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 
 /**
@@ -12,7 +11,7 @@ use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 class DispatcherTest extends TestCase
 {
     /**
-     * @var GatewayInterface
+     * @var ExampleOffsiteGateway
      */
     protected $gateway;
 
