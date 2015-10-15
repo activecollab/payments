@@ -7,7 +7,8 @@ namespace ActiveCollab\Payments;
  */
 interface DispatcherInterface
 {
-    const ON_PRODUCT_ORDER = 'on_product_order';
+    const ON_ORDER_COMPLETED = 'on_order_completed';
+    const ON_SUBSCRIPTION_ACTIVATED = 'on_subscription_activated';
 
     /**
      * Listen for a particular event

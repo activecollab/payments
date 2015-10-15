@@ -3,6 +3,7 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\Payments\DispatcherInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Gateway;
 
 /**
@@ -18,8 +19,13 @@ class ExampleOffsiteGateway extends Gateway
         $this->setDispatcher($dispatcher);
     }
 
-    public function triggerProductOrder()
+    /**
+     * Trigger product order
+     *
+     * @param OrderInterface $order
+     */
+    public function triggerOrderCompleted(OrderInterface $order)
     {
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_PRODUCT_ORDER);
+        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_COMPLETED, $this, $order);
     }
 }
