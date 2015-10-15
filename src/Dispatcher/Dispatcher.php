@@ -1,8 +1,8 @@
 <?php
 
-namespace ActiveCollab\Payments;
+namespace ActiveCollab\Payments\Dispatcher;
 
-use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
 
@@ -50,7 +50,7 @@ class Dispatcher implements DispatcherInterface
     /**
      * Trigger product order completed
      *
-     * @param GatewayInterface $gateway
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
      */
     public function triggerOrderCompleted(GatewayInterface $gateway, OrderInterface $order)
@@ -69,7 +69,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * @param GatewayInterface $gateway
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
      * @param RefundInterface  $refund
      */

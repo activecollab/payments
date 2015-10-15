@@ -2,8 +2,8 @@
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
-use ActiveCollab\Payments\DispatcherInterface;
-use ActiveCollab\Payments\Gateway;
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
+use ActiveCollab\Payments\Gateway\Gateway;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
 use ActiveCollab\Payments\Refund\Refund;
@@ -28,7 +28,7 @@ class ExampleOffsiteGateway extends Gateway
     private $refunds = [];
 
     /**
-     * @param DispatcherInterface $dispatcher
+     * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
      */
     public function __construct(DispatcherInterface &$dispatcher)
     {

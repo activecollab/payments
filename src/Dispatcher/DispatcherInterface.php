@@ -1,7 +1,8 @@
 <?php
 
-namespace ActiveCollab\Payments;
+namespace ActiveCollab\Payments\Dispatcher;
 
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
 
@@ -36,7 +37,7 @@ interface DispatcherInterface
     /**
      * Trigger full order refund event
      *
-     * @param GatewayInterface $gateway
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
      * @param RefundInterface  $refund
      */
@@ -45,7 +46,7 @@ interface DispatcherInterface
     /**
      * Trigger partial order refund event
      *
-     * @param GatewayInterface $gateway
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
      * @param RefundInterface  $refund
      */

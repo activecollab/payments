@@ -4,8 +4,8 @@ namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Customer\Customer;
-use ActiveCollab\Payments\DispatcherInterface;
-use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;

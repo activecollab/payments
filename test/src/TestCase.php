@@ -2,8 +2,8 @@
 
 namespace ActiveCollab\Payments\Test;
 
-use ActiveCollab\Payments\DispatcherInterface;
-use ActiveCollab\Payments\Dispatcher;
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
+use ActiveCollab\Payments\Dispatcher\Dispatcher;
 
 /**
  * @package ActiveCollab\Payments\Test

@@ -2,7 +2,7 @@
 
 namespace ActiveCollab\Payments\Refund;
 
-use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 
 /**
@@ -13,14 +13,14 @@ interface RefundInterface
     /**
      * Return parent gateway
      *
-     * @return GatewayInterface
+     * @return \ActiveCollab\Payments\Gateway\GatewayInterface
      */
     public function &getGateway();
 
     /**
      * Set parent gateway
      *
-     * @param  GatewayInterface $gateway
+     * @param  \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @return $this
      */
     public function &setGateway(GatewayInterface &$gateway);

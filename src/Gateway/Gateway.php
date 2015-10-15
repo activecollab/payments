@@ -1,6 +1,8 @@
 <?php
 
-namespace ActiveCollab\Payments;
+namespace ActiveCollab\Payments\Gateway;
+
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 
 /**
  * @package ActiveCollab\Payments

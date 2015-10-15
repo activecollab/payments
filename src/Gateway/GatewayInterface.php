@@ -1,7 +1,8 @@
 <?php
 
-namespace ActiveCollab\Payments;
+namespace ActiveCollab\Payments\Gateway;
 
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
 
