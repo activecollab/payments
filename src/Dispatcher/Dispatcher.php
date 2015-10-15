@@ -5,6 +5,7 @@ namespace ActiveCollab\Payments\Dispatcher;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Refund\RefundInterface;
+use LogicException;
 
 /**
  * @package ActiveCollab\Payments
@@ -65,6 +66,10 @@ class Dispatcher implements DispatcherInterface
      */
     public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
+        if ($order->getTotal() != $refund->getTotal()) {
+            throw new LogicException('Refunds needs to be full');
+        }
+
         $this->trigger(self::ON_ORDER_REFUNDED, $gateway, $order, $refund);
     }
 
@@ -75,6 +80,10 @@ class Dispatcher implements DispatcherInterface
      */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
+        if ($order->getTotal() != $refund->getTotal()) {
+            throw new LogicException("Refunded amount needs to be less than order's total amount");
+        }
+
         $this->trigger(self::ON_ORDER_PARTIALLY_REFUNDED, $gateway, $order, $refund);
     }
 }
