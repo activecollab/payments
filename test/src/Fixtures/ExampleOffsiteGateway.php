@@ -74,19 +74,7 @@ class ExampleOffsiteGateway extends Gateway
     {
         $this->orders[$order->getOrderId()] = $order;
 
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_COMPLETED, $this, $order);
-    }
-
-    /**
-     * Trigger product order failed
-     *
-     * @param OrderInterface $order
-     */
-    public function triggerOrderFailed(OrderInterface $order)
-    {
-        $this->orders[$order->getOrderId()] = $order;
-
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_FAILED, $this, $order);
+        $this->getDispatcher()->triggerOrderCompleted($this, $order);
     }
 
     /**
@@ -108,7 +96,7 @@ class ExampleOffsiteGateway extends Gateway
 
         $this->refunds[$refund->getRefundId()] = $refund;
 
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_REFUNDED, $this, $refund, $order);
+        $this->getDispatcher()->triggerOrderRefunded($this, $order, $refund);
     }
 
     /**
@@ -135,6 +123,6 @@ class ExampleOffsiteGateway extends Gateway
 
         $this->refunds[$refund->getRefundId()] = $refund;
 
-        $this->getDispatcher()->trigger(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, $this, $refund, $order);
+        $this->getDispatcher()->triggerOrderPartiallyRefunded($this, $order, $refund);
     }
 }

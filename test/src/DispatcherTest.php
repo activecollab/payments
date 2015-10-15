@@ -90,7 +90,7 @@ class DispatcherTest extends TestCase
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_REFUNDED, function(GatewayInterface $gateway, RefundInterface $refund, OrderInterface $order) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_REFUNDED, function(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
@@ -114,7 +114,7 @@ class DispatcherTest extends TestCase
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, function(GatewayInterface $gateway, RefundInterface $refund, OrderInterface $order) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, function(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);

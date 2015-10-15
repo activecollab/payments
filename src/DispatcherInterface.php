@@ -2,6 +2,9 @@
 
 namespace ActiveCollab\Payments;
 
+use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\Refund\RefundInterface;
+
 /**
  * @package ActiveCollab\Payments
  */
@@ -23,10 +26,28 @@ interface DispatcherInterface
     public function listen($event, callable $handler);
 
     /**
-     * Trigger a particular event
+     * Trigger product order completed
      *
-     * @param string $event
-     * @param mixed  ...$arguments
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
      */
-    public function trigger($event, ...$arguments);
+    public function triggerOrderCompleted(GatewayInterface $gateway, OrderInterface $order);
+
+    /**
+     * Trigger full order refund event
+     *
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
+     * @param RefundInterface  $refund
+     */
+    public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
+
+    /**
+     * Trigger partial order refund event
+     *
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
+     * @param RefundInterface  $refund
+     */
+    public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
 }

@@ -2,6 +2,10 @@
 
 namespace ActiveCollab\Payments;
 
+use ActiveCollab\Payments\GatewayInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\Refund\RefundInterface;
+
 /**
  * @package ActiveCollab\Payments
  */
@@ -33,7 +37,7 @@ class Dispatcher implements DispatcherInterface
      * @param string $event
      * @param mixed  ...$arguments
      */
-    public function trigger($event, ...$arguments)
+    protected function trigger($event, ...$arguments)
     {
         if (!empty($this->handlers[$event])) {
             /** @var callable $handler */
@@ -41,5 +45,26 @@ class Dispatcher implements DispatcherInterface
                 call_user_func_array($handler, $arguments);
             }
         }
+    }
+
+    /**
+     * Trigger product order completed
+     *
+     * @param GatewayInterface $gateway
+     * @param OrderInterface   $order
+     */
+    public function triggerOrderCompleted(GatewayInterface $gateway, OrderInterface $order)
+    {
+        $this->trigger(self::ON_ORDER_COMPLETED, $gateway, $order);
+    }
+
+    public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
+    {
+        $this->trigger(self::ON_ORDER_REFUNDED, $gateway, $order, $refund);
+    }
+
+    public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
+    {
+        $this->trigger(self::ON_ORDER_PARTIALLY_REFUNDED, $gateway, $order, $refund);
     }
 }
