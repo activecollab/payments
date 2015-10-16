@@ -122,6 +122,11 @@ trait Implementation
         return $this;
     }
 
+    /**
+     * Validate if we got a good Customer instance
+     *
+     * @param CustomerInterface $value
+     */
     protected function validateCustomer(CustomerInterface $value)
     {
         if (empty($value->getFullName()) || empty($value->getEmail())) {
@@ -129,6 +134,11 @@ trait Implementation
         }
     }
 
+    /**
+     * Validate if we got a good order ID
+     *
+     * @param string $value
+     */
     protected function validateOrderId($value)
     {
         if (empty($value)) {
@@ -136,6 +146,11 @@ trait Implementation
         }
     }
 
+    /**
+     * Validate if we got good currency code
+     *
+     * @param string $value
+     */
     public function validateCurrency($value)
     {
         if (empty($value)) {
@@ -143,6 +158,11 @@ trait Implementation
         }
     }
 
+    /**
+     * Validate if we got good total order value
+     *
+     * @param float $value
+     */
     protected function validateTotal($value)
     {
         if ($value <= 0) {
@@ -150,6 +170,11 @@ trait Implementation
         }
     }
 
+    /**
+     * Validate if we got good order items
+     *
+     * @param OrderItemInterface[] $value
+     */
     protected function validateItems($value)
     {
         if (!is_array($value) || empty($value)) {
