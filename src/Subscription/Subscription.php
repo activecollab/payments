@@ -6,6 +6,7 @@ use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use Carbon\Carbon;
 use InvalidArgumentException;
 
 /**
@@ -43,6 +44,24 @@ class Subscription implements SubscriptionInterface
         $this->items = $items;
     }
 
+    /**
+     * @var string
+     */
+    private $period;
+
+    /**
+     * Return billing period
+     *
+     * @return string
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * @var DateTimeValueInterface|Carbon
+     */
     private $next_billing_timestamp;
 
     /**
@@ -53,7 +72,13 @@ class Subscription implements SubscriptionInterface
     public function getNextBillingTimestamp()
     {
         if (empty($this->next_billing_timestamp)) {
-            $this->next_billing_timestamp = $this->getTimestamp();
+            $this->next_billing_timestamp = clone $this->getTimestamp();
+
+            if ($this->getPeriod() == self::MONTHLY) {
+                $this->next_billing_timestamp->addMonth();
+            } elseif ($this->getPeriod() == self::YEARLY) {
+                $this->next_billing_timestamp->addYear();
+            }
         }
 
         return $this->next_billing_timestamp;
