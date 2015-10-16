@@ -4,7 +4,7 @@ namespace ActiveCollab\Payments\Gateway;
 
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Refund\RefundInterface;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 
 /**
  * @package ActiveCollab\Payments

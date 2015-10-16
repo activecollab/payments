@@ -4,7 +4,7 @@ namespace ActiveCollab\Payments\Dispatcher;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Refund\RefundInterface;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 
 /**
  * @package ActiveCollab\Payments
@@ -38,7 +38,7 @@ interface DispatcherInterface
      *
      * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
-     * @param RefundInterface  $refund
+     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface  $refund
      */
     public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
 
@@ -47,7 +47,7 @@ interface DispatcherInterface
      *
      * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @param OrderInterface   $order
-     * @param RefundInterface  $refund
+     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface  $refund
      */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
 }

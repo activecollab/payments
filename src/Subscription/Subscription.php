@@ -1,15 +1,16 @@
 <?php
 
-namespace ActiveCollab\Payments\Order;
+namespace ActiveCollab\Payments\Subscription;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use DateTime;
 
 /**
- * @package ActiveCollab\Payments\Order
+ * @package ActiveCollab\Payments\Subscription
  */
-class Order implements OrderInterface
+class Subscription implements SubscriptionInterface
 {
     use CommonOrderInterfaceImplementation;
 
@@ -37,5 +38,35 @@ class Order implements OrderInterface
         $this->currency = $currency;
         $this->total = (float) $total;
         $this->items = $items;
+    }
+
+    /**
+     * Return subscription beginning timestamp
+     *
+     * @return \DateTime
+     */
+    public function getBeginTimestamp()
+    {
+
+    }
+
+    /**
+     * Return subscription end timestamp
+     *
+     * @return \DateTime
+     */
+    public function getEndTimestamp()
+    {
+
+    }
+
+    /**
+     * Return next billing timestamp
+     *
+     * @return \DateTime
+     */
+    public function getNextBillingTimestamp()
+    {
+
     }
 }

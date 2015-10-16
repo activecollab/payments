@@ -9,7 +9,7 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
-use ActiveCollab\Payments\Refund\RefundInterface;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use DateTime;
 use DateTimeZone;
