@@ -4,6 +4,7 @@ namespace ActiveCollab\Payments\Order\Refund;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 
 /**
  * @package ActiveCollab\Payments\Refund
@@ -43,7 +44,7 @@ interface RefundInterface
     public function getOrder();
 
     /**
-     * @return \DateTime
+     * @return DateTimeValueInterface
      */
     public function getTimestamp();
 

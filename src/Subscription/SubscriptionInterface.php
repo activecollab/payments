@@ -3,30 +3,28 @@
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
 interface SubscriptionInterface extends CommonOrderInterface
 {
-    /**
-     * Return subscription beginning timestamp
-     *
-     * @return \DateTime
-     */
-    public function getBeginTimestamp();
-
-    /**
-     * Return subscription end timestamp
-     *
-     * @return \DateTime
-     */
-    public function getEndTimestamp();
+    const MONTHLY = 'monthly';
+    const YEARLY = 'yearly';
 
     /**
      * Return next billing timestamp
      *
-     * @return \DateTime
+     * @return DateTimeValueInterface
      */
     public function getNextBillingTimestamp();
+
+    /**
+     * Set next billing timestamp
+     *
+     * @param  DateTimeValueInterface $value
+     * @return $this
+     */
+    public function &setNextBillingTimestamp(DateTimeValueInterface $value);
 }

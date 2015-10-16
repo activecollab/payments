@@ -4,8 +4,8 @@ namespace ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use InvalidArgumentException;
-use DateTime;
 
 /**
  * @package ActiveCollab\Payments\CommonOrder\CommonOrderInterface
@@ -18,7 +18,7 @@ trait Implementation
     private $order_id;
 
     /**
-     * @var DateTime
+     * @var DateTimeValueInterface
      */
     private $timestamp;
 
@@ -68,7 +68,7 @@ trait Implementation
     /**
      * Return date and time when this order was made
      *
-     * @return DateTime
+     * @return DateTimeValueInterface
      */
     public function getTimestamp()
     {

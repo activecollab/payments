@@ -5,9 +5,9 @@ namespace ActiveCollab\Payments\Order\Refund;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use InvalidArgumentException;
 use RuntimeException;
-use DateTime;
 
 /**
  * @package ActiveCollab\Payments\Refund
@@ -30,7 +30,7 @@ class Refund implements RefundInterface
     private $order_id;
 
     /**
-     * @var DateTime
+     * @var DateTimeValueInterface
      */
     private $timestamp;
 
@@ -52,12 +52,12 @@ class Refund implements RefundInterface
     /**
      * Construct a new refund instance
      *
-     * @param string   $refund_id
-     * @param string   $order_id
-     * @param DateTime $timestamp
-     * @param float    $total
+     * @param string                 $refund_id
+     * @param string                 $order_id
+     * @param DateTimeValueInterface $timestamp
+     * @param float                  $total
      */
-    public function __construct($refund_id, $order_id, DateTime $timestamp, $total)
+    public function __construct($refund_id, $order_id, DateTimeValueInterface $timestamp, $total)
     {
         if (empty($refund_id)) {
             throw new InvalidArgumentException('Refund # is required');

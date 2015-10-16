@@ -2,6 +2,8 @@
 
 namespace ActiveCollab\Payments\CommonOrder;
 
+use ActiveCollab\DateValue\DateTimeValueInterface;
+
 /**
  * @package ActiveCollab\Payments\CommonOrder
  */
@@ -18,7 +20,7 @@ interface CommonOrderInterface
     public function getCustomer();
 
     /**
-     * @return \DateTime
+     * @return DateTimeValueInterface
      */
     public function getTimestamp();
 
