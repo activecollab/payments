@@ -11,8 +11,7 @@ use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
-use DateTime;
-use DateTimeZone;
+use ActiveCollab\DateValue\DateTimeValue;
 
 /**
  * @package ActiveCollab\Payments\Test
@@ -30,7 +29,7 @@ class DispatcherTest extends TestCase
     protected $customer;
 
     /**
-     * @var DateTime
+     * @var DateTimeValue
      */
     protected $timestamp;
 
@@ -48,7 +47,7 @@ class DispatcherTest extends TestCase
 
         $this->gateway = new ExampleOffsiteGateway($this->dispatcher);
         $this->customer = new Customer('John Doe', 'john@example.com');
-        $this->timestamp = new DateTime('2015-10-15', new DateTimeZone('UTC'));
+        $this->timestamp = new DateTimeValue('2015-10-15');
         $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
             new OrderItem('Expensive product', 1, 1000),
             new OrderItem('Not so expensive product', 2, 100),

@@ -2,15 +2,15 @@
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\Gateway;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Refund\Refund;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use InvalidArgumentException;
-use DateTime;
-use DateTimeZone;
 
 /**
  * @package ActiveCollab\Payments\Test\Fixtures
@@ -80,15 +80,15 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * Trigger order has been fully refunded
      *
-     * @param OrderInterface $order
-     * @param DateTime|null  $timestamp
+     * @param OrderInterface              $order
+     * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerOrderRefunded(OrderInterface $order, DateTime $timestamp = null)
+    public function triggerOrderRefunded(OrderInterface $order, DateTimeValueInterface $timestamp = null)
     {
         $this->orders[$order->getOrderId()] = $order;
 
         if (empty($timestamp)) {
-            $timestamp = new DateTime('now', new DateTimeZone('UTC'));
+            $timestamp = new DateTimeValue();
         }
 
         $refund = new Refund($order->getOrderId() . '-X', $order->getOrderId(), $timestamp, $order->getTotal());
@@ -102,16 +102,16 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * Trigger order has been partially refunded
      *
-     * @param OrderInterface       $order
-     * @param OrderItemInterface[] $items
-     * @param DateTime|null        $timestamp
+     * @param OrderInterface              $order
+     * @param OrderItemInterface[]        $items
+     * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTime $timestamp = null)
+    public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTimeValueInterface $timestamp = null)
     {
         $this->orders[$order->getOrderId()] = $order;
 
         if (empty($timestamp)) {
-            $timestamp = new DateTime('now', new DateTimeZone('UTC'));
+            $timestamp = new DateTimeValue();
         }
 
         $refund = new Refund($order->getOrderId() . '-X', $order->getOrderId(), $timestamp, 200);
