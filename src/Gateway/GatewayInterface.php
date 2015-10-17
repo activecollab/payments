@@ -35,8 +35,8 @@ interface GatewayInterface
     /**
      * Return refund by refund ID
      *
-     * @param  string          $refund_id
+     * @param  string          $refund_reference
      * @return RefundInterface
      */
-    public function getRefundByid($refund_id);
+    public function getRefundByReference($refund_reference);
 }

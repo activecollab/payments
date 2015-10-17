@@ -22,12 +22,12 @@ class Refund implements RefundInterface
     /**
      * @var string
      */
-    private $refund_id;
+    private $reference;
 
     /**
      * @var string
      */
-    private $reference;
+    private $order_reference;
 
     /**
      * @var DateTimeValueInterface
@@ -52,18 +52,18 @@ class Refund implements RefundInterface
     /**
      * Construct a new refund instance
      *
-     * @param string                 $refund_id
-     * @param string                 $reference
+     * @param string                 $refund_reference
+     * @param string                 $order_reference
      * @param DateTimeValueInterface $timestamp
      * @param float                  $total
      */
-    public function __construct($refund_id, $reference, DateTimeValueInterface $timestamp, $total)
+    public function __construct($refund_reference, $order_reference, DateTimeValueInterface $timestamp, $total)
     {
-        if (empty($refund_id)) {
+        if (empty($refund_reference)) {
             throw new InvalidArgumentException('Refund # is required');
         }
 
-        if (empty($reference)) {
+        if (empty($order_reference)) {
             throw new InvalidArgumentException('Order # is required');
         }
 
@@ -71,8 +71,8 @@ class Refund implements RefundInterface
             throw new InvalidArgumentException("Empty or credit orders are not supported");
         }
 
-        $this->refund_id = $refund_id;
-        $this->reference = $reference;
+        $this->reference = $refund_reference;
+        $this->order_reference = $order_reference;
         $this->timestamp = $timestamp;
         $this->total = (float) $total;
     }
@@ -105,9 +105,9 @@ class Refund implements RefundInterface
      *
      * @return string
      */
-    public function getRefundId()
+    public function getReference()
     {
-        return $this->refund_id;
+        return $this->reference;
     }
 
     /**
@@ -115,9 +115,9 @@ class Refund implements RefundInterface
      *
      * @return string
      */
-    public function getReference()
+    public function getOrderReference()
     {
-        return $this->reference;
+        return $this->order_reference;
     }
 
     /**
@@ -128,7 +128,7 @@ class Refund implements RefundInterface
     public function getOrder()
     {
         if ($this->gateway instanceof GatewayInterface) {
-            return $this->gateway->getByOrderReference($this->getReference());
+            return $this->gateway->getByOrderReference($this->getOrderReference());
         }
 
         throw new RuntimeException('Gateway is not set');
@@ -137,7 +137,7 @@ class Refund implements RefundInterface
     /**
      * Return date and time when this order was made
      *
-     * @return DateTime
+     * @return DateTimeValueInterface
      */
     public function getTimestamp()
     {

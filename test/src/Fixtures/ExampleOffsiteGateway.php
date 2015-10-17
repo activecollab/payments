@@ -59,16 +59,16 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * Return refund by refund ID
      *
-     * @param  string          $refund_id
+     * @param  string          $refund_reference
      * @return RefundInterface
      */
-    public function getRefundByid($refund_id)
+    public function getRefundByReference($refund_reference)
     {
-        if (isset($this->refunds[$refund_id])) {
-            return $this->refunds[$refund_id];
+        if (isset($this->refunds[$refund_reference])) {
+            return $this->refunds[$refund_reference];
         }
 
-        throw new InvalidArgumentException("Refund #{$refund_id} not found");
+        throw new InvalidArgumentException("Refund #{$refund_reference} not found");
     }
 
     /**
@@ -100,7 +100,7 @@ class ExampleOffsiteGateway extends Gateway
         $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotal());
         $refund->setGateway($this);
 
-        $this->refunds[$refund->getRefundId()] = $refund;
+        $this->refunds[$refund->getReference()] = $refund;
 
         $this->getDispatcher()->triggerOrderRefunded($this, $order, $refund);
     }
@@ -127,7 +127,7 @@ class ExampleOffsiteGateway extends Gateway
             $refund->setItems($items);
         }
 
-        $this->refunds[$refund->getRefundId()] = $refund;
+        $this->refunds[$refund->getReference()] = $refund;
 
         $this->getDispatcher()->triggerOrderPartiallyRefunded($this, $order, $refund);
     }

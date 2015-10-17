@@ -29,12 +29,12 @@ interface RefundInterface
     /**
      * @return string
      */
-    public function getRefundId();
+    public function getReference();
 
     /**
      * @return string
      */
-    public function getReference();
+    public function getOrderReference();
 
     /**
      * Return order by order ID

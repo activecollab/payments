@@ -107,7 +107,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
-            $this->assertEquals($refund->getReference(), $order->getReference());
+            $this->assertEquals($refund->getOrderReference(), $order->getReference());
             $this->assertEquals($refund->getTotal(), $order->getTotal());
 
             $this->assertFalse($refund->isPartial());
@@ -131,7 +131,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
-            $this->assertEquals($refund->getReference(), $order->getReference());
+            $this->assertEquals($refund->getOrderReference(), $order->getReference());
             $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
 
             $this->assertInternalType('array', $refund->getItems());
