@@ -39,6 +39,7 @@ class Subscription implements SubscriptionInterface
         $this->customer = $customer;
         $this->order_id = $order_id;
         $this->timestamp = $timestamp;
+        $this->period = $period;
         $this->currency = $currency;
         $this->total = (float) $total;
         $this->items = $items;

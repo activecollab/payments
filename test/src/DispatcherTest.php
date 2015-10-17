@@ -59,7 +59,7 @@ class DispatcherTest extends TestCase
      */
     public function tearDown()
     {
-        $this->gateway = null;
+        $this->gateway = $this->customer = $this->timestamp = $this->order = null;
 
         parent::tearDown();
     }
