@@ -128,7 +128,7 @@ class Refund implements RefundInterface
     public function getOrder()
     {
         if ($this->gateway instanceof GatewayInterface) {
-            return $this->gateway->getByOrderReference($this->getOrderReference());
+            return $this->gateway->getOrderByReference($this->getOrderReference());
         }
 
         throw new RuntimeException('Gateway is not set');

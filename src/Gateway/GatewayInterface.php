@@ -30,7 +30,7 @@ interface GatewayInterface
      * @param  string         $reference
      * @return OrderInterface
      */
-    public function getByOrderReference($reference);
+    public function getOrderByReference($reference);
 
     /**
      * Return refund by refund ID

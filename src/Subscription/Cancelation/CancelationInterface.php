@@ -3,6 +3,8 @@
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription\Cancelation
@@ -27,42 +29,24 @@ interface CancelationInterface
     /**
      * @return string
      */
-    public function getCancelationId();
+    public function getReference();
 
     /**
      * @return string
      */
-    public function getReference();
+    public function getSubscriptionReference();
 
     /**
      * Return order by order ID
      *
-     * @return OrderInterface
+     * @return SubscriptionInterface
      */
-    public function getOrder();
+    public function getSubscription();
 
     /**
      * @return DateTimeValueInterface
      */
     public function getTimestamp();
-
-    /**
-     * @return float
-     */
-    public function getTotal();
-
-    /**
-     * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
-     */
-    public function getItems();
-
-    /**
-     * Set refund items, if refund was by line item
-     *
-     * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
-     * @return $this
-     */
-    public function &setItems(array $value);
 
     /**
      * @return string
@@ -76,11 +60,4 @@ interface CancelationInterface
      * @return $this
      */
     public function &setOurIdentifier($value);
-
-    /**
-     * Return true if this refund is partial
-     *
-     * @return boolean
-     */
-    public function isPartial();
 }

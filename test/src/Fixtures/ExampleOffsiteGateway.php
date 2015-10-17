@@ -47,7 +47,7 @@ class ExampleOffsiteGateway extends Gateway
      * @param  string         $reference
      * @return OrderInterface
      */
-    public function getByOrderReference($reference)
+    public function getOrderByReference($reference)
     {
         if (isset($this->orders[$reference])) {
             return $this->orders[$reference];
