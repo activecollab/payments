@@ -11,6 +11,7 @@ use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
+use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\Subscription;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
@@ -182,6 +183,7 @@ class DispatcherTest extends TestCase
         $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_DEACTIVATED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, CancelationInterface $cancelation) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
+            $this->assertInstanceOf(CancelationInterface::class, $cancelation);
 
             $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
             $this->assertEquals($this->subscription->getReference(), $cancelation->getSubscriptionReference());
@@ -190,6 +192,29 @@ class DispatcherTest extends TestCase
         });
 
         $this->gateway->triggerSubscriptionDeactivated($this->subscription);
+
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if failed subscription payment triggers an event
+     */
+    public function testFailedSubscriptionPaymentTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_PAYMENT_FAILED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(Subscription::class, $subscription);
+            $this->assertInstanceOf(FailedPaymentInterface::class, $failed_payment);
+
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
+            $this->assertEquals($this->subscription->getReference(), $failed_payment->getSubscriptionReference());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionFailedPayment($this->subscription);
 
         $this->assertTrue($event_triggered);
     }

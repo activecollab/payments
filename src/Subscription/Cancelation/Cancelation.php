@@ -2,8 +2,6 @@
 
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
-use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Traits\Gateway;
@@ -11,7 +9,6 @@ use ActiveCollab\Payments\Traits\OurIdentifier;
 use ActiveCollab\Payments\Traits\Reference;
 use ActiveCollab\Payments\Traits\Timestamp;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * @package ActiveCollab\Payments\Subscription\Cancelation
