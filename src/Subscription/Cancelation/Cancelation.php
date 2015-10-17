@@ -5,6 +5,7 @@ namespace ActiveCollab\Payments\Subscription\Cancelation;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Traits\Gateway;
 use ActiveCollab\Payments\Traits\OurIdentifier;
 use ActiveCollab\Payments\Traits\Reference;
@@ -17,12 +18,7 @@ use RuntimeException;
  */
 class Cancelation implements CancelationInterface
 {
-    use Gateway, Reference, Timestamp, OurIdentifier;
-
-    /**
-     * @var string
-     */
-    private $subscription_reference;
+    use Gateway, Reference, Timestamp, OurIdentifier, SubscriptionEventImplementation;
 
     /**
      * Construct a new refund instance
@@ -44,29 +40,5 @@ class Cancelation implements CancelationInterface
         $this->reference = $cancelation_reference;
         $this->subscription_reference = $subscription_reference;
         $this->timestamp = $timestamp;
-    }
-
-    /**
-     * Return subscription reference (subscription ID)
-     *
-     * @return string
-     */
-    public function getSubscriptionReference()
-    {
-        return $this->subscription_reference;
-    }
-
-    /**
-     * Return subscription by subscription reference
-     *
-     * @return SubscriptionInterface
-     */
-    public function getSubscription()
-    {
-        if ($this->gateway instanceof GatewayInterface) {
-            return $this->gateway->getOrderByReference($this->getSubscriptionReference());
-        }
-
-        throw new RuntimeException('Gateway is not set');
     }
 }
