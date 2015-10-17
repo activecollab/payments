@@ -15,7 +15,7 @@ trait Implementation
     /**
      * @var string
      */
-    private $order_id;
+    private $reference;
 
     /**
      * @var DateTimeValueInterface
@@ -48,13 +48,13 @@ trait Implementation
     private $items;
 
     /**
-     * Return order ID
+     * Return order reference (order ID)
      *
      * @return string
      */
-    public function getOrderId()
+    public function getReference()
     {
-        return $this->order_id;
+        return $this->reference;
     }
 
     /**

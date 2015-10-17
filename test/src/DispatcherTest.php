@@ -86,7 +86,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
-            $this->assertEquals($this->order->getOrderId(), $order->getOrderId());
+            $this->assertEquals($this->order->getReference(), $order->getReference());
 
             $event_triggered = true;
         });
@@ -107,7 +107,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
-            $this->assertEquals($refund->getOrderId(), $order->getOrderId());
+            $this->assertEquals($refund->getReference(), $order->getReference());
             $this->assertEquals($refund->getTotal(), $order->getTotal());
 
             $this->assertFalse($refund->isPartial());
@@ -131,7 +131,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
-            $this->assertEquals($refund->getOrderId(), $order->getOrderId());
+            $this->assertEquals($refund->getReference(), $order->getReference());
             $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
 
             $this->assertInternalType('array', $refund->getItems());
@@ -161,7 +161,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
 
-            $this->assertEquals($this->subscription->getOrderId(), $subscription->getOrderId());
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
 
             $event_triggered = true;
         });

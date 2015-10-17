@@ -27,10 +27,10 @@ interface GatewayInterface
     /**
      * Return order by order ID
      *
-     * @param  string         $order_id
+     * @param  string         $reference
      * @return OrderInterface
      */
-    public function getOrderById($order_id);
+    public function getByOrderReference($reference);
 
     /**
      * Return refund by refund ID

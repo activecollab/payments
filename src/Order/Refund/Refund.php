@@ -27,7 +27,7 @@ class Refund implements RefundInterface
     /**
      * @var string
      */
-    private $order_id;
+    private $reference;
 
     /**
      * @var DateTimeValueInterface
@@ -53,17 +53,17 @@ class Refund implements RefundInterface
      * Construct a new refund instance
      *
      * @param string                 $refund_id
-     * @param string                 $order_id
+     * @param string                 $reference
      * @param DateTimeValueInterface $timestamp
      * @param float                  $total
      */
-    public function __construct($refund_id, $order_id, DateTimeValueInterface $timestamp, $total)
+    public function __construct($refund_id, $reference, DateTimeValueInterface $timestamp, $total)
     {
         if (empty($refund_id)) {
             throw new InvalidArgumentException('Refund # is required');
         }
 
-        if (empty($order_id)) {
+        if (empty($reference)) {
             throw new InvalidArgumentException('Order # is required');
         }
 
@@ -72,7 +72,7 @@ class Refund implements RefundInterface
         }
 
         $this->refund_id = $refund_id;
-        $this->order_id = $order_id;
+        $this->reference = $reference;
         $this->timestamp = $timestamp;
         $this->total = (float) $total;
     }
@@ -111,13 +111,13 @@ class Refund implements RefundInterface
     }
 
     /**
-     * Return order ID
+     * Return reference (order ID)
      *
      * @return string
      */
-    public function getOrderId()
+    public function getReference()
     {
-        return $this->order_id;
+        return $this->reference;
     }
 
     /**
@@ -128,7 +128,7 @@ class Refund implements RefundInterface
     public function getOrder()
     {
         if ($this->gateway instanceof GatewayInterface) {
-            return $this->gateway->getOrderById($this->getOrderId());
+            return $this->gateway->getByOrderReference($this->getReference());
         }
 
         throw new RuntimeException('Gateway is not set');

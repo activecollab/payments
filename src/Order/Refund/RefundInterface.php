@@ -34,7 +34,7 @@ interface RefundInterface
     /**
      * @return string
      */
-    public function getOrderId();
+    public function getReference();
 
     /**
      * Return order by order ID

@@ -12,7 +12,7 @@ interface CommonOrderInterface
     /**
      * @return string
      */
-    public function getOrderId();
+    public function getReference();
 
     /**
      * @return \ActiveCollab\Payments\Customer\CustomerInterface

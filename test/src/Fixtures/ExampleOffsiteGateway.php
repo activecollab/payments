@@ -44,16 +44,16 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * Return order by order ID
      *
-     * @param  string         $order_id
+     * @param  string         $reference
      * @return OrderInterface
      */
-    public function getOrderById($order_id)
+    public function getByOrderReference($reference)
     {
-        if (isset($this->orders[$order_id])) {
-            return $this->orders[$order_id];
+        if (isset($this->orders[$reference])) {
+            return $this->orders[$reference];
         }
 
-        throw new InvalidArgumentException("Order #{$order_id} not found");
+        throw new InvalidArgumentException("Order #{$reference} not found");
     }
 
     /**
@@ -78,7 +78,7 @@ class ExampleOffsiteGateway extends Gateway
      */
     public function triggerOrderCompleted(OrderInterface $order)
     {
-        $this->orders[$order->getOrderId()] = $order;
+        $this->orders[$order->getReference()] = $order;
 
         $this->getDispatcher()->triggerOrderCompleted($this, $order);
     }
@@ -91,13 +91,13 @@ class ExampleOffsiteGateway extends Gateway
      */
     public function triggerOrderRefunded(OrderInterface $order, DateTimeValueInterface $timestamp = null)
     {
-        $this->orders[$order->getOrderId()] = $order;
+        $this->orders[$order->getReference()] = $order;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getOrderId() . '-X', $order->getOrderId(), $timestamp, $order->getTotal());
+        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotal());
         $refund->setGateway($this);
 
         $this->refunds[$refund->getRefundId()] = $refund;
@@ -114,13 +114,13 @@ class ExampleOffsiteGateway extends Gateway
      */
     public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTimeValueInterface $timestamp = null)
     {
-        $this->orders[$order->getOrderId()] = $order;
+        $this->orders[$order->getReference()] = $order;
 
         if (empty($timestamp)) {
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getOrderId() . '-X', $order->getOrderId(), $timestamp, 200);
+        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, 200);
         $refund->setGateway($this);
 
         if (!empty($items)) {
@@ -134,7 +134,7 @@ class ExampleOffsiteGateway extends Gateway
 
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
-        $this->subscriptions[$subscription->getOrderId()] = $subscription;
+        $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
     }
