@@ -11,6 +11,7 @@ use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
+use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\Subscription;
@@ -193,6 +194,29 @@ class DispatcherTest extends TestCase
         });
 
         $this->gateway->triggerSubscriptionRebill($this->subscription);
+
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if subscription rebill triggers an event
+     */
+    public function testSubscriptionChangeTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_CHANGED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, ChangeInterface $change) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(Subscription::class, $subscription);
+            $this->assertInstanceOf(ChangeInterface::class, $change);
+
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
+            $this->assertEquals($this->subscription->getReference(), $change->getSubscriptionReference());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionChange($this->subscription);
 
         $this->assertTrue($event_triggered);
     }
