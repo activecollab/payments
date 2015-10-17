@@ -2,51 +2,17 @@
 
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
-use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionEventInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription\Cancelation
  */
-interface CancelationInterface
+interface CancelationInterface extends SubscriptionEventInterface
 {
-    /**
-     * Return parent gateway
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway();
-
-    /**
-     * Set parent gateway
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
-
     /**
      * @return string
      */
     public function getReference();
-
-    /**
-     * @return string
-     */
-    public function getSubscriptionReference();
-
-    /**
-     * Return order by order ID
-     *
-     * @return SubscriptionInterface
-     */
-    public function getSubscription();
-
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
 
     /**
      * @return string
