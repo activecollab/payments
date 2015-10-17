@@ -12,6 +12,7 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
+use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use InvalidArgumentException;
@@ -150,6 +151,26 @@ class ExampleOffsiteGateway extends Gateway
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
+    }
+
+    /**
+     * Trigger subscription failed payment event
+     *
+     * @param SubscriptionInterface       $subscription
+     * @param DateTimeValueInterface|null $timestamp
+     */
+    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        if (empty($timestamp)) {
+            $timestamp = new DateTimeValue();
+        }
+
+        $rebill = new Rebill($subscription->getReference(), $timestamp);
+        $rebill->setGateway($this);
+
+        $this->getDispatcher()->triggerSubscriptionRebill($this, $subscription, $rebill);
     }
 
     /**

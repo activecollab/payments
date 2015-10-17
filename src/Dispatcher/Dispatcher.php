@@ -5,6 +5,7 @@ namespace ActiveCollab\Payments\Dispatcher;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
@@ -100,6 +101,18 @@ class Dispatcher implements DispatcherInterface
     public function triggerSubscriptionActivated(GatewayInterface $gateway, SubscriptionInterface $subscription)
     {
         $this->trigger(self::ON_SUBSCRIPTION_ACTIVATED, $gateway, $subscription);
+    }
+
+    /**
+     * Trigger an event when gateway fails to process the payment
+     *
+     * @param GatewayInterface       $gateway
+     * @param SubscriptionInterface  $subscription
+     * @param RebillInterface        $rebill
+     */
+    public function triggerSubscriptionRebill(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill)
+    {
+        $this->trigger(self::ON_SUBSCRIPTION_REBILL, $gateway, $subscription, $rebill);
     }
 
     /**
