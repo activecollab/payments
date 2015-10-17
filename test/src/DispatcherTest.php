@@ -10,6 +10,8 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\Subscription\Subscription;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use ActiveCollab\DateValue\DateTimeValue;
 
@@ -39,6 +41,11 @@ class DispatcherTest extends TestCase
     protected $order;
 
     /**
+     * @var SubscriptionInterface
+     */
+    protected $subscription;
+
+    /**
      * Set up test environment
      */
     public function setUp()
@@ -51,6 +58,10 @@ class DispatcherTest extends TestCase
         $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
             new OrderItem('Expensive product', 1, 1000),
             new OrderItem('Not so expensive product', 2, 100),
+        ]);
+
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', 25, [
+            new OrderItem('Monthly SaaS cost', 1, 25),
         ]);
     }
 
@@ -71,9 +82,11 @@ class DispatcherTest extends TestCase
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_COMPLETED, function($gateway, $order) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_COMPLETED, function(GatewayInterface $gateway, OrderInterface $order) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(OrderInterface::class, $order);
+
+            $this->assertEquals($this->order->getOrderId(), $order->getOrderId());
 
             $event_triggered = true;
         });
@@ -133,6 +146,28 @@ class DispatcherTest extends TestCase
         $this->gateway->triggerOrderPartiallyRefunded($this->order, [
             new OrderItem('Expensive product', 1, 1000),
         ], $this->timestamp);
+
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if subscription created triggers an event
+     */
+    public function testSubscriptionActivatedTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_ACTIVATED, function(GatewayInterface $gateway, SubscriptionInterface $subscription) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(Subscription::class, $subscription);
+
+            $this->assertEquals($this->subscription->getOrderId(), $subscription->getOrderId());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionActivated($this->subscription);
+
         $this->assertTrue($event_triggered);
     }
 }

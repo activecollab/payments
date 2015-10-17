@@ -10,6 +10,7 @@ use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Refund\Refund;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use InvalidArgumentException;
 
 /**
@@ -26,6 +27,11 @@ class ExampleOffsiteGateway extends Gateway
      * @var RefundInterface[]
      */
     private $refunds = [];
+
+    /**
+     * @var SubscriptionInterface[]
+     */
+    private $subscriptions = [];
 
     /**
      * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
@@ -124,5 +130,12 @@ class ExampleOffsiteGateway extends Gateway
         $this->refunds[$refund->getRefundId()] = $refund;
 
         $this->getDispatcher()->triggerOrderPartiallyRefunded($this, $order, $refund);
+    }
+
+    public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
+    {
+        $this->subscriptions[$subscription->getOrderId()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
     }
 }
