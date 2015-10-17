@@ -5,6 +5,10 @@ namespace ActiveCollab\Payments\Subscription\Cancelation;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Traits\Gateway;
+use ActiveCollab\Payments\Traits\OurIdentifier;
+use ActiveCollab\Payments\Traits\Reference;
+use ActiveCollab\Payments\Traits\Timestamp;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -13,30 +17,12 @@ use RuntimeException;
  */
 class Cancelation implements CancelationInterface
 {
-    /**
-     * @var GatewayInterface
-     */
-    private $gateway;
-
-    /**
-     * @var string
-     */
-    private $reference;
+    use Gateway, Reference, Timestamp, OurIdentifier;
 
     /**
      * @var string
      */
     private $subscription_reference;
-
-    /**
-     * @var DateTimeValueInterface
-     */
-    private $timestamp;
-
-    /**
-     * @var string
-     */
-    private $our_identifier = '';
 
     /**
      * Construct a new refund instance
@@ -61,39 +47,6 @@ class Cancelation implements CancelationInterface
     }
 
     /**
-     * Return parent gateway
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway()
-    {
-        return $this->gateway;
-    }
-
-    /**
-     * Set parent gateway
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway)
-    {
-        $this->gateway = $gateway;
-
-        return $this;
-    }
-
-    /**
-     * Return refund ID
-     *
-     * @return string
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
-
-    /**
      * Return subscription reference (subscription ID)
      *
      * @return string
@@ -115,38 +68,5 @@ class Cancelation implements CancelationInterface
         }
 
         throw new RuntimeException('Gateway is not set');
-    }
-
-    /**
-     * Return date and time when this order was made
-     *
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
-    }
-
-    /**
-     * Return our internal order indetifier (if present)
-     *
-     * @return string
-     */
-    public function getOurIdentifier()
-    {
-        return $this->our_identifier;
-    }
-
-    /**
-     * Set our identifier
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value)
-    {
-        $this->our_identifier = trim($value);
-
-        return $this;
     }
 }
