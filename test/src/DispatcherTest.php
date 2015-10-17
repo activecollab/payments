@@ -10,6 +10,7 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
 use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Subscription;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
@@ -167,6 +168,28 @@ class DispatcherTest extends TestCase
         });
 
         $this->gateway->triggerSubscriptionActivated($this->subscription);
+
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if subscription cancelation triggers an event
+     */
+    public function testSubscriptionCanceledTriggersAnEvent()
+    {
+        $event_triggered = false;
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_DEACTIVATED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, CancelationInterface $cancelation) use (&$event_triggered) {
+            $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
+            $this->assertInstanceOf(Subscription::class, $subscription);
+
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
+            $this->assertEquals($this->subscription->getReference(), $cancelation->getSubscriptionReference());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionDeactivated($this->subscription);
 
         $this->assertTrue($event_triggered);
     }

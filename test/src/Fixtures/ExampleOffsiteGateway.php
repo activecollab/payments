@@ -10,7 +10,9 @@ use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Refund\Refund;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use InvalidArgumentException;
 
 /**
@@ -32,6 +34,11 @@ class ExampleOffsiteGateway extends Gateway
      * @var SubscriptionInterface[]
      */
     private $subscriptions = [];
+
+    /**
+     * @var CancelationInterface[]
+     */
+    private $cancelations = [];
 
     /**
      * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
@@ -132,10 +139,37 @@ class ExampleOffsiteGateway extends Gateway
         $this->getDispatcher()->triggerOrderPartiallyRefunded($this, $order, $refund);
     }
 
+    /**
+     * Trigger subscription activated (created) event
+     *
+     * @param SubscriptionInterface $subscription
+     */
     public function triggerSubscriptionActivated(SubscriptionInterface $subscription)
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionActivated($this, $subscription);
+    }
+
+    /**
+     * Trigger subscription deactivated (canceled) event
+     *
+     * @param SubscriptionInterface       $subscription
+     * @param DateTimeValueInterface|null $timestamp
+     */
+    public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        if (empty($timestamp)) {
+            $timestamp = new DateTimeValue();
+        }
+
+        $cancelation = new Cancelation($subscription->getReference() . '-X', $subscription->getReference(), $timestamp);
+        $cancelation->setGateway($this);
+
+        $this->cancelations[$cancelation->getReference()] = $cancelation;
+
+        $this->getDispatcher()->triggerSubscriptionDeactivated($this, $subscription, $cancelation);
     }
 }
