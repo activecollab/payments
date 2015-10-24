@@ -6,6 +6,7 @@ use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Traits\Gateway;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
@@ -14,7 +15,7 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use CommonOrderInterfaceImplementation;
+    use Gateway, CommonOrderInterfaceImplementation;
 
     /**
      * Construct a new order instance
