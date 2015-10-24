@@ -25,6 +25,13 @@ interface GatewayInterface
     public function &setDispatcher(DispatcherInterface $gateway);
 
     /**
+     * Return gateway identifier
+     *
+     * @return mixed
+     */
+    public function getIdentifier();
+
+    /**
      * Return order by order ID
      *
      * @param  string         $reference

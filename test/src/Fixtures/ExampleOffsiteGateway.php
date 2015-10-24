@@ -52,6 +52,16 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
+     * Return gateway identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return 'test';
+    }
+
+    /**
      * Return order by order ID
      *
      * @param  string         $reference
