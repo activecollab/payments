@@ -169,8 +169,9 @@ class ExampleOffsiteGateway extends Gateway
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
+     * @param DateTimeValueInterface|null $next_billing_timestamp
      */
-    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -178,7 +179,11 @@ class ExampleOffsiteGateway extends Gateway
             $timestamp = new DateTimeValue();
         }
 
-        $rebill = new Rebill($subscription->getReference(), $timestamp);
+        if (empty($next_billing_timestamp)) {
+            $next_billing_timestamp = $subscription->calculateNextBillingTimestamp($timestamp);
+        }
+
+        $rebill = new Rebill($subscription->getReference(), $timestamp, $next_billing_timestamp);
         $rebill->setGateway($this);
 
         $this->getDispatcher()->triggerSubscriptionRebill($this, $subscription, $rebill);

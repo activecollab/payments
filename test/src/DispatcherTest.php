@@ -189,11 +189,12 @@ class DispatcherTest extends TestCase
 
             $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
             $this->assertEquals($this->subscription->getReference(), $rebill->getSubscriptionReference());
+            $this->assertEquals($this->timestamp->addMonth()->format('Y-m-d'), $rebill->getNextBillingTimestamp()->format('Y-m-d'));
 
             $event_triggered = true;
         });
 
-        $this->gateway->triggerSubscriptionRebill($this->subscription);
+        $this->gateway->triggerSubscriptionRebill($this->subscription, $this->timestamp);
 
         $this->assertTrue($event_triggered);
     }

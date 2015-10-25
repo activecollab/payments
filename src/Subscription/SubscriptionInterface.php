@@ -43,4 +43,12 @@ interface SubscriptionInterface extends CommonOrderInterface
      * @return $this
      */
     public function &setNextBillingTimestamp(DateTimeValueInterface $value);
+
+    /**
+     * Calculate next billing period based on reference timestamp
+     *
+     * @param  DateTimeValueInterface $reference
+     * @return DateTimeValueInterface
+     */
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference);
 }

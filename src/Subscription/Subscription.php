@@ -74,13 +74,7 @@ class Subscription implements SubscriptionInterface
     public function getNextBillingTimestamp()
     {
         if (empty($this->next_billing_timestamp)) {
-            $this->next_billing_timestamp = clone $this->getTimestamp();
-
-            if ($this->getPeriod() == self::MONTHLY) {
-                $this->next_billing_timestamp->addMonth();
-            } elseif ($this->getPeriod() == self::YEARLY) {
-                $this->next_billing_timestamp->addYear();
-            }
+            $this->next_billing_timestamp = $this->calculateNextBillingTimestamp($this->getTimestamp());
         }
 
         return $this->next_billing_timestamp;
@@ -97,6 +91,26 @@ class Subscription implements SubscriptionInterface
         $this->next_billing_timestamp = $value;
 
         return $this;
+    }
+
+    /**
+     * Calculate next billing period based on reference timestamp
+     *
+     * @param  DateTimeValueInterface $reference
+     * @return DateTimeValueInterface
+     */
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference)
+    {
+        /** @var DateTimeValueInterface|Carbon $result */
+        $result = clone $reference;
+
+        if ($this->getPeriod() == self::MONTHLY) {
+            $result->addMonth();
+        } elseif ($this->getPeriod() == self::YEARLY) {
+            $result->addYear();
+        }
+
+        return $result;
     }
 
     /**
