@@ -39,11 +39,6 @@ class ExampleOffsiteGateway extends Gateway
     private $subscriptions = [];
 
     /**
-     * @var CancelationInterface[]
-     */
-    private $cancelations = [];
-
-    /**
      * @param \ActiveCollab\Payments\Dispatcher\DispatcherInterface $dispatcher
      */
     public function __construct(DispatcherInterface &$dispatcher)
@@ -223,10 +218,8 @@ class ExampleOffsiteGateway extends Gateway
             $timestamp = new DateTimeValue();
         }
 
-        $cancelation = new Cancelation($subscription->getReference() . '-X', $subscription->getReference(), $timestamp);
+        $cancelation = new Cancelation($subscription->getReference(), $timestamp);
         $cancelation->setGateway($this);
-
-        $this->cancelations[$cancelation->getReference()] = $cancelation;
 
         $this->getDispatcher()->triggerSubscriptionDeactivated($this, $subscription, $cancelation);
     }

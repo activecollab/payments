@@ -12,11 +12,6 @@ interface CancelationInterface extends SubscriptionEventInterface
     /**
      * @return string
      */
-    public function getReference();
-
-    /**
-     * @return string
-     */
     public function getOurIdentifier();
 
     /**
