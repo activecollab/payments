@@ -112,7 +112,7 @@ class Dispatcher implements DispatcherInterface
      */
     public function triggerSubscriptionRebill(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill)
     {
-        $this->trigger(self::ON_SUBSCRIPTION_REBILL, $gateway, $subscription, $rebill);
+        $this->trigger(self::ON_SUBSCRIPTION_REBILLED, $gateway, $subscription, $rebill);
     }
 
     /**

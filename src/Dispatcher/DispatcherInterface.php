@@ -21,7 +21,7 @@ interface DispatcherInterface
     const ON_ORDER_PARTIALLY_REFUNDED = 'on_order_partially_refunded';
 
     const ON_SUBSCRIPTION_ACTIVATED = 'on_subscription_activated';
-    const ON_SUBSCRIPTION_REBILL= 'on_subscription_rebill';
+    const ON_SUBSCRIPTION_REBILLED = 'on_subscription_rebilled';
     const ON_SUBSCRIPTION_CHANGED = 'on_subscription_changed';
     const ON_SUBSCRIPTION_PAYMENT_FAILED = 'on_subscription_payment_failed';
     const ON_SUBSCRIPTION_DEACTIVATED = 'on_subscription_deactivated';
