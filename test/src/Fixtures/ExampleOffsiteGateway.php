@@ -47,9 +47,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Return gateway identifier
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getIdentifier()
     {
@@ -57,10 +55,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Return order by order ID
-     *
-     * @param  string         $reference
-     * @return OrderInterface
+     * {@inheritdoc}
      */
     public function getOrderByReference($reference)
     {
@@ -72,10 +67,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Return refund by refund ID
-     *
-     * @param  string          $refund_reference
-     * @return RefundInterface
+     * {@inheritdoc}
      */
     public function getRefundByReference($refund_reference)
     {
@@ -84,6 +76,18 @@ class ExampleOffsiteGateway extends Gateway
         }
 
         throw new InvalidArgumentException("Refund #{$refund_reference} not found");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubscriptionByReference($reference)
+    {
+        if (isset($this->subscriptions[$reference])) {
+            return $this->subscriptions[$reference];
+        }
+
+        throw new InvalidArgumentException("Subscription #{$reference} not found");
     }
 
     /**
