@@ -34,7 +34,7 @@ trait Implementation
     public function getSubscription()
     {
         if ($this->getGateway() instanceof GatewayInterface) {
-            return $this->getGateway()->getOrderByReference($this->getSubscriptionReference());
+            return $this->getGateway()->getSubscriptionByReference($this->getSubscriptionReference());
         }
 
         throw new RuntimeException('Gateway is not set');
