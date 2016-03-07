@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Order\Refund;
 
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Traits\Gateway;
 use ActiveCollab\Payments\Traits\OurIdentifier;
 use ActiveCollab\Payments\Traits\Reference;
@@ -36,7 +42,7 @@ class Refund implements RefundInterface
     private $items;
 
     /**
-     * Construct a new refund instance
+     * Construct a new refund instance.
      *
      * @param string                 $refund_reference
      * @param string                 $order_reference
@@ -54,7 +60,7 @@ class Refund implements RefundInterface
         }
 
         if ($total <= 0) {
-            throw new InvalidArgumentException("Empty or credit orders are not supported");
+            throw new InvalidArgumentException('Empty or credit orders are not supported');
         }
 
         $this->reference = $refund_reference;
@@ -64,7 +70,7 @@ class Refund implements RefundInterface
     }
 
     /**
-     * Return reference (order ID)
+     * Return reference (order ID).
      *
      * @return string
      */
@@ -74,7 +80,7 @@ class Refund implements RefundInterface
     }
 
     /**
-     * Return order by order ID
+     * Return order by order ID.
      *
      * @return OrderInterface
      */
@@ -104,7 +110,7 @@ class Refund implements RefundInterface
     }
 
     /**
-     * Set refund items, if refund was by line item
+     * Set refund items, if refund was by line item.
      *
      * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
      * @return $this
@@ -117,9 +123,9 @@ class Refund implements RefundInterface
     }
 
     /**
-     * Return true if this refund is partial
+     * Return true if this refund is partial.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPartial()
     {

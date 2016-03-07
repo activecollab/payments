@@ -1,12 +1,18 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription\Change;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Traits\Gateway;
 use ActiveCollab\Payments\Traits\OurIdentifier;
 use ActiveCollab\Payments\Traits\Timestamp;
-use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use InvalidArgumentException;
 
 /**
@@ -17,7 +23,7 @@ class Change implements ChangeInterface
     use Gateway, Timestamp, OurIdentifier, SubscriptionEventImplementation;
 
     /**
-     * Construct a new refund instance
+     * Construct a new refund instance.
      *
      * @param string                 $subscription_reference
      * @param DateTimeValueInterface $timestamp

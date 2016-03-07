@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription\SubscriptionEvent;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -17,7 +23,7 @@ trait Implementation
     private $subscription_reference;
 
     /**
-     * Return subscription reference (subscription ID)
+     * Return subscription reference (subscription ID).
      *
      * @return string
      */
@@ -27,7 +33,7 @@ trait Implementation
     }
 
     /**
-     * Return subscription by subscription reference
+     * Return subscription by subscription reference.
      *
      * @return SubscriptionInterface
      */
@@ -41,7 +47,7 @@ trait Implementation
     }
 
     /**
-     * Return parent gateway
+     * Return parent gateway.
      *
      * @return GatewayInterface
      */

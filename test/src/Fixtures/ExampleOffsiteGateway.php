@@ -1,21 +1,27 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValue;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\Gateway;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Refund\Refund;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
+use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
 use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use InvalidArgumentException;
 
 /**
@@ -57,13 +63,13 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * {@inheritdoc}
      */
-    public function getOrderByReference($reference)
+    public function getOrderByReference($order_reference)
     {
-        if (isset($this->orders[$reference])) {
-            return $this->orders[$reference];
+        if (isset($this->orders[$order_reference])) {
+            return $this->orders[$order_reference];
         }
 
-        throw new InvalidArgumentException("Order #{$reference} not found");
+        throw new InvalidArgumentException("Order #{$order_reference} not found");
     }
 
     /**
@@ -81,17 +87,17 @@ class ExampleOffsiteGateway extends Gateway
     /**
      * {@inheritdoc}
      */
-    public function getSubscriptionByReference($reference)
+    public function getSubscriptionByReference($subscription_reference)
     {
-        if (isset($this->subscriptions[$reference])) {
-            return $this->subscriptions[$reference];
+        if (isset($this->subscriptions[$subscription_reference])) {
+            return $this->subscriptions[$subscription_reference];
         }
 
-        throw new InvalidArgumentException("Subscription #{$reference} not found");
+        throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
     }
 
     /**
-     * Trigger product order completed
+     * Trigger product order completed.
      *
      * @param OrderInterface $order
      */
@@ -103,7 +109,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger order has been fully refunded
+     * Trigger order has been fully refunded.
      *
      * @param OrderInterface              $order
      * @param DateTimeValueInterface|null $timestamp
@@ -125,7 +131,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger order has been partially refunded
+     * Trigger order has been partially refunded.
      *
      * @param OrderInterface              $order
      * @param OrderItemInterface[]        $items
@@ -152,7 +158,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger subscription activated (created) event
+     * Trigger subscription activated (created) event.
      *
      * @param SubscriptionInterface $subscription
      */
@@ -164,7 +170,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -189,7 +195,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -209,7 +215,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger subscription deactivated (canceled) event
+     * Trigger subscription deactivated (canceled) event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
@@ -229,7 +235,7 @@ class ExampleOffsiteGateway extends Gateway
     }
 
     /**
-     * Trigger subscription failed payment event
+     * Trigger subscription failed payment event.
      *
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp

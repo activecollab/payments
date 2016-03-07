@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Gateway;
 
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
@@ -13,7 +19,7 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 interface GatewayInterface
 {
     /**
-     * Return dispatcher instance
+     * Return dispatcher instance.
      *
      * @return DispatcherInterface
      */
@@ -26,22 +32,22 @@ interface GatewayInterface
     public function &setDispatcher(DispatcherInterface $gateway);
 
     /**
-     * Return gateway identifier
+     * Return gateway identifier.
      *
      * @return mixed
      */
     public function getIdentifier();
 
     /**
-     * Return order by order ID
+     * Return order by order ID.
      *
-     * @param  string         $reference
+     * @param  string         $order_reference
      * @return OrderInterface
      */
-    public function getOrderByReference($reference);
+    public function getOrderByReference($order_reference);
 
     /**
-     * Return refund by refund ID
+     * Return refund by refund ID.
      *
      * @param  string          $refund_reference
      * @return RefundInterface
@@ -49,10 +55,10 @@ interface GatewayInterface
     public function getRefundByReference($refund_reference);
 
     /**
-     * Return subscription by subscription ID
+     * Return subscription by subscription ID.
      *
-     * @param  string                $reference
+     * @param  string                $subscription_reference
      * @return SubscriptionInterface
      */
-    public function getSubscriptionByReference($reference);
+    public function getSubscriptionByReference($subscription_reference);
 }

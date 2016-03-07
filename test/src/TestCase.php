@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Test;
 
-use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Dispatcher\Dispatcher;
+use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 
 /**
  * @package ActiveCollab\Payments\Test
@@ -16,7 +22,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     protected $dispatcher;
 
     /**
-     * Set up test environment
+     * Set up test environment.
      */
     public function setUp()
     {
@@ -26,7 +32,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tear down test environment
+     * Tear down test environment.
      */
     public function tearDown()
     {

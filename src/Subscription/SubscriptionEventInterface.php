@@ -1,9 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription;
 
-use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
@@ -11,14 +17,14 @@ use ActiveCollab\DateValue\DateTimeValueInterface;
 interface SubscriptionEventInterface
 {
     /**
-     * Return parent gateway
+     * Return parent gateway.
      *
      * @return GatewayInterface
      */
     public function &getGateway();
 
     /**
-     * Set parent gateway
+     * Set parent gateway.
      *
      * @param  GatewayInterface $gateway
      * @return $this
@@ -31,7 +37,7 @@ interface SubscriptionEventInterface
     public function getSubscriptionReference();
 
     /**
-     * Return order by order ID
+     * Return order by order ID.
      *
      * @return SubscriptionInterface
      */

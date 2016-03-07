@@ -1,11 +1,17 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription\Rebill;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Traits\Gateway;
 use ActiveCollab\Payments\Traits\Timestamp;
-use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use InvalidArgumentException;
 
 /**
@@ -16,7 +22,7 @@ class Rebill implements RebillInterface
     use Gateway, Timestamp, SubscriptionEventImplementation;
 
     /**
-     * Construct a new refund instance
+     * Construct a new refund instance.
      *
      * @param string                 $subscription_reference
      * @param DateTimeValueInterface $timestamp
@@ -39,7 +45,7 @@ class Rebill implements RebillInterface
     private $next_billing_timestamp;
 
     /**
-     * Return next billing timestamp
+     * Return next billing timestamp.
      *
      * @return DateTimeValueInterface
      */

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
 use ActiveCollab\Payments\Subscription\SubscriptionEventInterface;
@@ -15,7 +21,7 @@ interface CancelationInterface extends SubscriptionEventInterface
     public function getOurIdentifier();
 
     /**
-     * Set our identifier
+     * Set our identifier.
      *
      * @param  string $value
      * @return $this

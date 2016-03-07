@@ -1,15 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Dispatcher;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
+use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use LogicException;
 
 /**
@@ -23,7 +29,7 @@ class Dispatcher implements DispatcherInterface
     private $handlers = [];
 
     /**
-     * Specify an event listener for a project
+     * Specify an event listener for a project.
      *
      * @param string   $event
      * @param callable $handler
@@ -38,7 +44,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger a particular event
+     * Trigger a particular event.
      *
      * @param string $event
      * @param mixed  ...$arguments
@@ -54,10 +60,10 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger product order completed
+     * Trigger product order completed.
      *
      * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @param OrderInterface   $order
+     * @param OrderInterface                                  $order
      */
     public function triggerOrderCompleted(GatewayInterface $gateway, OrderInterface $order)
     {
@@ -79,9 +85,9 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @param OrderInterface   $order
-     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface  $refund
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface     $gateway
+     * @param OrderInterface                                      $order
+     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface $refund
      */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
@@ -93,7 +99,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger an event when subscription is changed
+     * Trigger an event when subscription is changed.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -104,11 +110,11 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger an event when gateway fails to process the payment
+     * Trigger an event when gateway fails to process the payment.
      *
-     * @param GatewayInterface       $gateway
-     * @param SubscriptionInterface  $subscription
-     * @param RebillInterface        $rebill
+     * @param GatewayInterface      $gateway
+     * @param SubscriptionInterface $subscription
+     * @param RebillInterface       $rebill
      */
     public function triggerSubscriptionRebill(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill)
     {
@@ -116,7 +122,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger an event when subscription is changed
+     * Trigger an event when subscription is changed.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -128,7 +134,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger an event when subscription is deactivated
+     * Trigger an event when subscription is deactivated.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -140,7 +146,7 @@ class Dispatcher implements DispatcherInterface
     }
 
     /**
-     * Trigger an event when gateway fails to process the payment
+     * Trigger an event when gateway fails to process the payment.
      *
      * @param GatewayInterface       $gateway
      * @param SubscriptionInterface  $subscription

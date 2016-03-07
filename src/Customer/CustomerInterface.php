@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Customer;
 
 use ActiveCollab\User\UserInterface;
@@ -10,14 +16,14 @@ use ActiveCollab\User\UserInterface;
 interface CustomerInterface extends UserInterface
 {
     /**
-     * Return customer's organisation name (company, non-profit etc)
+     * Return customer's organisation name (company, non-profit etc).
      *
      * @return string
      */
     public function getOrganisationName();
 
     /**
-     * Set customer's organisation name
+     * Set customer's organisation name.
      *
      * @param  string $value
      * @return $this
@@ -25,14 +31,14 @@ interface CustomerInterface extends UserInterface
     public function &setOrganisationName($value);
 
     /**
-     * Return customer's address
+     * Return customer's address.
      *
      * @return string
      */
     public function getAddresss();
 
     /**
-     * Set customer's address
+     * Set customer's address.
      *
      * @param  string $value
      * @return $this
@@ -40,14 +46,14 @@ interface CustomerInterface extends UserInterface
     public function &setAddress($value);
 
     /**
-     * Return customer's phone number
+     * Return customer's phone number.
      *
      * @return string
      */
     public function getPhoneNumber();
 
     /**
-     * Set phone number
+     * Set phone number.
      *
      * @param  string $value
      * @return $this

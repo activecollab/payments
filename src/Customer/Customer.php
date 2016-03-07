@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Customer;
 
 use ActiveCollab\User\AnonymousUser;
@@ -25,7 +31,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     private $phone_number = '';
 
     /**
-     * Return customer's organisation name (company, non-profit etc)
+     * Return customer's organisation name (company, non-profit etc).
      *
      * @return string
      */
@@ -35,7 +41,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Set customer's organisation name
+     * Set customer's organisation name.
      *
      * @param  string $value
      * @return $this
@@ -46,7 +52,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Return customer's address
+     * Return customer's address.
      *
      * @return string
      */
@@ -56,7 +62,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Set customer's address
+     * Set customer's address.
      *
      * @param  string $value
      * @return $this
@@ -69,7 +75,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Return customer's phone number
+     * Return customer's phone number.
      *
      * @return string
      */
@@ -79,7 +85,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Set phone number
+     * Set phone number.
      *
      * @param  string $value
      * @return $this

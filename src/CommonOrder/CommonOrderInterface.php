@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\CommonOrder;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
@@ -45,7 +51,7 @@ interface CommonOrderInterface
     public function getOurIdentifier();
 
     /**
-     * Set our identifier
+     * Set our identifier.
      *
      * @param  string $value
      * @return $this

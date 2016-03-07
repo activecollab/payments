@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Traits;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
@@ -15,7 +21,7 @@ trait Timestamp
     private $timestamp;
 
     /**
-     * Return date and time when this order was made
+     * Return date and time when this order was made.
      *
      * @return DateTimeValueInterface
      */

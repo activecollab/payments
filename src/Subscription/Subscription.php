@@ -1,11 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription;
 
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
 use ActiveCollab\Payments\Customer\CustomerInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Traits\Gateway;
 use Carbon\Carbon;
 use InvalidArgumentException;
@@ -18,7 +23,7 @@ class Subscription implements SubscriptionInterface
     use Gateway, CommonOrderInterfaceImplementation;
 
     /**
-     * Construct a new order instance
+     * Construct a new order instance.
      *
      * @param CustomerInterface      $customer
      * @param string                 $reference
@@ -52,7 +57,7 @@ class Subscription implements SubscriptionInterface
     private $period;
 
     /**
-     * Return billing period
+     * Return billing period.
      *
      * @return string
      */
@@ -67,7 +72,7 @@ class Subscription implements SubscriptionInterface
     private $next_billing_timestamp;
 
     /**
-     * Return next billing timestamp
+     * Return next billing timestamp.
      *
      * @return DateTimeValueInterface
      */
@@ -81,7 +86,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Set next billing timestamp
+     * Set next billing timestamp.
      *
      * @param  DateTimeValueInterface $value
      * @return $this
@@ -94,7 +99,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Calculate next billing period based on reference timestamp
+     * Calculate next billing period based on reference timestamp.
      *
      * @param  DateTimeValueInterface $reference
      * @return DateTimeValueInterface
@@ -114,7 +119,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Validate period value
+     * Validate period value.
      *
      * @param string $value
      */

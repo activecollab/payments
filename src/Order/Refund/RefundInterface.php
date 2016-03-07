@@ -1,10 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Order\Refund;
 
+use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\DateValue\DateTimeValueInterface;
 
 /**
  * @package ActiveCollab\Payments\Refund
@@ -12,14 +18,14 @@ use ActiveCollab\DateValue\DateTimeValueInterface;
 interface RefundInterface
 {
     /**
-     * Return parent gateway
+     * Return parent gateway.
      *
      * @return \ActiveCollab\Payments\Gateway\GatewayInterface
      */
     public function &getGateway();
 
     /**
-     * Set parent gateway
+     * Set parent gateway.
      *
      * @param  \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
      * @return $this
@@ -37,7 +43,7 @@ interface RefundInterface
     public function getOrderReference();
 
     /**
-     * Return order by order ID
+     * Return order by order ID.
      *
      * @return OrderInterface
      */
@@ -59,7 +65,7 @@ interface RefundInterface
     public function getItems();
 
     /**
-     * Set refund items, if refund was by line item
+     * Set refund items, if refund was by line item.
      *
      * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
      * @return $this
@@ -72,7 +78,7 @@ interface RefundInterface
     public function getOurIdentifier();
 
     /**
-     * Set our identifier
+     * Set our identifier.
      *
      * @param  string $value
      * @return $this
@@ -80,9 +86,9 @@ interface RefundInterface
     public function &setOurIdentifier($value);
 
     /**
-     * Return true if this refund is partial
+     * Return true if this refund is partial.
      *
-     * @return boolean
+     * @return bool
      */
     public function isPartial();
 }

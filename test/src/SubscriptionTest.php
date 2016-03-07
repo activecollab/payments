@@ -1,18 +1,18 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Test;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
-use ActiveCollab\Payments\Customer\Customer;
-use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Order\Order;
-use ActiveCollab\Payments\OrderItem\OrderItem;
-use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\Subscription\Subscription;
-use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use ActiveCollab\DateValue\DateTimeValue;
+use ActiveCollab\Payments\Customer\Customer;
+use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\OrderItem\OrderItem;
+use ActiveCollab\Payments\Subscription\Subscription;
 
 /**
  * @package ActiveCollab\Payments\Test
@@ -30,7 +30,7 @@ class SubscriptionTest extends TestCase
     protected $timestamp;
 
     /**
-     * Set up test environment
+     * Set up test environment.
      */
     public function setUp()
     {
@@ -41,7 +41,7 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * Tear down test environment
+     * Tear down test environment.
      */
     public function tearDown()
     {
@@ -51,12 +51,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * Test if next billing date can be explicitely set, regardless of period
+     * Test if next billing date can be explicitely set, regardless of period.
      */
     public function testNextBillingCanBeSet()
     {
         $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25)
+            new OrderItem('SaaS', 1, 25),
         ]);
         $monthly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-11-11'));
 
@@ -66,7 +66,7 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('2015-11-11', $next_billing_timestamp->format('Y-m-d'));
 
         $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25)
+            new OrderItem('SaaS', 1, 25),
         ]);
         $yearly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-12-13'));
 
@@ -77,12 +77,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * Test if next monthly billing date is automatically calculated when not explicitely set
+     * Test if next monthly billing date is automatically calculated when not explicitely set.
      */
     public function testNextBillingOnForMonthlySubscription()
     {
         $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25)
+            new OrderItem('SaaS', 1, 25),
         ]);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();
@@ -92,12 +92,12 @@ class SubscriptionTest extends TestCase
     }
 
     /**
-     * Test if next yearly billing date is automatically calculated when not explicitely set
+     * Test if next yearly billing date is automatically calculated when not explicitely set.
      */
     public function testNextBillingOnForYearlySubscription()
     {
         $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25)
+            new OrderItem('SaaS', 1, 25),
         ]);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();

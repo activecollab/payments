@@ -1,10 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 
-use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 
 /**
@@ -48,7 +54,7 @@ trait Implementation
     private $items;
 
     /**
-     * Return order reference (order ID)
+     * Return order reference (order ID).
      *
      * @return string
      */
@@ -66,7 +72,7 @@ trait Implementation
     }
 
     /**
-     * Return date and time when this order was made
+     * Return date and time when this order was made.
      *
      * @return DateTimeValueInterface
      */
@@ -100,7 +106,7 @@ trait Implementation
     }
 
     /**
-     * Return our internal order indetifier (if present)
+     * Return our internal order indetifier (if present).
      *
      * @return string
      */
@@ -110,7 +116,7 @@ trait Implementation
     }
 
     /**
-     * Set our identifier
+     * Set our identifier.
      *
      * @param  string $value
      * @return $this
@@ -123,7 +129,7 @@ trait Implementation
     }
 
     /**
-     * Validate if we got a good Customer instance
+     * Validate if we got a good Customer instance.
      *
      * @param CustomerInterface $value
      */
@@ -135,7 +141,7 @@ trait Implementation
     }
 
     /**
-     * Validate if we got a good order ID
+     * Validate if we got a good order ID.
      *
      * @param string $value
      */
@@ -147,7 +153,7 @@ trait Implementation
     }
 
     /**
-     * Validate if we got good currency code
+     * Validate if we got good currency code.
      *
      * @param string $value
      */
@@ -159,19 +165,19 @@ trait Implementation
     }
 
     /**
-     * Validate if we got good total order value
+     * Validate if we got good total order value.
      *
      * @param float $value
      */
     protected function validateTotal($value)
     {
         if ($value <= 0) {
-            throw new InvalidArgumentException("Empty or credit orders are not supported");
+            throw new InvalidArgumentException('Empty or credit orders are not supported');
         }
     }
 
     /**
-     * Validate if we got good order items
+     * Validate if we got good order items.
      *
      * @param OrderItemInterface[] $value
      */

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Dispatcher;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -27,7 +33,7 @@ interface DispatcherInterface
     const ON_SUBSCRIPTION_DEACTIVATED = 'on_subscription_deactivated';
 
     /**
-     * Listen for a particular event
+     * Listen for a particular event.
      *
      * @param string   $event
      * @param callable $handler
@@ -35,7 +41,7 @@ interface DispatcherInterface
     public function listen($event, callable $handler);
 
     /**
-     * Trigger product order completed
+     * Trigger product order completed.
      *
      * @param GatewayInterface $gateway
      * @param OrderInterface   $order
@@ -43,25 +49,25 @@ interface DispatcherInterface
     public function triggerOrderCompleted(GatewayInterface $gateway, OrderInterface $order);
 
     /**
-     * Trigger full order refund event
+     * Trigger full order refund event.
      *
-     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @param OrderInterface   $order
-     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface  $refund
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface     $gateway
+     * @param OrderInterface                                      $order
+     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface $refund
      */
     public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
 
     /**
-     * Trigger partial order refund event
+     * Trigger partial order refund event.
      *
-     * @param \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @param OrderInterface   $order
-     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface  $refund
+     * @param \ActiveCollab\Payments\Gateway\GatewayInterface     $gateway
+     * @param OrderInterface                                      $order
+     * @param \ActiveCollab\Payments\Order\Refund\RefundInterface $refund
      */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund);
 
     /**
-     * Trigger an event when subscription is changed
+     * Trigger an event when subscription is changed.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -69,16 +75,16 @@ interface DispatcherInterface
     public function triggerSubscriptionActivated(GatewayInterface $gateway, SubscriptionInterface $subscription);
 
     /**
-     * Trigger an event when gateway fails to process the payment
+     * Trigger an event when gateway fails to process the payment.
      *
-     * @param GatewayInterface       $gateway
-     * @param SubscriptionInterface  $subscription
-     * @param RebillInterface        $rebill
+     * @param GatewayInterface      $gateway
+     * @param SubscriptionInterface $subscription
+     * @param RebillInterface       $rebill
      */
     public function triggerSubscriptionRebill(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill);
 
     /**
-     * Trigger an event when subscription is changed
+     * Trigger an event when subscription is changed.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -87,7 +93,7 @@ interface DispatcherInterface
     public function triggerSubscriptionChanged(GatewayInterface $gateway, SubscriptionInterface $subscription, ChangeInterface $change);
 
     /**
-     * Trigger an event when subscription is deactivated
+     * Trigger an event when subscription is deactivated.
      *
      * @param GatewayInterface      $gateway
      * @param SubscriptionInterface $subscription
@@ -96,7 +102,7 @@ interface DispatcherInterface
     public function triggerSubscriptionDeactivated(GatewayInterface $gateway, SubscriptionInterface $subscription, CancelationInterface $cancelation);
 
     /**
-     * Trigger an event when gateway fails to process the payment
+     * Trigger an event when gateway fails to process the payment.
      *
      * @param GatewayInterface       $gateway
      * @param SubscriptionInterface  $subscription

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
@@ -17,7 +23,7 @@ class Cancelation implements CancelationInterface
     use Gateway, Timestamp, OurIdentifier, SubscriptionEventImplementation;
 
     /**
-     * Construct a new refund instance
+     * Construct a new refund instance.
      *
      * @param string                 $subscription_reference
      * @param DateTimeValueInterface $timestamp

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\OrderItem;
 
 /**
@@ -23,9 +29,9 @@ class OrderItem implements OrderItemInterface
     private $unit_cost = 0.0;
 
     /**
-     * @param string        $description
-     * @param float|integer $quantity
-     * @param float         $unit_cost
+     * @param string    $description
+     * @param float|int $quantity
+     * @param float     $unit_cost
      */
     public function __construct($description, $quantity, $unit_cost)
     {

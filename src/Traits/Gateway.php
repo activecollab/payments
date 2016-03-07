@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Traits;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -15,7 +21,7 @@ trait Gateway
     private $gateway;
 
     /**
-     * Return parent gateway
+     * Return parent gateway.
      *
      * @return GatewayInterface
      */
@@ -25,7 +31,7 @@ trait Gateway
     }
 
     /**
-     * Set parent gateway
+     * Set parent gateway.
      *
      * @param  GatewayInterface $gateway
      * @return $this

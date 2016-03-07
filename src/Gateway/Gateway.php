@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Gateway;
 
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
@@ -15,7 +21,7 @@ abstract class Gateway implements GatewayInterface
     private $dispatcher;
 
     /**
-     * Return dispatcher instance
+     * Return dispatcher instance.
      *
      * @return DispatcherInterface
      */

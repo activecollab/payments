@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Traits;
 
 /**
@@ -13,7 +19,7 @@ trait Reference
     private $reference;
 
     /**
-     * Return parent reference
+     * Return parent reference.
      *
      * @return string
      */

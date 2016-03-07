@@ -1,15 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Test;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Customer\Customer;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Order;
-use ActiveCollab\Payments\OrderItem\OrderItem;
+use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
@@ -17,7 +24,6 @@ use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\Subscription;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
-use ActiveCollab\DateValue\DateTimeValue;
 
 /**
  * @package ActiveCollab\Payments\Test
@@ -50,7 +56,7 @@ class DispatcherTest extends TestCase
     protected $subscription;
 
     /**
-     * Set up test environment
+     * Set up test environment.
      */
     public function setUp()
     {
@@ -70,7 +76,7 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Tear down test environment
+     * Tear down test environment.
      */
     public function tearDown()
     {
@@ -80,13 +86,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if order completed triggers an event
+     * Test if order completed triggers an event.
      */
     public function testOrderCompletedTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_COMPLETED, function(GatewayInterface $gateway, OrderInterface $order) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_COMPLETED, function (GatewayInterface $gateway, OrderInterface $order) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(OrderInterface::class, $order);
 
@@ -100,13 +106,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if order refund properly triggers an event
+     * Test if order refund properly triggers an event.
      */
     public function testOrderRefundedTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_REFUNDED, function(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_REFUNDED, function (GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
@@ -124,13 +130,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if partial order refund properly triggers an event
+     * Test if partial order refund properly triggers an event.
      */
     public function testOrderPartiallyRefundedTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, function(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_ORDER_PARTIALLY_REFUNDED, function (GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(RefundInterface::class, $refund);
             $this->assertInstanceOf(OrderInterface::class, $order);
@@ -155,13 +161,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if subscription created triggers an event
+     * Test if subscription created triggers an event.
      */
     public function testSubscriptionActivatedTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_ACTIVATED, function(GatewayInterface $gateway, SubscriptionInterface $subscription) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_ACTIVATED, function (GatewayInterface $gateway, SubscriptionInterface $subscription) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
 
@@ -176,13 +182,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if subscription rebill triggers an event
+     * Test if subscription rebill triggers an event.
      */
     public function testSubscriptionRebillTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_REBILLED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_REBILLED, function (GatewayInterface $gateway, SubscriptionInterface $subscription, RebillInterface $rebill) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertInstanceOf(RebillInterface::class, $rebill);
@@ -200,13 +206,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if subscription rebill triggers an event
+     * Test if subscription rebill triggers an event.
      */
     public function testSubscriptionChangeTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_CHANGED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, ChangeInterface $change) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_CHANGED, function (GatewayInterface $gateway, SubscriptionInterface $subscription, ChangeInterface $change) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertInstanceOf(ChangeInterface::class, $change);
@@ -223,13 +229,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if subscription cancelation triggers an event
+     * Test if subscription cancelation triggers an event.
      */
     public function testSubscriptionCanceledTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_DEACTIVATED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, CancelationInterface $cancelation) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_DEACTIVATED, function (GatewayInterface $gateway, SubscriptionInterface $subscription, CancelationInterface $cancelation) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertInstanceOf(CancelationInterface::class, $cancelation);
@@ -246,13 +252,13 @@ class DispatcherTest extends TestCase
     }
 
     /**
-     * Test if failed subscription payment triggers an event
+     * Test if failed subscription payment triggers an event.
      */
     public function testFailedSubscriptionPaymentTriggersAnEvent()
     {
         $event_triggered = false;
 
-        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_PAYMENT_FAILED, function(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment) use (&$event_triggered) {
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_PAYMENT_FAILED, function (GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment) use (&$event_triggered) {
             $this->assertInstanceOf(ExampleOffsiteGateway::class, $gateway);
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertInstanceOf(FailedPaymentInterface::class, $failed_payment);

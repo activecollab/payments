@@ -1,10 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Order;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 
 /**
  * @package ActiveCollab\Payments\Order
@@ -14,7 +20,7 @@ class Order implements OrderInterface
     use CommonOrderInterfaceImplementation;
 
     /**
-     * Construct a new order instance
+     * Construct a new order instance.
      *
      * @param CustomerInterface      $customer
      * @param string                 $reference

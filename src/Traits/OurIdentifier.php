@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the Active Collab Payments project.
+ *
+ * (c) A51 doo <info@activecollab.com>. All rights reserved.
+ */
+
 namespace ActiveCollab\Payments\Traits;
 
 /**
@@ -13,7 +19,7 @@ trait OurIdentifier
     private $our_identifier = '';
 
     /**
-     * Return our internal order indetifier (if present)
+     * Return our internal order indetifier (if present).
      *
      * @return string
      */
@@ -23,7 +29,7 @@ trait OurIdentifier
     }
 
     /**
-     * Set our identifier
+     * Set our identifier.
      *
      * @param  string $value
      * @return $this
