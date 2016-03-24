@@ -11,7 +11,9 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\AnonymousUser;
+use BadMethodCallException;
 
 /**
  * @package ActiveCollab\Payments\Customer
@@ -52,6 +54,37 @@ class Customer extends AnonymousUser implements CustomerInterface
     public function getOurReference()
     {
         return $this->getEmail();
+    }
+
+    /**
+     * Return default payment method associated with this customer, or null if there is no such payment method.
+     *
+     * @return PaymentMethodInterface|null
+     */
+    public function getDefaultPaymentMethod()
+    {
+        return null;
+    }
+
+    /**
+     * Return all payment methods associated with this customer.
+     *
+     * @return PaymentMethodInterface[]
+     */
+    public function getPaymentMethods()
+    {
+        return [];
+    }
+
+    /**
+     * Create a new payment method based on the given list of arguments.
+     *
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function createPaymentMethod(...$arguments)
+    {
+        throw new BadMethodCallException('Not implemented yet');
     }
 
     /**

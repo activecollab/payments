@@ -14,12 +14,23 @@ namespace ActiveCollab\Payments\PaymentMethod;
 interface PaymentMethodInterface
 {
     /**
+     * Return payment method's reference (ID).
+     *
      * @return mixed
      */
     public function getReference();
 
     /**
+     * Return our internal payment method reference.
+     *
      * @return mixed
      */
     public function getOurReference();
+
+    /**
+     * Return true if this payment method is active, or expired.
+     *
+     * @return bool
+     */
+    public function isExpired();
 }

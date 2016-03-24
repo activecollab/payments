@@ -10,6 +10,7 @@ namespace ActiveCollab\Payments\Customer;
 
 use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
 
 /**
@@ -31,6 +32,28 @@ interface CustomerInterface extends UserInterface
      * @return mixed
      */
     public function getOurReference();
+
+    /**
+     * Return default payment method associated with this customer, or null if there is no such payment method.
+     *
+     * @return PaymentMethodInterface|null
+     */
+    public function getDefaultPaymentMethod();
+
+    /**
+     * Return all payment methods associated with this customer.
+     *
+     * @return PaymentMethodInterface[]
+     */
+    public function getPaymentMethods();
+
+    /**
+     * Create a new payment method based on the given list of arguments.
+     *
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function createPaymentMethod(...$arguments);
 
     /**
      * Return customer's organisation name (company, non-profit etc).
