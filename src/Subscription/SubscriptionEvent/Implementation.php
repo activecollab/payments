@@ -6,6 +6,8 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
+declare (strict_types = 1);
+
 namespace ActiveCollab\Payments\Subscription\SubscriptionEvent;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
