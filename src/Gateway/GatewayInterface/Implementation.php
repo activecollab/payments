@@ -22,20 +22,17 @@ trait Implementation
     private $dispatcher;
 
     /**
-     * Return dispatcher instance.
-     *
-     * @return DispatcherInterface
+     * {@inheritdoc}
      */
-    public function &getDispatcher()
+    public function &getDispatcher(): DispatcherInterface
     {
         return $this->dispatcher;
     }
 
     /**
-     * @param  DispatcherInterface $gateway
-     * @return DispatcherInterface
+     * {@inheritdoc}
      */
-    public function &setDispatcher(DispatcherInterface $gateway)
+    public function &setDispatcher(DispatcherInterface $gateway): GatewayInterface
     {
         $this->dispatcher = $gateway;
 

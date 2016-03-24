@@ -10,12 +10,14 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface\Implementation as GatewayInterfaceImplementation;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
@@ -56,7 +58,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'test';
     }
@@ -64,7 +66,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getOrderByReference($order_reference)
+    public function getOrderByReference(string $order_reference): OrderInterface
     {
         if (isset($this->orders[$order_reference])) {
             return $this->orders[$order_reference];
@@ -76,7 +78,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getRefundByReference($refund_reference)
+    public function getRefundByReference(string $refund_reference): RefundInterface
     {
         if (isset($this->refunds[$refund_reference])) {
             return $this->refunds[$refund_reference];
@@ -88,13 +90,29 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubscriptionByReference($subscription_reference)
+    public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    {
+        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, 'USD', 200, []);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
     {
         if (isset($this->subscriptions[$subscription_reference])) {
             return $this->subscriptions[$subscription_reference];
         }
 
         throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string
+    {
+        return '';
     }
 
     /**
