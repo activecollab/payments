@@ -8,6 +8,7 @@
 
 namespace ActiveCollab\Payments\Customer;
 
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\User\UserInterface;
 
@@ -49,17 +50,17 @@ interface CustomerInterface extends UserInterface
     /**
      * Return customer's address.
      *
-     * @return string
+     * @return AddressInterface
      */
     public function getAddresss();
 
     /**
      * Set customer's address.
      *
-     * @param  string $value
+     * @param  AddressInterface $value
      * @return $this
      */
-    public function &setAddress($value);
+    public function &setAddress(AddressInterface $value);
 
     /**
      * Return customer's phone number.

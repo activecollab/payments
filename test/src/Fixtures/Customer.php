@@ -8,6 +8,7 @@
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\User\AnonymousUser;
@@ -79,7 +80,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     /**
      * Return customer's address.
      *
-     * @return string
+     * @return AddressInterface
      */
     public function getAddresss()
     {
@@ -89,12 +90,12 @@ class Customer extends AnonymousUser implements CustomerInterface
     /**
      * Set customer's address.
      *
-     * @param  string $value
+     * @param  AddressInterface $value
      * @return $this
      */
-    public function &setAddress($value)
+    public function &setAddress(AddressInterface $value)
     {
-        $this->address = (string) $value;
+        $this->address = $value;
 
         return $this;
     }
