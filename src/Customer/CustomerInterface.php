@@ -8,6 +8,7 @@
 
 namespace ActiveCollab\Payments\Customer;
 
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\User\UserInterface;
 
 /**
@@ -15,6 +16,21 @@ use ActiveCollab\User\UserInterface;
  */
 interface CustomerInterface extends UserInterface
 {
+    /**
+     * Return customer's reference in the payment gateway.
+     *
+     * @param  GatewayInterface $gateway
+     * @return mixed
+     */
+    public function getReference(GatewayInterface $gateway);
+
+    /**
+     * Return our internal customer refernece (customer ID or code).
+     *
+     * @return mixed
+     */
+    public function getOurReference();
+
     /**
      * Return customer's organisation name (company, non-profit etc).
      *

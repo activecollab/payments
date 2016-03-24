@@ -6,8 +6,10 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-namespace ActiveCollab\Payments\Customer;
+namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\User\AnonymousUser;
 
 /**
@@ -31,6 +33,27 @@ class Customer extends AnonymousUser implements CustomerInterface
     private $phone_number = '';
 
     /**
+     * Return customer's reference in the payment gateway.
+     *
+     * @param  GatewayInterface $gateway
+     * @return mixed
+     */
+    public function getReference(GatewayInterface $gateway)
+    {
+        return $this->getEmail();
+    }
+
+    /**
+     * Return our internal customer refernece (customer ID or code).
+     *
+     * @return mixed
+     */
+    public function getOurReference()
+    {
+        return $this->getEmail();
+    }
+
+    /**
      * Return customer's organisation name (company, non-profit etc).
      *
      * @return string
@@ -49,6 +72,8 @@ class Customer extends AnonymousUser implements CustomerInterface
     public function &setOrganisationName($value)
     {
         $this->organisation_name = trim($value);
+
+        return $this;
     }
 
     /**

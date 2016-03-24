@@ -9,10 +9,10 @@
 namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
-use ActiveCollab\Payments\Customer\Customer;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\OrderItem\OrderItem;
-use ActiveCollab\Payments\Subscription\Subscription;
+use ActiveCollab\Payments\Test\Fixtures\Customer;
+use ActiveCollab\Payments\Test\Fixtures\Subscription;
 
 /**
  * @package ActiveCollab\Payments\Test

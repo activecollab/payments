@@ -6,11 +6,12 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-namespace ActiveCollab\Payments\Subscription;
+namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Traits\Gateway;
 use Carbon\Carbon;
 use InvalidArgumentException;

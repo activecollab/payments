@@ -6,14 +6,15 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-namespace ActiveCollab\Payments\Gateway;
+namespace ActiveCollab\Payments\Gateway\GatewayInterface;
 
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
- * @package ActiveCollab\Payments
+ * @package ActiveCollab\Payments\Gateway\GatewayInterface
  */
-abstract class Gateway implements GatewayInterface
+trait Implementation
 {
     /**
      * @var DispatcherInterface

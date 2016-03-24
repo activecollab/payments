@@ -6,11 +6,12 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-namespace ActiveCollab\Payments\Order\Refund;
+namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\Traits\Gateway;
 use ActiveCollab\Payments\Traits\OurIdentifier;
