@@ -36,24 +36,27 @@ interface CustomerInterface extends UserInterface
     /**
      * Return default payment method associated with this customer, or null if there is no such payment method.
      *
+     * @param  GatewayInterface            $gateway
      * @return PaymentMethodInterface|null
      */
-    public function getDefaultPaymentMethod();
+    public function getDefaultPaymentMethod(GatewayInterface $gateway);
 
     /**
      * Return all payment methods associated with this customer.
      *
+     * @param  GatewayInterface         $gateway
      * @return PaymentMethodInterface[]
      */
-    public function getPaymentMethods();
+    public function getPaymentMethods(GatewayInterface $gateway): array;
 
     /**
      * Create a new payment method based on the given list of arguments.
      *
+     * @param  GatewayInterface       $gateway
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function createPaymentMethod(...$arguments);
+    public function createPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface;
 
     /**
      * Return customer's organisation name (company, non-profit etc).

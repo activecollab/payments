@@ -57,32 +57,25 @@ class Customer extends AnonymousUser implements CustomerInterface
     }
 
     /**
-     * Return default payment method associated with this customer, or null if there is no such payment method.
-     *
-     * @return PaymentMethodInterface|null
+     * {@inheritdoc}
      */
-    public function getDefaultPaymentMethod()
+    public function getDefaultPaymentMethod(GatewayInterface $gateway)
     {
         return null;
     }
 
     /**
-     * Return all payment methods associated with this customer.
-     *
-     * @return PaymentMethodInterface[]
+     * {@inheritdoc}
      */
-    public function getPaymentMethods()
+    public function getPaymentMethods(GatewayInterface $gateway): array
     {
         return [];
     }
 
     /**
-     * Create a new payment method based on the given list of arguments.
-     *
-     * @param  array                  $arguments
-     * @return PaymentMethodInterface
+     * {@inheritdoc}
      */
-    public function createPaymentMethod(...$arguments)
+    public function createPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }
