@@ -69,7 +69,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function getPaymentMethods(GatewayInterface $gateway): array
+    public function listPaymentMethods(GatewayInterface $gateway): array
     {
         return [];
     }
@@ -77,7 +77,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function createPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }

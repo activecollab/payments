@@ -49,7 +49,7 @@ interface CustomerInterface extends UserInterface
      * @param  GatewayInterface         $gateway
      * @return PaymentMethodInterface[]
      */
-    public function getPaymentMethods(GatewayInterface $gateway): array;
+    public function listPaymentMethods(GatewayInterface $gateway): array;
 
     /**
      * Create a new payment method based on the given list of arguments.
@@ -58,7 +58,7 @@ interface CustomerInterface extends UserInterface
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function createPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface;
 
     /**
      * Return customer's organisation name (company, non-profit etc).
