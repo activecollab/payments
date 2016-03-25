@@ -69,10 +69,11 @@ interface GatewayInterface
      * Create a payment method for the given customer and return the instance.
      *
      * @param  string                 $customer_id
+     * @param bool   $set_as_default
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function addPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(string $customer_id, bool $set_as_default, ...$arguments): PaymentMethodInterface;
 
     /**
      * Return order by order ID.

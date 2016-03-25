@@ -55,10 +55,11 @@ interface CustomerInterface extends UserInterface
      * Create a new payment method based on the given list of arguments.
      *
      * @param  GatewayInterface       $gateway
+     * @param  bool                   $set_as_default
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function addPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface;
 
     /**
      * Return customer's organisation name (company, non-profit etc).

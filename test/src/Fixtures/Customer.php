@@ -77,7 +77,7 @@ class Customer extends AnonymousUser implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function addPaymentMethod(GatewayInterface $gateway, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }
