@@ -24,6 +24,7 @@ use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
 use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use InvalidArgumentException;
+use BadMethodCallException;
 
 /**
  * @package ActiveCollab\Payments\Test\Fixtures
@@ -61,6 +62,40 @@ class ExampleOffsiteGateway implements GatewayInterface
     public function getIdentifier(): string
     {
         return 'test';
+    }
+
+    /**
+     * Return default payment method for the given customer.
+     *
+     * @param  string                      $customer_id
+     * @return PaymentMethodInterface|null
+     */
+    public function getDefaultPaymentMethod(string $customer_id)
+    {
+        return null;
+    }
+
+    /**
+     * Return an array of payment methods that we have stored for the given customer.
+     *
+     * @param  string                   $customer_id
+     * @return PaymentMethodInterface[]
+     */
+    public function getPaymentMethods(string $customer_id): array
+    {
+        return [];
+    }
+
+    /**
+     * Create a payment method for the given customer and return the instance.
+     *
+     * @param  string                 $customer_id
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function createPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
+    {
+        throw new \BadMethodCallException('Not implemented just yet');
     }
 
     /**

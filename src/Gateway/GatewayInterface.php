@@ -43,6 +43,31 @@ interface GatewayInterface
     public function getIdentifier(): string;
 
     /**
+     * Return default payment method for the given customer.
+     *
+     * @param  string                      $customer_id
+     * @return PaymentMethodInterface|null
+     */
+    public function getDefaultPaymentMethod(string $customer_id);
+
+    /**
+     * Return an array of payment methods that we have stored for the given customer.
+     *
+     * @param  string                   $customer_id
+     * @return PaymentMethodInterface[]
+     */
+    public function getPaymentMethods(string $customer_id): array;
+
+    /**
+     * Create a payment method for the given customer and return the instance.
+     *
+     * @param  string                 $customer_id
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function createPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface;
+
+    /**
      * Return order by order ID.
      *
      * @param  string         $order_reference

@@ -18,21 +18,21 @@ interface PaymentMethodInterface
     /**
      * Return payment method's reference (ID).
      *
-     * @return mixed
+     * @return string
      */
-    public function getReference();
+    public function getReference(): string;
 
     /**
      * Return our internal payment method reference.
      *
-     * @return mixed
+     * @return string
      */
-    public function getOurReference();
+    public function getOurReference(): string;
 
     /**
      * Return true if this payment method is active, or expired.
      *
      * @return bool
      */
-    public function isExpired();
+    public function isExpired(): bool;
 }
