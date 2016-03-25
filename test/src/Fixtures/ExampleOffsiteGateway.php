@@ -65,6 +65,14 @@ class ExampleOffsiteGateway implements GatewayInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getOurReference(): string
+    {
+        return 'test';
+    }
+
+    /**
      * Return default payment method for the given customer.
      *
      * @param  string                      $customer_id

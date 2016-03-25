@@ -43,6 +43,13 @@ interface GatewayInterface
     public function getIdentifier(): string;
 
     /**
+     * Return our gateway reference (ID).
+     *
+     * @return string
+     */
+    public function getOurReference(): string;
+
+    /**
      * Return default payment method for the given customer.
      *
      * @param  string                      $customer_id
