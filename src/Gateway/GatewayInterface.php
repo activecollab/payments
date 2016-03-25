@@ -63,7 +63,7 @@ interface GatewayInterface
      * @param  string                   $customer_id
      * @return PaymentMethodInterface[]
      */
-    public function getPaymentMethods(string $customer_id): array;
+    public function getPaymentMethods(string $customer_id);
 
     /**
      * Create a payment method for the given customer and return the instance.
