@@ -89,7 +89,7 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param  string                   $customer_id
      * @return PaymentMethodInterface[]
      */
-    public function getPaymentMethods(string $customer_id)
+    public function listPaymentMethods(string $customer_id): array
     {
         return [];
     }
@@ -101,7 +101,7 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function createPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(string $customer_id, ...$arguments): PaymentMethodInterface
     {
         throw new \BadMethodCallException('Not implemented just yet');
     }
