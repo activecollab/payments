@@ -18,16 +18,16 @@ interface PaymentMethodInterface
     /**
      * Return payment method's reference (ID).
      *
-     * @return string
+     * @return string|null
      */
-    public function getReference(): string;
+    public function getReference();
 
     /**
      * Return our internal payment method reference.
      *
-     * @return string
+     * @return string|null
      */
-    public function getOurReference(): string;
+    public function getOurReference();
 
     /**
      * Return true if this payment method is active, or expired.
