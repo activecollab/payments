@@ -91,7 +91,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function addPaymentMethod(string $customer_id, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new \BadMethodCallException('Not implemented just yet');
     }
