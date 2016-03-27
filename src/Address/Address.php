@@ -18,6 +18,21 @@ class Address implements AddressInterface
     /**
      * @var string
      */
+    private $first_name;
+
+    /**
+     * @var string
+     */
+    private $last_name;
+
+    /**
+     * @var string
+     */
+    private $company_name;
+
+    /**
+     * @var string
+     */
     private $address;
 
     /**
@@ -48,6 +63,9 @@ class Address implements AddressInterface
     /**
      * Address constructor.
      *
+     * @param string $first_name
+     * @param string $last_name
+     * @param string $company_name
      * @param string $address
      * @param string $address_extended
      * @param string $city
@@ -55,14 +73,41 @@ class Address implements AddressInterface
      * @param string $region
      * @param string $country_code
      */
-    public function __construct($address, $address_extended, $city, $zip_code, $region, $country_code)
+    public function __construct($first_name, $last_name, $company_name, $address, $address_extended, $city, $zip_code, $region, $country_code)
     {
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+        $this->company_name = $company_name;
         $this->address = $address;
         $this->address_extended = $address_extended;
         $this->city = $city;
         $this->zip_code = $zip_code;
         $this->region = $region;
         $this->country_code = $country_code;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFirstName()
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCompanyName()
+    {
+        return $this->company_name;
     }
 
     /**
