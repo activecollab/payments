@@ -22,6 +22,20 @@ interface PaymentMethodInterface
     const APPLE_PAY = 'apple_pay';
     const OTHER = 'other';
 
+    const CARD_AMEX = 'American Express';
+    const CARD_CARTE_BLANCHE = 'Carte Blanche';
+    const CARD_CHINA_UNIONPAY = 'China UnionPay';
+    const CARD_DINERS_CLUB = 'Diners Club';
+    const CARD_DISCOVER = 'Discover';
+    const CARD_JCB = 'JCB';
+    const CARD_LASER = 'Laser';
+    const CARD_MAESTRO = 'Maestro';
+    const CARD_MASTERCARD = 'MasterCard';
+    const CARD_SOLO = 'Solo';
+    const CARD_SWITCH = 'Switch';
+    const CARD_VISA = 'Visa';
+    const CARD_UNKNOWN = 'Unknown';
+
     /**
      * Return payment method type.
      *
@@ -45,7 +59,7 @@ interface PaymentMethodInterface
 
     /**
      * Return a reference that customer can use to indetify the payment method (masked card number, PayPal account etc).
-     * 
+     *
      * @return string
      */
     public function getCustomerReference();
