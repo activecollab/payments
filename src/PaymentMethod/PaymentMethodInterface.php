@@ -20,6 +20,7 @@ interface PaymentMethodInterface
     const CREDIT_CARD = 'credit_card';
     const PAY_PAL = 'pay_pal';
     const APPLE_PAY = 'apple_pay';
+    const OTHER = 'other';
 
     /**
      * Return payment method type.
