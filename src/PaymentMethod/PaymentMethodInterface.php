@@ -18,7 +18,7 @@ use ActiveCollab\DateValue\DateValueInterface;
 interface PaymentMethodInterface
 {
     const CREDIT_CARD = 'credit_card';
-    const PAY_PAL = 'pay_pal';
+    const PAYPAL = 'paypal';
     const APPLE_PAY = 'apple_pay';
     const OTHER = 'other';
 
