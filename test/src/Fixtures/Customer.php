@@ -14,13 +14,13 @@ use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
-use ActiveCollab\User\AnonymousUser;
+use ActiveCollab\User\IdentifiedVisitor;
 use BadMethodCallException;
 
 /**
  * @package ActiveCollab\Payments\Customer
  */
-class Customer extends AnonymousUser implements CustomerInterface
+class Customer extends IdentifiedVisitor implements CustomerInterface
 {
     /**
      * @var string
