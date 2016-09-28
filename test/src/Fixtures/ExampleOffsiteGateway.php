@@ -23,8 +23,8 @@ use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
 use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use InvalidArgumentException;
 use BadMethodCallException;
+use InvalidArgumentException;
 
 /**
  * @package ActiveCollab\Payments\Test\Fixtures
@@ -304,5 +304,18 @@ class ExampleOffsiteGateway implements GatewayInterface
         $failed_payment->setGateway($this);
 
         $this->getDispatcher()->triggerSubscriptionPaymentFailed($this, $subscription, $failed_payment);
+    }
+
+    /**
+     * Trigger account custom activated event.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionCustomActivated($subscription, $note);
     }
 }

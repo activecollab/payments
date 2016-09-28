@@ -158,4 +158,15 @@ class Dispatcher implements DispatcherInterface
     {
         $this->trigger(self::ON_SUBSCRIPTION_PAYMENT_FAILED, $gateway, $subscription, $failed_payment);
     }
+
+    /**
+     * Trigger an event when account is activated manually.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note)
+    {
+        $this->trigger(self::ON_SUBSCRIPTION_CUSTOM_ACTIVATED, $subscription, $note);
+    }
 }

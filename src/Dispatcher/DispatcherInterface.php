@@ -33,6 +33,7 @@ interface DispatcherInterface
     const ON_SUBSCRIPTION_CHANGED = 'on_subscription_changed';
     const ON_SUBSCRIPTION_PAYMENT_FAILED = 'on_subscription_payment_failed';
     const ON_SUBSCRIPTION_DEACTIVATED = 'on_subscription_deactivated';
+    const ON_SUBSCRIPTION_CUSTOM_ACTIVATED = 'on_subscription_custom_activated';
 
     /**
      * Listen for a particular event.
@@ -111,4 +112,12 @@ interface DispatcherInterface
      * @param FailedPaymentInterface $failed_payment
      */
     public function triggerSubscriptionPaymentFailed(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment);
+
+    /**
+     * Trigger an event when account is acivated manually.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note);
 }

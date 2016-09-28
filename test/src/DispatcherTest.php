@@ -273,4 +273,25 @@ class DispatcherTest extends TestCase
 
         $this->assertTrue($event_triggered);
     }
+
+    /**
+     * Test if account activated manually triggers an event.
+     */
+    public function testSubscriptionCustomActivatedTriggersAnEvent()
+    {
+        $event_triggered = false;
+        $note = 'some note';
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_CUSTOM_ACTIVATED, function (SubscriptionInterface $subscription, $note) use (&$event_triggered) {
+
+            $this->assertInstanceOf(Subscription::class, $subscription);
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionCustomActivated($this->subscription, $note);
+
+        $this->assertTrue($event_triggered);
+    }
 }
