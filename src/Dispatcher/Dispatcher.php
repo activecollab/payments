@@ -153,7 +153,7 @@ class Dispatcher implements DispatcherInterface
      * @param GatewayInterface       $gateway
      * @param SubscriptionInterface  $subscription
      * @param FailedPaymentInterface $failed_payment
-     * @param string                 $note
+     * @param string|null            $note
      */
     public function triggerSubscriptionPaymentFailed(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment, $note = null)
     {
