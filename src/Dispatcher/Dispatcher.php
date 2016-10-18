@@ -154,9 +154,9 @@ class Dispatcher implements DispatcherInterface
      * @param SubscriptionInterface  $subscription
      * @param FailedPaymentInterface $failed_payment
      */
-    public function triggerSubscriptionPaymentFailed(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment)
+    public function triggerSubscriptionPaymentFailed(GatewayInterface $gateway, SubscriptionInterface $subscription, FailedPaymentInterface $failed_payment, $note = null)
     {
-        $this->trigger(self::ON_SUBSCRIPTION_PAYMENT_FAILED, $gateway, $subscription, $failed_payment);
+        $this->trigger(self::ON_SUBSCRIPTION_PAYMENT_FAILED, $gateway, $subscription, $failed_payment, $note);
     }
 
     /**
