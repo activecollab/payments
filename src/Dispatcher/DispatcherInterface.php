@@ -6,7 +6,7 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Dispatcher;
 
@@ -34,6 +34,7 @@ interface DispatcherInterface
     const ON_SUBSCRIPTION_PAYMENT_FAILED = 'on_subscription_payment_failed';
     const ON_SUBSCRIPTION_DEACTIVATED = 'on_subscription_deactivated';
     const ON_SUBSCRIPTION_CUSTOM_ACTIVATED = 'on_subscription_custom_activated';
+    const ON_SUBSCRIPTION_EXPIRED = 'on_subscription_expired';
 
     /**
      * Listen for a particular event.
@@ -120,4 +121,12 @@ interface DispatcherInterface
      * @param string                $note
      */
     public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note);
+
+    /**
+     * Trigger an event when account subscription is expired.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionExpired(SubscriptionInterface $subscription, $note);
 }
