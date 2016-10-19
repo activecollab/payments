@@ -318,4 +318,17 @@ class ExampleOffsiteGateway implements GatewayInterface
 
         $this->getDispatcher()->triggerSubscriptionCustomActivated($subscription, $note);
     }
+
+    /**
+     * Trigger subscription expired an event.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionExpired(SubscriptionInterface $subscription, $note)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionExpired($subscription, $note);
+    }
 }
