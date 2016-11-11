@@ -129,6 +129,22 @@ class ExampleOffsiteGateway implements GatewayInterface
     }
 
     /**
+     * Update an existing interface for the given customer, that ordered a given product using a given payment method.
+     *
+     * @param SubscriptionInterface  $subscription
+     * @param CustomerInterface      $customer
+     * @param PaymentMethodInterface $payment_method
+     * @param                        $product_name
+     * @param string                 $period
+     * @param array                  ...$arguments
+     * @return SubscriptionInterface
+     */
+    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments):SubscriptionInterface
+    {
+        // @TODO implement
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
