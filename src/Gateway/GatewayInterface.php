@@ -104,6 +104,19 @@ interface GatewayInterface
     public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
 
     /**
+     * Update an existing interface for the given customer, that ordered a given product using a given payment method.
+     *
+     * @param  SubscriptionInterface  $subscription
+     * @param  CustomerInterface      $customer
+     * @param  PaymentMethodInterface $payment_method
+     * @param  string                  $product_name
+     * @param  string                 $period
+     * @param  array                  ...$arguments
+     * @return SubscriptionInterface
+     */
+    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+
+    /**
      * Return subscription by subscription ID.
      *
      * @param  string                $subscription_reference

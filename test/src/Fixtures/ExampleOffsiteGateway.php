@@ -131,6 +131,14 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
+    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    {
+        return $subscription;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
     {
         if (isset($this->subscriptions[$subscription_reference])) {
