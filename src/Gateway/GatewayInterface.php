@@ -119,4 +119,20 @@ interface GatewayInterface
      * @return string
      */
     public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string;
+
+    /**
+     * Return add-on ID based on add-on name (or code).
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getAddOnIdByName(string $name): string;
+
+    /**
+     * Return discount ID based on discount name (or code).
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getDiscountIdByName(string $name): string;
 }
