@@ -283,7 +283,6 @@ class DispatcherTest extends TestCase
         $note = 'some note';
 
         $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_CUSTOM_ACTIVATED, function (SubscriptionInterface $subscription, $note) use (&$event_triggered) {
-
             $this->assertInstanceOf(Subscription::class, $subscription);
             $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
 
@@ -291,6 +290,26 @@ class DispatcherTest extends TestCase
         });
 
         $this->gateway->triggerSubscriptionCustomActivated($this->subscription, $note);
+
+        $this->assertTrue($event_triggered);
+    }
+
+    /**
+     * Test if subscription expired triggers an event.
+     */
+    public function testSubscriptionExpiredTriggersAnEvent()
+    {
+        $event_triggered = false;
+        $note = 'some note';
+
+        $this->dispatcher->listen(DispatcherInterface::ON_SUBSCRIPTION_EXPIRED, function (SubscriptionInterface $subscription, $note) use (&$event_triggered) {
+            $this->assertInstanceOf(Subscription::class, $subscription);
+            $this->assertEquals($this->subscription->getReference(), $subscription->getReference());
+
+            $event_triggered = true;
+        });
+
+        $this->gateway->triggerSubscriptionExpired($this->subscription, $note);
 
         $this->assertTrue($event_triggered);
     }

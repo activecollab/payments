@@ -6,7 +6,7 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Dispatcher;
 
@@ -169,5 +169,16 @@ class Dispatcher implements DispatcherInterface
     public function triggerSubscriptionCustomActivated(SubscriptionInterface $subscription, $note)
     {
         $this->trigger(self::ON_SUBSCRIPTION_CUSTOM_ACTIVATED, $subscription, $note);
+    }
+
+    /**
+     * Trigger an event when account subscription is expired.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionExpired(SubscriptionInterface $subscription, $note)
+    {
+        $this->trigger(self::ON_SUBSCRIPTION_EXPIRED, $subscription, $note);
     }
 }

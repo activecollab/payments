@@ -131,6 +131,14 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
+    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    {
+        return $subscription;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
     {
         if (isset($this->subscriptions[$subscription_reference])) {
@@ -333,5 +341,18 @@ class ExampleOffsiteGateway implements GatewayInterface
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionCustomActivated($subscription, $note);
+    }
+
+    /**
+     * Trigger subscription expired an event.
+     *
+     * @param SubscriptionInterface $subscription
+     * @param string                $note
+     */
+    public function triggerSubscriptionExpired(SubscriptionInterface $subscription, $note)
+    {
+        $this->subscriptions[$subscription->getReference()] = $subscription;
+
+        $this->getDispatcher()->triggerSubscriptionExpired($subscription, $note);
     }
 }
