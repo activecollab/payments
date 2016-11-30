@@ -6,7 +6,7 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Gateway;
 
@@ -107,11 +107,11 @@ interface GatewayInterface
     /**
      * Update an existing interface for the given customer, that ordered a given product using a given payment method.
      *
-     * @param  SubscriptionInterface  $subscription
-     * @param  CustomerInterface      $customer
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                  $product_name
-     * @param  string                 $period
+     * @param SubscriptionInterface  $subscription
+     * @param CustomerInterface      $customer
+     * @param PaymentMethodInterface $payment_method
+     * @param string                 $product_name
+     * @param string                 $period
      * @param  array                  ...$arguments
      * @return SubscriptionInterface
      */
@@ -137,7 +137,7 @@ interface GatewayInterface
     /**
      * Return add-on ID based on add-on name (or code).
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public function getAddOnIdByName(string $name): string;
@@ -145,7 +145,7 @@ interface GatewayInterface
     /**
      * Return discount ID based on discount name (or code).
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     public function getDiscountIdByName(string $name): string;
@@ -153,7 +153,7 @@ interface GatewayInterface
     /**
      * Execute pre-order.
      *
-     * @param PreOrderInterface $pre_order
+     * @param  PreOrderInterface     $pre_order
      * @return SubscriptionInterface
      */
     public function executePreOrder(PreOrderInterface $pre_order): SubscriptionInterface;
@@ -161,7 +161,7 @@ interface GatewayInterface
     /**
      * Return if gateway can execute pre-order.
      *
-     * @param PreOrderInterface $pre_order
+     * @param  PreOrderInterface $pre_order
      * @return bool
      */
     public function canExecutePreOrder(PreOrderInterface $pre_order): bool;
