@@ -18,6 +18,7 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
+use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
 use ActiveCollab\Payments\Subscription\Change\Change;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
@@ -354,5 +355,35 @@ class ExampleOffsiteGateway implements GatewayInterface
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
         $this->getDispatcher()->triggerSubscriptionExpired($subscription, $note);
+    }
+
+    /**
+     * Execute pre-order.
+     *
+     * @param  PreOrderInterface $pre_order
+     * @return SubscriptionInterface
+     */
+    public function executePreOrder(PreOrderInterface $pre_order): SubscriptionInterface
+    {
+        return new Subscription(
+            new Customer('Test', 'test@example.com', false),
+            '2016-02-03',
+            new DateTimeValue(),
+            SubscriptionInterface::MONTHLY,
+            'USD',
+            200,
+            []
+        );
+    }
+
+    /**
+     * Return if gateway can execute pre-order.
+     *
+     * @param  PreOrderInterface $pre_order
+     * @return bool
+     */
+    public function canExecutePreOrder(PreOrderInterface $pre_order): bool
+    {
+        return true;
     }
 }
