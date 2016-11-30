@@ -15,6 +15,7 @@ use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
+use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 
 /**
@@ -148,4 +149,20 @@ interface GatewayInterface
      * @return string
      */
     public function getDiscountIdByName(string $name): string;
+
+    /**
+     * Execute pre-order.
+     *
+     * @param PreOrderInterface $pre_order
+     * @return SubscriptionInterface
+     */
+    public function executePreOrder(PreOrderInterface $pre_order): SubscriptionInterface;
+
+    /**
+     * Return if gateway can execute pre-order.
+     *
+     * @param PreOrderInterface $pre_order
+     * @return bool
+     */
+    public function canExecutePreOrder(PreOrderInterface $pre_order): bool;
 }

@@ -16,6 +16,6 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
  * @package ActiveCollab\Payments\PreOrder
  */
 
-interface SubscriptionPreOrderInterface
+interface SubscriptionPreOrderInterface extends PreOrderInterface
 {
 }
