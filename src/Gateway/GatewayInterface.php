@@ -154,10 +154,11 @@ interface GatewayInterface
     /**
      * Execute pre-order.
      *
-     * @param  PreOrderInterface $pre_order
+     * @param  PreOrderInterface      $pre_order
+     * @param  PaymentMethodInterface $payment_method
      * @return CommonOrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order): CommonOrderInterface;
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method): CommonOrderInterface;
 
     /**
      * Return if gateway can execute pre-order.
