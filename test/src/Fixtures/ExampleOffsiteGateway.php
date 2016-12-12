@@ -362,9 +362,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      * Execute pre-order.
      *
      * @param  PreOrderInterface $pre_order
+     * @param  PaymentMethodInterface $payment_method
+     * @param  string $action
      * @return CommonOrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method): CommonOrderInterface
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action): CommonOrderInterface
     {
         return new Subscription(
             new Customer('Test', 'test@example.com', false),
