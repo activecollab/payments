@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Gateway;
 
+use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
@@ -157,9 +158,10 @@ interface GatewayInterface
      * @param  PreOrderInterface      $pre_order
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
+     * @param  DateValueInterface $first_billing_date
      * @return CommonOrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action): CommonOrderInterface;
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface;
 
     /**
      * Return if gateway can execute pre-order.
