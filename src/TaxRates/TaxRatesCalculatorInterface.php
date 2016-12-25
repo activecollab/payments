@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\TaxRates;
 
-use ActiveCollab\Payments\Address\Address;
+use ActiveCollab\Payments\Address\AddressInterface;
 
 interface TaxRatesCalculatorInterface
 {
-    public function getTaxRate(Address $seller_address, Address $buyer_address, array $line_items): TaxRatesInterface;
+    public function getTaxRate(AddressInterface $seller_address, AddressInterface $buyer_address, array $line_items): TaxRatesInterface;
 }
