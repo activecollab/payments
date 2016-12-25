@@ -12,7 +12,5 @@ namespace ActiveCollab\Payments\TaxRates;
 
 interface TaxIdValidatorInterface
 {
-    public function canValidate(string $country_code): bool;
-
     public function isValid(string $country_code, string $tax_id): ? bool;
 }
