@@ -61,6 +61,11 @@ class Address implements AddressInterface
     private $country_code;
 
     /**
+     * @var string
+     */
+    private $tax_id;
+
+    /**
      * Address constructor.
      *
      * @param string $first_name
@@ -72,8 +77,9 @@ class Address implements AddressInterface
      * @param string $zip_code
      * @param string $region
      * @param string $country_code
+     * @param string $tax_id
      */
-    public function __construct($first_name, $last_name, $company_name, $address, $address_extended, $city, $zip_code, $region, $country_code)
+    public function __construct($first_name, $last_name, $company_name, $address, $address_extended, $city, $zip_code, $region, $country_code, $tax_id = '')
     {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
@@ -84,6 +90,7 @@ class Address implements AddressInterface
         $this->zip_code = $zip_code;
         $this->region = $region;
         $this->country_code = $country_code;
+        $this->tax_id = $tax_id;
     }
 
     /**
@@ -156,6 +163,14 @@ class Address implements AddressInterface
     public function getCountryCode()
     {
         return $this->getCountryCode();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTaxId()
+    {
+        return $this->tax_id;
     }
 
     /**

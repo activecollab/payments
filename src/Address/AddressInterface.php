@@ -59,4 +59,9 @@ interface AddressInterface
      * @return string
      */
     public function getCountryCode();
+
+    /**
+     * @return string
+     */
+    public function getTaxId();
 }
