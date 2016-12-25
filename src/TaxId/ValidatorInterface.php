@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace ActiveCollab\Payments\TaxRates;
+namespace ActiveCollab\Payments\TaxId;
 
-interface TaxIdValidatorInterface
+interface ValidatorInterface
 {
     public function isValid(string $country_code, string $tax_id): ? bool;
 }
