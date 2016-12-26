@@ -15,17 +15,7 @@ interface BuyerAddressInterface extends AddressInterface
     /**
      * @return null|string
      */
-    public function getFirstName();
-
-    /**
-     * @return null|string
-     */
-    public function getLastName();
-
-    /**
-     * @return null|string
-     */
-    public function getCompanyName();
+    public function getBuyerName();
 
     /**
      * @return null|string
