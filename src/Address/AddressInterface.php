@@ -10,26 +10,8 @@ declare (strict_types = 1);
 
 namespace ActiveCollab\Payments\Address;
 
-/**
- * @package ActiveCollab\Payments\Address
- */
 interface AddressInterface
 {
-    /**
-     * @return string
-     */
-    public function getFirstName();
-
-    /**
-     * @return string
-     */
-    public function getLastName();
-
-    /**
-     * @return string
-     */
-    public function getCompanyName();
-
     /**
      * @return string
      */
@@ -59,9 +41,4 @@ interface AddressInterface
      * @return string
      */
     public function getCountryCode();
-
-    /**
-     * @return string
-     */
-    public function getTaxId();
 }
