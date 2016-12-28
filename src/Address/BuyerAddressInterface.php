@@ -23,9 +23,11 @@ interface BuyerAddressInterface extends AddressInterface
     public function getLastName();
 
     /**
+     * Return customer's organisation name (company, non-profit etc).
+     *
      * @return null|string
      */
-    public function getCompanyName();
+    public function getOrganisationName();
 
     /**
      * @return null|string

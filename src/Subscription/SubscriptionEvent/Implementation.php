@@ -53,5 +53,5 @@ trait Implementation
      *
      * @return GatewayInterface
      */
-    abstract public function &getGateway();
+    abstract public function getGateway();
 }

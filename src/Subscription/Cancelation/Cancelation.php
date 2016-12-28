@@ -12,9 +12,9 @@ namespace ActiveCollab\Payments\Subscription\Cancelation;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
-use ActiveCollab\Payments\Traits\Gateway;
-use ActiveCollab\Payments\Traits\OurIdentifier;
-use ActiveCollab\Payments\Traits\Timestamp;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use InvalidArgumentException;
 
 /**
@@ -22,7 +22,7 @@ use InvalidArgumentException;
  */
 class Cancelation implements CancelationInterface
 {
-    use Gateway, Timestamp, OurIdentifier, SubscriptionEventImplementation;
+    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Timestamp, ActiveCollab\Payments\Common\Traits\OurIdentifier, SubscriptionEventImplementation;
 
     /**
      * Construct a new refund instance.

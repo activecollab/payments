@@ -11,20 +11,14 @@ declare (strict_types = 1);
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
-interface SubscriptionEventInterface
+interface SubscriptionEventInterface extends GatewayedObjectInterface
 {
-    /**
-     * Return parent gateway.
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway();
-
     /**
      * Set parent gateway.
      *

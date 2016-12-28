@@ -11,23 +11,17 @@ declare (strict_types = 1);
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
-interface SubscriptionInterface extends CommonOrderInterface
+interface SubscriptionInterface extends CommonOrderInterface, GatewayedObjectInterface
 {
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
-
-    /**
-     * Return parent gateway.
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway();
 
     /**
      * Set parent gateway.

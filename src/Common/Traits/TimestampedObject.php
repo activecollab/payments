@@ -8,14 +8,14 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\Traits;
+namespace ActiveCollab\Payments\Common\Traits;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 
 /**
  * @package ActiveCollab\Payments\Traits
  */
-trait Timestamp
+trait TimestampedObject
 {
     /**
      * @var DateTimeValueInterface

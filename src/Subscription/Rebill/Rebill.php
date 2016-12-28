@@ -12,8 +12,8 @@ namespace ActiveCollab\Payments\Subscription\Rebill;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
-use ActiveCollab\Payments\Traits\Gateway;
-use ActiveCollab\Payments\Traits\Timestamp;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use InvalidArgumentException;
 
 /**
@@ -21,7 +21,7 @@ use InvalidArgumentException;
  */
 class Rebill implements RebillInterface
 {
-    use Gateway, Timestamp, SubscriptionEventImplementation;
+    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Timestamp, SubscriptionEventImplementation;
 
     /**
      * Construct a new refund instance.

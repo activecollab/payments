@@ -11,21 +11,19 @@ declare (strict_types = 1);
 namespace ActiveCollab\Payments\Order\Refund;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\GatewayedObjectInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
+use MongoDB\BSON\Timestamp;
 
 /**
  * @package ActiveCollab\Payments\Refund
  */
-interface RefundInterface
+interface RefundInterface extends GatewayedObjectInterface, ReferencedObjectInterface, TimestampedObjectInterface, InternallyIdentifiedObjectInterface
 {
-    /**
-     * Return parent gateway.
-     *
-     * @return \ActiveCollab\Payments\Gateway\GatewayInterface
-     */
-    public function &getGateway();
-
     /**
      * Set parent gateway.
      *
@@ -33,11 +31,6 @@ interface RefundInterface
      * @return $this
      */
     public function &setGateway(GatewayInterface &$gateway);
-
-    /**
-     * @return string
-     */
-    public function getReference();
 
     /**
      * @return string
@@ -50,11 +43,6 @@ interface RefundInterface
      * @return OrderInterface
      */
     public function getOrder();
-
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
 
     /**
      * @return float
@@ -73,11 +61,6 @@ interface RefundInterface
      * @return $this
      */
     public function &setItems(array $value);
-
-    /**
-     * @return string
-     */
-    public function getOurIdentifier();
 
     /**
      * Set our identifier.

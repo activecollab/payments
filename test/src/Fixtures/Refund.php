@@ -13,10 +13,10 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\Payments\Traits\Gateway;
-use ActiveCollab\Payments\Traits\OurIdentifier;
-use ActiveCollab\Payments\Traits\Reference;
-use ActiveCollab\Payments\Traits\Timestamp;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\ReferencedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -25,7 +25,7 @@ use RuntimeException;
  */
 class Refund implements RefundInterface
 {
-    use Gateway, Reference, Timestamp, OurIdentifier;
+    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Reference, ActiveCollab\Payments\Common\Traits\Timestamp, ActiveCollab\Payments\Common\Traits\OurIdentifier;
 
     /**
      * @var string

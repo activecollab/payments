@@ -8,14 +8,14 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\Traits;
+namespace ActiveCollab\Payments\Common\Traits;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Traits
  */
-trait Gateway
+trait GatewayedObject
 {
     /**
      * @var GatewayInterface
@@ -27,7 +27,7 @@ trait Gateway
      *
      * @return GatewayInterface
      */
-    public function &getGateway()
+    public function getGateway()
     {
         return $this->gateway;
     }

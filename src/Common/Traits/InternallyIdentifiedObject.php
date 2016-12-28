@@ -8,12 +8,12 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\Traits;
+namespace ActiveCollab\Payments\Common\Traits;
 
 /**
  * @package ActiveCollab\Payments\Traits
  */
-trait OurIdentifier
+trait InternallyIdentifiedObject
 {
     /**
      * @var string
