@@ -6,15 +6,16 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription\Cancelation;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use InvalidArgumentException;
 
 /**
@@ -29,8 +30,9 @@ class Cancelation implements CancelationInterface
      *
      * @param string                 $subscription_reference
      * @param DateTimeValueInterface $timestamp
+     * @param GatewayInterface|null  $gateway
      */
-    public function __construct($subscription_reference, DateTimeValueInterface $timestamp)
+    public function __construct($subscription_reference, DateTimeValueInterface $timestamp, GatewayInterface &$gateway = null)
     {
         if (empty($subscription_reference)) {
             throw new InvalidArgumentException('Subscription # is required');
@@ -38,5 +40,6 @@ class Cancelation implements CancelationInterface
 
         $this->subscription_reference = $subscription_reference;
         $this->timestamp = $timestamp;
+        $this->setGatewayByReference($gateway);
     }
 }

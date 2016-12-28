@@ -6,14 +6,13 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
@@ -22,14 +21,6 @@ interface SubscriptionInterface extends CommonOrderInterface, GatewayedObjectInt
 {
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
-
-    /**
-     * Set parent gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
 
     /**
      * Return next billing timestamp.

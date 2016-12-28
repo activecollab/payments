@@ -38,7 +38,7 @@ trait GatewayedObject
      * @param  GatewayInterface $gateway
      * @return $this
      */
-    public function &setGateway(GatewayInterface &$gateway)
+    protected function &setGatewayByReference(GatewayInterface &$gateway)
     {
         $this->gateway = $gateway;
 

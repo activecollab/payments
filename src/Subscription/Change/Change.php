@@ -11,6 +11,7 @@ declare (strict_types = 1);
 namespace ActiveCollab\Payments\Subscription\Change;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
@@ -29,8 +30,9 @@ class Change implements ChangeInterface
      *
      * @param string                 $subscription_reference
      * @param DateTimeValueInterface $timestamp
+     * @param GatewayInterface|null  $gateway
      */
-    public function __construct($subscription_reference, DateTimeValueInterface $timestamp)
+    public function __construct($subscription_reference, DateTimeValueInterface $timestamp, GatewayInterface &$gateway = null)
     {
         if (empty($subscription_reference)) {
             throw new InvalidArgumentException('Subscription # is required');
@@ -38,5 +40,6 @@ class Change implements ChangeInterface
 
         $this->subscription_reference = $subscription_reference;
         $this->timestamp = $timestamp;
+        $this->setGatewayByReference($gateway);
     }
 }

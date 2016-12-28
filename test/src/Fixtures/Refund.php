@@ -49,8 +49,9 @@ class Refund implements RefundInterface
      * @param string                 $order_reference
      * @param DateTimeValueInterface $timestamp
      * @param float                  $total
+     * @param GatewayInterface|null  $gateway
      */
-    public function __construct($refund_reference, $order_reference, DateTimeValueInterface $timestamp, $total)
+    public function __construct($refund_reference, $order_reference, DateTimeValueInterface $timestamp, $total, GatewayInterface &$gateway = null)
     {
         if (empty($refund_reference)) {
             throw new InvalidArgumentException('Refund # is required');
@@ -68,6 +69,7 @@ class Refund implements RefundInterface
         $this->order_reference = $order_reference;
         $this->timestamp = $timestamp;
         $this->total = (float) $total;
+        $this->setGatewayByReference($gateway);
     }
 
     /**

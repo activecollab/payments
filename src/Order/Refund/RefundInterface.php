@@ -25,14 +25,6 @@ use MongoDB\BSON\Timestamp;
 interface RefundInterface extends GatewayedObjectInterface, ReferencedObjectInterface, TimestampedObjectInterface, InternallyIdentifiedObjectInterface
 {
     /**
-     * Set parent gateway.
-     *
-     * @param  \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
-
-    /**
      * @return string
      */
     public function getOrderReference();

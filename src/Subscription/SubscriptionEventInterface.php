@@ -12,21 +12,12 @@ namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
 interface SubscriptionEventInterface extends GatewayedObjectInterface, TimestampedObjectInterface
 {
-    /**
-     * Set parent gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
-
     /**
      * @return string
      */
