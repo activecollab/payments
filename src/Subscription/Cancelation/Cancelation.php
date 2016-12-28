@@ -22,7 +22,7 @@ use InvalidArgumentException;
  */
 class Cancelation implements CancelationInterface
 {
-    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Timestamp, ActiveCollab\Payments\Common\Traits\OurIdentifier, SubscriptionEventImplementation;
+    use GatewayedObject, TimestampedObject, InternallyIdentifiedObject, SubscriptionEventImplementation;
 
     /**
      * Construct a new refund instance.

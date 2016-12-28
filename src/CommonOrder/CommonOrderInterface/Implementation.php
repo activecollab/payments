@@ -10,8 +10,8 @@ declare (strict_types = 1);
 
 namespace ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
@@ -21,22 +21,12 @@ use InvalidArgumentException;
  */
 trait Implementation
 {
-    use InternallyIdentifiedObject;
+    use InternallyIdentifiedObject, TimestampedObject;
 
     /**
      * @var string
      */
     private $reference;
-
-    /**
-     * @var DateTimeValueInterface
-     */
-    private $timestamp;
-
-    /**
-     * @var string
-     */
-    private $our_identifier = '';
 
     /**
      * @var float
@@ -74,16 +64,6 @@ trait Implementation
     public function getCustomer()
     {
         return $this->customer;
-    }
-
-    /**
-     * Return date and time when this order was made.
-     *
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp()
-    {
-        return $this->timestamp;
     }
 
     /**

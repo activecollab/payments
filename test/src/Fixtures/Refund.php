@@ -25,7 +25,7 @@ use RuntimeException;
  */
 class Refund implements RefundInterface
 {
-    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Reference, ActiveCollab\Payments\Common\Traits\Timestamp, ActiveCollab\Payments\Common\Traits\OurIdentifier;
+    use GatewayedObject, ReferencedObject, TimestampedObject, InternallyIdentifiedObject;
 
     /**
      * @var string

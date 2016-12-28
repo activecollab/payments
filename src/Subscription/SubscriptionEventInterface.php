@@ -6,18 +6,18 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
-interface SubscriptionEventInterface extends GatewayedObjectInterface
+interface SubscriptionEventInterface extends GatewayedObjectInterface, TimestampedObjectInterface
 {
     /**
      * Set parent gateway.
@@ -38,9 +38,4 @@ interface SubscriptionEventInterface extends GatewayedObjectInterface
      * @return SubscriptionInterface
      */
     public function getSubscription();
-
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
 }

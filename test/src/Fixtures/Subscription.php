@@ -21,7 +21,7 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use ActiveCollab\Payments\Common\Traits\Gateway, CommonOrderInterfaceImplementation;
+    use GatewayedObject, CommonOrderInterfaceImplementation;
 
     /**
      * Construct a new order instance.

@@ -21,7 +21,7 @@ use InvalidArgumentException;
  */
 class Rebill implements RebillInterface
 {
-    use ActiveCollab\Payments\Common\Traits\Gateway, ActiveCollab\Payments\Common\Traits\Timestamp, SubscriptionEventImplementation;
+    use GatewayedObject, TimestampedObject, SubscriptionEventImplementation;
 
     /**
      * Construct a new refund instance.
