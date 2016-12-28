@@ -8,10 +8,11 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\Subscription\FailedPayment;
+namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;

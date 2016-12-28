@@ -8,7 +8,9 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\OrderItem;
+namespace ActiveCollab\Payments\Test\Fixtures;
+
+use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 
 /**
  * @package ActiveCollab\Payments\OrderItem

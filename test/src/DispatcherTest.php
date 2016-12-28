@@ -14,7 +14,7 @@ use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\OrderItem\OrderItem;
+use ActiveCollab\Payments\Test\Fixtures\OrderItem;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
