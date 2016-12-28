@@ -13,7 +13,7 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
+use ActiveCollab\Payments\Test\Fixtures\Traits\SubscriptionEvent;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use InvalidArgumentException;
@@ -23,7 +23,7 @@ use InvalidArgumentException;
  */
 class FailedPayment implements FailedPaymentInterface
 {
-    use GatewayedObject, TimestampedObject, SubscriptionEventImplementation;
+    use GatewayedObject, TimestampedObject, SubscriptionEvent;
 
     /**
      * Construct a new refund instance.

@@ -8,7 +8,7 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+namespace ActiveCollab\Payments\Test\Fixtures\Traits;
 
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
@@ -20,7 +20,7 @@ use InvalidArgumentException;
 /**
  * @package ActiveCollab\Payments\CommonOrder\CommonOrderInterface
  */
-trait Implementation
+trait CommonOrder
 {
     use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
 

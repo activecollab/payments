@@ -9,7 +9,7 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface\Implementation as CommonOrderInterfaceImplementation;
+use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
@@ -21,7 +21,7 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use GatewayedObject, CommonOrderInterfaceImplementation;
+    use GatewayedObject, CommonOrder;
 
     /**
      * Construct a new order instance.

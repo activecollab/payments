@@ -15,18 +15,12 @@ use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface\Implementation as GatewayInterfaceImplementation;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
-use ActiveCollab\Payments\Test\Fixtures\Cancelation;
-use ActiveCollab\Payments\Test\Fixtures\Change;
-use ActiveCollab\Payments\Test\Fixtures\FailedPayment;
-use ActiveCollab\Payments\Test\Fixtures\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use BadMethodCallException;
 use InvalidArgumentException;
 
 /**
@@ -34,8 +28,6 @@ use InvalidArgumentException;
  */
 class ExampleOffsiteGateway implements GatewayInterface
 {
-    use GatewayInterfaceImplementation;
-
     /**
      * @var OrderInterface[]
      */
@@ -56,7 +48,30 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     public function __construct(DispatcherInterface &$dispatcher)
     {
-        $this->setDispatcher($dispatcher);
+        $this->setDispatcherByReference($dispatcher);
+    }
+
+    /**
+     * @var DispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDispatcher(): DispatcherInterface
+    {
+        return $this->dispatcher;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function &setDispatcherByReference(DispatcherInterface $gateway): GatewayInterface
+    {
+        $this->dispatcher = $gateway;
+
+        return $this;
     }
 
     /**

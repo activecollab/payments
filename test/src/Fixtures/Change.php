@@ -13,7 +13,7 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
-use ActiveCollab\Payments\Subscription\SubscriptionEvent\Implementation as SubscriptionEventImplementation;
+use ActiveCollab\Payments\Test\Fixtures\Traits\SubscriptionEvent;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
@@ -24,7 +24,7 @@ use InvalidArgumentException;
  */
 class Change implements ChangeInterface
 {
-    use GatewayedObject, TimestampedObject, InternallyIdentifiedObject, SubscriptionEventImplementation;
+    use GatewayedObject, TimestampedObject, InternallyIdentifiedObject, SubscriptionEvent;
 
     /**
      * Construct a new refund instance.

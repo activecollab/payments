@@ -8,7 +8,7 @@
 
 declare (strict_types = 1);
 
-namespace ActiveCollab\Payments\Subscription\SubscriptionEvent;
+namespace ActiveCollab\Payments\Test\Fixtures\Traits;
 
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
@@ -17,7 +17,7 @@ use RuntimeException;
 /**
  * @package ActiveCollab\Payments\Subscription\SubscriptionEvent
  */
-trait Implementation
+trait SubscriptionEvent
 {
     /**
      * @var string

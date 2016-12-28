@@ -30,13 +30,7 @@ interface GatewayInterface
      *
      * @return DispatcherInterface
      */
-    public function &getDispatcher(): DispatcherInterface;
-
-    /**
-     * @param  DispatcherInterface $gateway
-     * @return GatewayInterface
-     */
-    public function &setDispatcher(DispatcherInterface $gateway): GatewayInterface;
+    public function getDispatcher(): DispatcherInterface;
 
     /**
      * Return gateway identifier.

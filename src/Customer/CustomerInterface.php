@@ -69,14 +69,6 @@ interface CustomerInterface extends UserInterface
     public function getOrganisationName();
 
     /**
-     * Set customer's organisation name.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOrganisationName($value);
-
-    /**
      * Return customer's address.
      *
      * @return AddressInterface
@@ -84,25 +76,9 @@ interface CustomerInterface extends UserInterface
     public function getAddresss();
 
     /**
-     * Set customer's address.
-     *
-     * @param  AddressInterface $value
-     * @return $this
-     */
-    public function &setAddress(AddressInterface $value);
-
-    /**
      * Return customer's phone number.
      *
      * @return string
      */
     public function getPhoneNumber();
-
-    /**
-     * Set phone number.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setPhoneNumber($value);
 }
