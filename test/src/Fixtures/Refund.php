@@ -9,14 +9,14 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Order\OrderInterface;
-use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 use RuntimeException;
 

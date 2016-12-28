@@ -6,16 +6,16 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Test\Fixtures\Traits\SubscriptionEvent;
-use ActiveCollab\Payments\Common\Traits\GatewayedObject;
-use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use InvalidArgumentException;
 
 /**

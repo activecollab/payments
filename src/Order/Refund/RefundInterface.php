@@ -6,18 +6,15 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Order\Refund;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
-use MongoDB\BSON\Timestamp;
 
 /**
  * @package ActiveCollab\Payments\Refund

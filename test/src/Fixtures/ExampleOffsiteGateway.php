@@ -9,8 +9,8 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValue;
-use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;

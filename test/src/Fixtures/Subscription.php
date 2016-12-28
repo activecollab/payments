@@ -9,10 +9,10 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use Carbon\Carbon;
 use InvalidArgumentException;
 

@@ -152,7 +152,7 @@ interface GatewayInterface
      * @param  PreOrderInterface      $pre_order
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
-     * @param  DateValueInterface $first_billing_date
+     * @param  DateValueInterface     $first_billing_date
      * @return CommonOrderInterface
      */
     public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface;
