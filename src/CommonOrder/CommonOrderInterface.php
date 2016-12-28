@@ -38,12 +38,4 @@ interface CommonOrderInterface extends ReferencedObjectInterface, InternallyIden
      * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
      */
     public function getItems();
-
-    /**
-     * Set our identifier.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value);
 }

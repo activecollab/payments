@@ -44,8 +44,8 @@ class Subscription implements SubscriptionInterface
         $this->validateItems($items);
 
         $this->customer = $customer;
-        $this->reference = $reference;
-        $this->timestamp = $timestamp;
+        $this->setReference($reference);
+        $this->setTimestamp($timestamp);
         $this->period = $period;
         $this->currency = $currency;
         $this->total = (float) $total;

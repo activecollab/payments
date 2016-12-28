@@ -29,4 +29,15 @@ trait ReferencedObject
     {
         return $this->reference;
     }
+
+    /**
+     * @param  string $reference
+     * @return $this
+     */
+    protected function &setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
 }

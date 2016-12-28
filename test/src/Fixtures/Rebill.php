@@ -39,8 +39,8 @@ class Rebill implements RebillInterface
             throw new InvalidArgumentException('Subscription # is required');
         }
 
-        $this->subscription_reference = $subscription_reference;
-        $this->timestamp = $timestamp;
+        $this->setSubscriptionReference($subscription_reference);
+        $this->setTimestamp($timestamp);
         $this->next_billing_timestamp = $next_billing_timestamp;
         $this->setGatewayByReference($gateway);
     }

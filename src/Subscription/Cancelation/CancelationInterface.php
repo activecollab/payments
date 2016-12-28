@@ -18,11 +18,4 @@ use ActiveCollab\Payments\Subscription\SubscriptionEventInterface;
  */
 interface CancelationInterface extends SubscriptionEventInterface, InternallyIdentifiedObjectInterface
 {
-    /**
-     * Set our identifier.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value);
 }

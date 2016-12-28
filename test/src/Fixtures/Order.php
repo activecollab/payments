@@ -40,7 +40,7 @@ class Order implements OrderInterface
 
         $this->customer = $customer;
         $this->reference = $reference;
-        $this->timestamp = $timestamp;
+        $this->setTimestamp($timestamp);
         $this->currency = $currency;
         $this->total = (float) $total;
         $this->items = $items;

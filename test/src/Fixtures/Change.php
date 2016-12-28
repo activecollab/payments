@@ -39,8 +39,8 @@ class Change implements ChangeInterface
             throw new InvalidArgumentException('Subscription # is required');
         }
 
-        $this->subscription_reference = $subscription_reference;
-        $this->timestamp = $timestamp;
+        $this->setSubscriptionReference($subscription_reference);
+        $this->setTimestamp($timestamp);
         $this->setGatewayByReference($gateway);
     }
 }

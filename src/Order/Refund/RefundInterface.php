@@ -55,14 +55,6 @@ interface RefundInterface extends GatewayedObjectInterface, ReferencedObjectInte
     public function &setItems(array $value);
 
     /**
-     * Set our identifier.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value);
-
-    /**
      * Return true if this refund is partial.
      *
      * @return bool

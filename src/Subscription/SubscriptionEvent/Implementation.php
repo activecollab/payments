@@ -35,6 +35,17 @@ trait Implementation
     }
 
     /**
+     * @param  string $reference
+     * @return $this
+     */
+    protected function &setSubscriptionReference($reference)
+    {
+        $this->subscription_reference = $reference;
+
+        return $this;
+    }
+
+    /**
      * Return subscription by subscription reference.
      *
      * @return SubscriptionInterface

@@ -11,6 +11,7 @@ declare (strict_types = 1);
 namespace ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
@@ -21,12 +22,7 @@ use InvalidArgumentException;
  */
 trait Implementation
 {
-    use InternallyIdentifiedObject, TimestampedObject;
-
-    /**
-     * @var string
-     */
-    private $reference;
+    use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
 
     /**
      * @var float
@@ -47,16 +43,6 @@ trait Implementation
      * @var OrderItemInterface[]
      */
     private $items;
-
-    /**
-     * Return order reference (order ID).
-     *
-     * @return string
-     */
-    public function getReference()
-    {
-        return $this->reference;
-    }
 
     /**
      * @return CustomerInterface

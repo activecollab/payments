@@ -65,9 +65,9 @@ class Refund implements RefundInterface
             throw new InvalidArgumentException('Empty or credit orders are not supported');
         }
 
-        $this->reference = $refund_reference;
+        $this->setReference($refund_reference);
         $this->order_reference = $order_reference;
-        $this->timestamp = $timestamp;
+        $this->setTimestamp($timestamp);
         $this->total = (float) $total;
         $this->setGatewayByReference($gateway);
     }
