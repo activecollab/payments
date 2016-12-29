@@ -34,7 +34,7 @@ trait ReferencedObject
      * @param  string $reference
      * @return $this
      */
-    protected function &setReference($reference)
+    public function &setReference($reference)
     {
         $this->reference = $reference;
 
