@@ -29,9 +29,4 @@ class DiscountCalculatorTest extends TestCase
     {
         $this->assertSame(25.00, (new Discount('$25 off', 25, DiscountInterface::VALUE))->calculateForAmount(100));
     }
-
-    public function testDiscountAmountLargerThanAmount()
-    {
-        $this->assertSame(100.00, (new Discount('$125 off', 125, DiscountInterface::VALUE, 100.0))->calculateForAmount(100));
-    }
 }

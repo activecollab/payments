@@ -43,7 +43,7 @@ class Discount implements DiscountInterface
         $this->validateDiscountName($name);
         $this->validateDiscountType($type);
         $this->validateDiscountValue($type, $value);
-        $this->validateMaxDiscountAmount($max_amount);
+        $this->validateMaxDiscountAmount($type, $max_amount);
 
         $this->name = $name;
         $this->type = $type;

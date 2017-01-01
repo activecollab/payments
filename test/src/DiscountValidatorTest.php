@@ -94,4 +94,13 @@ class DiscountValidatorTest extends TestCase
             [0]
         ];
     }
+
+    /**
+     * @expectedException \LogicException
+     * @expectedExceptionMessage Max amount is available only for percent discounts.
+     */
+    public function testMaxAmountIsNotAvailableForAmountDiscounts()
+    {
+        new Discount('No discount', 15, DiscountInterface::VALUE, 100.00);
+    }
 }

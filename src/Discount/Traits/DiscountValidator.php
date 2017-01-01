@@ -12,6 +12,7 @@ namespace ActiveCollab\Payments\Discount\Traits;
 
 use ActiveCollab\Payments\Discount\DiscountInterface;
 use InvalidArgumentException;
+use LogicException;
 
 trait DiscountValidator
 {
@@ -42,10 +43,16 @@ trait DiscountValidator
         }
     }
 
-    protected function validateMaxDiscountAmount(?float $max_amount)
+    protected function validateMaxDiscountAmount(string $type, ?float $max_amount)
     {
-        if ($max_amount !== null && $max_amount <= 0) {
-            throw new InvalidArgumentException('Maximum discount amount can be NULL or amount larger than 0.');
+        if ($max_amount !== null) {
+            if ($type === DiscountInterface::VALUE) {
+                throw new LogicException('Max amount is available only for percent discounts.');
+            }
+
+            if ($max_amount <= 0) {
+                throw new InvalidArgumentException('Maximum discount amount can be NULL or amount larger than 0.');
+            }
         }
     }
 }
