@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8006460847bc5aa870ca701189726abd",
-    "content-hash": "834ee54c76b82691f014cad0add181d3",
+    "hash": "cde9608216401c4f552e9fe12cd3cc6e",
+    "content-hash": "7a72205ebcb505dc1a62e4c0ed58b211",
     "packages": [
         {
             "name": "activecollab/datevalue",
@@ -152,24 +152,25 @@
         },
         {
             "name": "activecollab/user",
-            "version": "3.0.0",
+            "version": "v4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/user.git",
-                "reference": "9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b"
+                "reference": "34fb8e28ffaab2698b21088be5fc36449f7a1c60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/user/zipball/9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b",
-                "reference": "9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b",
+                "url": "https://api.github.com/repos/activecollab/user/zipball/34fb8e28ffaab2698b21088be5fc36449f7a1c60",
+                "reference": "34fb8e28ffaab2698b21088be5fc36449f7a1c60",
                 "shasum": ""
             },
             "require": {
                 "activecollab/humannameparser": "^1.0",
                 "activecollab/object": "^1.0",
-                "php": ">=5.6.0"
+                "php": ">=7.1"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
                 "phpunit/phpunit": "^5.0"
             },
             "type": "library",
@@ -194,7 +195,7 @@
             "keywords": [
                 "activecollab"
             ],
-            "time": "2016-07-14 20:42:29"
+            "time": "2017-01-01 16:57:30"
         },
         {
             "name": "nesbot/carbon",
@@ -2225,7 +2226,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "activecollab/user": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
