@@ -31,5 +31,13 @@ interface OrderItemInterface
 
     public function getCalculationPrecision(): int;
 
-    public function calculateAmounts(): CalculationInterface;
+    /**
+     * Calculate totals, amounts, and taxes, and return calculation instance.
+     *
+     * $bulk should be set to TRUE when you are iterating over all order items and calling calculate method.
+     *
+     * @param  bool                 $bulk
+     * @return CalculationInterface
+     */
+    public function calculateAmounts(bool $bulk = false): CalculationInterface;
 }

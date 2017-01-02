@@ -99,7 +99,7 @@ class OrderItem implements OrderItemInterface
         return 2;
     }
 
-    public function calculateAmounts(): CalculationInterface
+    public function calculateAmounts(bool $bulk = false): CalculationInterface
     {
         return (new Calculator())
             ->calculate($this, $this->getCalculationPrecision());
