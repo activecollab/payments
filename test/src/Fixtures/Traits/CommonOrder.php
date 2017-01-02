@@ -19,9 +19,6 @@ use ActiveCollab\Payments\Order\CurrencyInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\CommonOrder\CommonOrderInterface
- */
 trait CommonOrder
 {
     use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
@@ -46,17 +43,11 @@ trait CommonOrder
      */
     private $items;
 
-    /**
-     * @return CustomerInterface
-     */
-    public function getCustomer()
+    public function getCustomer(): CustomerInterface
     {
         return $this->customer;
     }
 
-    /**
-     * @return CurrencyInterface
-     */
     public function getCurrency(): CurrencyInterface
     {
         return $this->currency;

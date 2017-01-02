@@ -13,21 +13,17 @@ namespace ActiveCollab\Payments\CommonOrder;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\CurrencyInterface;
 
 /**
  * @package ActiveCollab\Payments\CommonOrder
  */
 interface CommonOrderInterface extends ReferencedObjectInterface, InternallyIdentifiedObjectInterface, TimestampedObjectInterface
 {
-    /**
-     * @return \ActiveCollab\Payments\Customer\CustomerInterface
-     */
-    public function getCustomer();
+    public function getCustomer(): CustomerInterface;
 
-    /**
-     * @return string
-     */
-    public function getCurrency();
+    public function getCurrency(): CurrencyInterface;
 
     public function getSubtotalAmount(): float;
 
