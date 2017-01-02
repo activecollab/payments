@@ -71,7 +71,7 @@ class DiscountValidatorTest extends TestCase
         return [
             [-15],
             [-0.25],
-            [0]
+            [0],
         ];
     }
 
@@ -91,7 +91,7 @@ class DiscountValidatorTest extends TestCase
         return [
             [-15],
             [-0.25],
-            [0]
+            [0],
         ];
     }
 

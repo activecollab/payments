@@ -10,61 +10,98 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Payments\Discount\DiscountInterface;
+use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
+use ActiveCollab\Payments\OrderItem\Calculator\Calculator;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use InvalidArgumentException;
 
-/**
- * @package ActiveCollab\Payments\OrderItem
- */
 class OrderItem implements OrderItemInterface
 {
-    /**
-     * @var string
-     */
-    public $description;
+    private $description;
+    private $quantity;
+    private $unit_cost;
+    private $first_tax_rate;
+    private $second_tax_rate;
+    private $second_tax_is_compound;
 
     /**
-     * @var float|int
+     * @var DiscountInterface|null
      */
-    private $quantity = 1;
+    private $discount;
 
-    /**
-     * @var float
-     */
-    private $unit_cost = 0.0;
-
-    /**
-     * @param string    $description
-     * @param float|int $quantity
-     * @param float     $unit_cost
-     */
-    public function __construct($description, $quantity, $unit_cost)
+    public function __construct(string $description, float $quantity, float $unit_cost, float $first_tax_rate = null, float $second_tax_rate = null, bool $second_tax_is_compound = null)
     {
-        $this->description = trim($description);
+        if (empty($description)) {
+            throw new InvalidArgumentException('Discount is required.');
+        }
+
+        if ($quantity <= 0) {
+            throw new InvalidArgumentException('Quantity is required.');
+        }
+
+        if ($unit_cost <= 0) {
+            throw new InvalidArgumentException('Unit cost is required.');
+        }
+
+        $this->description = $description;
         $this->quantity = $quantity;
         $this->unit_cost = $unit_cost;
+        $this->first_tax_rate = $first_tax_rate;
+        $this->second_tax_rate = $second_tax_rate;
+        $this->second_tax_is_compound = $second_tax_is_compound;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * @return float|int
-     */
-    public function getQuantity()
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    /**
-     * @return float
-     */
-    public function getUnitCost()
+    public function getUnitCost(): float
     {
         return $this->unit_cost;
+    }
+
+    public function getFirstTaxRate(): ?float
+    {
+        return $this->first_tax_rate;
+    }
+
+    public function getSecondTaxRate(): ?float
+    {
+        return $this->second_tax_rate;
+    }
+
+    public function getSecondTaxIsCompound(): ?bool
+    {
+        return $this->second_tax_is_compound;
+    }
+
+    public function getDiscount(): ?DiscountInterface
+    {
+        return $this->discount;
+    }
+
+    public function &setDiscount(DiscountInterface $discount = null): OrderItemInterface
+    {
+        $this->discount = $discount;
+
+        return $this;
+    }
+
+    public function getCalculationPrecision(): int
+    {
+        return 2;
+    }
+
+    public function calculateAmounts(): CalculationInterface
+    {
+        return (new Calculator())
+            ->calculate($this, $this->getCalculationPrecision());
     }
 }

@@ -10,23 +10,26 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\OrderItem;
 
-/**
- * @package ActiveCollab\Payments\OrderItem
- */
+use ActiveCollab\Payments\Discount\DiscountInterface;
+use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
+
 interface OrderItemInterface
 {
-    /**
-     * @return string
-     */
-    public function getDescription();
+    public function getDescription(): string;
 
-    /**
-     * @return float
-     */
-    public function getQuantity();
+    public function getQuantity(): float;
 
-    /**
-     * @return float
-     */
-    public function getUnitCost();
+    public function getUnitCost(): float;
+
+    public function getFirstTaxRate(): ?float;
+
+    public function getSecondTaxRate(): ?float;
+
+    public function getSecondTaxIsCompound(): ?bool;
+
+    public function getDiscount(): ?DiscountInterface;
+
+    public function getCalculationPrecision(): int;
+
+    public function calculateAmounts(): CalculationInterface;
 }

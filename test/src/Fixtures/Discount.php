@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
-use ActiveCollab\Payments\Discount\Traits\DiscountCalculator;
 use ActiveCollab\Payments\Discount\DiscountInterface;
+use ActiveCollab\Payments\Discount\Traits\DiscountCalculator;
 use ActiveCollab\Payments\Discount\Traits\DiscountValidator;
 
 class Discount implements DiscountInterface
@@ -38,7 +38,7 @@ class Discount implements DiscountInterface
      */
     private $max_amount;
 
-    public function __construct(string $name, float $value, string $type, float $max_amount = null)
+    public function __construct(string $name, float $value, string $type = DiscountInterface::PERCENT, float $max_amount = null)
     {
         $this->validateDiscountName($name);
         $this->validateDiscountType($type);
