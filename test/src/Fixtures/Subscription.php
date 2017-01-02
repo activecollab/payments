@@ -11,6 +11,7 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use Carbon\Carbon;
@@ -62,7 +63,7 @@ class Subscription implements SubscriptionInterface
      *
      * @return string
      */
-    public function getPeriod()
+    public function getBillingPeriod(): string
     {
         return $this->period;
     }
@@ -72,12 +73,7 @@ class Subscription implements SubscriptionInterface
      */
     private $next_billing_timestamp;
 
-    /**
-     * Return next billing timestamp.
-     *
-     * @return DateTimeValueInterface
-     */
-    public function getNextBillingTimestamp()
+    public function getNextBillingTimestamp(): DateTimeValueInterface
     {
         if (empty($this->next_billing_timestamp)) {
             $this->next_billing_timestamp = $this->calculateNextBillingTimestamp($this->getTimestamp());
@@ -89,10 +85,10 @@ class Subscription implements SubscriptionInterface
     /**
      * Set next billing timestamp.
      *
-     * @param  DateTimeValueInterface $value
-     * @return $this
+     * @param  DateTimeValueInterface      $value
+     * @return SubscriptionInterface|$this
      */
-    public function &setNextBillingTimestamp(DateTimeValueInterface $value)
+    public function &setNextBillingTimestamp(DateTimeValueInterface $value): SubscriptionInterface
     {
         $this->next_billing_timestamp = $value;
 
@@ -105,14 +101,14 @@ class Subscription implements SubscriptionInterface
      * @param  DateTimeValueInterface $reference
      * @return DateTimeValueInterface
      */
-    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference)
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference): DateTimeValueInterface
     {
         /** @var DateTimeValueInterface|Carbon $result */
         $result = clone $reference;
 
-        if ($this->getPeriod() == self::MONTHLY) {
+        if ($this->getBillingPeriod() == self::MONTHLY) {
             $result->addMonth();
-        } elseif ($this->getPeriod() == self::YEARLY) {
+        } elseif ($this->getBillingPeriod() == self::YEARLY) {
             $result->addYear();
         }
 

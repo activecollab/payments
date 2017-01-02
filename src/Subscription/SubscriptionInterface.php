@@ -14,34 +14,16 @@ use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 
-/**
- * @package ActiveCollab\Payments\Subscription
- */
 interface SubscriptionInterface extends CommonOrderInterface, GatewayedObjectInterface
 {
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
 
-    /**
-     * Return next billing timestamp.
-     *
-     * @return DateTimeValueInterface
-     */
-    public function getNextBillingTimestamp();
+    public function getBillingPeriod(): string;
 
-    /**
-     * Set next billing timestamp.
-     *
-     * @param  DateTimeValueInterface $value
-     * @return $this
-     */
-    public function &setNextBillingTimestamp(DateTimeValueInterface $value);
+    public function getNextBillingTimestamp(): DateTimeValueInterface;
 
-    /**
-     * Calculate next billing period based on reference timestamp.
-     *
-     * @param  DateTimeValueInterface $reference
-     * @return DateTimeValueInterface
-     */
-    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference);
+    public function &setNextBillingTimestamp(DateTimeValueInterface $value): SubscriptionInterface;
+
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference): DateTimeValueInterface;
 }
