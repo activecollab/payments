@@ -143,7 +143,9 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
     {
-        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, 'USD', 200, []);
+        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, new Currency('USD'), [
+            new OrderItem('SaaS', 1, 200),
+        ]);
     }
 
     /**
@@ -216,7 +218,7 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotal(), $this);
+        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotalAmount(), $this);
 
         $this->refunds[$refund->getReference()] = $refund;
 
@@ -375,15 +377,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
     {
-        return new Subscription(
-            new Customer('Test', 'test@example.com', false),
-            '2016-02-03',
-            new DateTimeValue(),
-            SubscriptionInterface::MONTHLY,
-            'USD',
-            200,
-            []
-        );
+        $customer = new Customer('Test', 'test@example.com', false);
+
+        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::MONTHLY, new Currency('USD'), [
+            new OrderItem('SaaS', 1, 200),
+        ]);
     }
 
     /**

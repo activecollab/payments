@@ -14,5 +14,5 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 
 interface CalculatorInterface
 {
-    public function calculate(OrderItemInterface $order_item, int $decimal_spaces = 2): CalculationInterface;
+    public function calculate(OrderItemInterface $order_item, int $calculation_precision = 2): CalculationInterface;
 }

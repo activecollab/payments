@@ -14,9 +14,9 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 
 class Calculator implements CalculatorInterface
 {
-    public function calculate(OrderItemInterface $order_item, int $decimal_spaces = 2): CalculationInterface
+    public function calculate(OrderItemInterface $order_item, int $calculation_precision = 2): CalculationInterface
     {
-        $subtotal_amount = $this->calculateSubtotal($order_item->getUnitCost(), $order_item->getQuantity(), $decimal_spaces);
+        $subtotal_amount = $this->calculateSubtotal($order_item->getUnitCost(), $order_item->getQuantity(), $calculation_precision);
 
         $discount = $order_item->getDiscount();
 

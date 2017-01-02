@@ -21,6 +21,7 @@ use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\Payments\Test\Fixtures\Currency;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use ActiveCollab\Payments\Test\Fixtures\Order;
@@ -67,24 +68,14 @@ class DispatcherTest extends TestCase
         $this->gateway = new ExampleOffsiteGateway($this->dispatcher);
         $this->customer = new Customer('John Doe', 'john@example.com');
         $this->timestamp = new DateTimeValue('2015-10-15');
-        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
+        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', [
             new OrderItem('Expensive product', 1, 1000),
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', 25, [
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, new Currency('USD'), [
             new OrderItem('Monthly SaaS cost', 1, 25),
         ]);
-    }
-
-    /**
-     * Tear down test environment.
-     */
-    public function tearDown()
-    {
-        $this->gateway = $this->customer = $this->timestamp = $this->order = null;
-
-        parent::tearDown();
     }
 
     /**
@@ -120,7 +111,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertEquals($refund->getTotal(), $order->getTotal());
+            $this->assertEquals($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertFalse($refund->isPartial());
 
@@ -144,7 +135,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
+            $this->assertGreaterThan($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertInternalType('array', $refund->getItems());
             $this->assertCount(1, $refund->getItems());

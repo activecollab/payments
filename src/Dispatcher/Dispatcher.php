@@ -79,7 +79,7 @@ class Dispatcher implements DispatcherInterface
      */
     public function triggerOrderRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
-        if ($order->getTotal() != $refund->getTotal()) {
+        if ($order->getTotalAmount() != $refund->getTotal()) {
             throw new LogicException('Refunds needs to be full');
         }
 
@@ -93,7 +93,7 @@ class Dispatcher implements DispatcherInterface
      */
     public function triggerOrderPartiallyRefunded(GatewayInterface $gateway, OrderInterface $order, RefundInterface $refund)
     {
-        if ($order->getTotal() <= $refund->getTotal()) {
+        if ($order->getTotalAmount() <= $refund->getTotal()) {
             throw new LogicException("Refunded amount needs to be less than order's total amount");
         }
 

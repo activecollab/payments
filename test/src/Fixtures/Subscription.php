@@ -11,6 +11,7 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\CurrencyInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
@@ -31,17 +32,15 @@ class Subscription implements SubscriptionInterface
      * @param string                 $reference
      * @param DateTimeValueInterface $timestamp
      * @param string                 $period
-     * @param string                 $currency
-     * @param float                  $total
+     * @param CurrencyInterface      $currency
      * @param array                  $items
      */
-    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period, $currency, $total, array $items)
+    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period, CurrencyInterface $currency, array $items)
     {
         $this->validateCustomer($customer);
         $this->validateOrderId($reference);
         $this->validatePeriod($period);
         $this->validateCurrency($currency);
-        $this->validateTotal($total);
         $this->validateItems($items);
 
         $this->customer = $customer;
@@ -49,7 +48,6 @@ class Subscription implements SubscriptionInterface
         $this->setTimestamp($timestamp);
         $this->period = $period;
         $this->currency = $currency;
-        $this->total = (float) $total;
         $this->items = $items;
     }
 
@@ -122,8 +120,8 @@ class Subscription implements SubscriptionInterface
      */
     protected function validatePeriod($value)
     {
-        if ($value != self::MONTHLY && $value != self::YEARLY) {
-            throw new InvalidArgumentException('Monthly and yearly periods are supported');
+        if (!in_array($value, self::BILLING_PERIODS)) {
+            throw new InvalidArgumentException('Monthly and yearly periods are supported.');
         }
     }
 }

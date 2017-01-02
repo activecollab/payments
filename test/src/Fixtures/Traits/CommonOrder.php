@@ -14,6 +14,8 @@ use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\Calculator\CalculationInterface;
+use ActiveCollab\Payments\Order\CurrencyInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 
@@ -25,14 +27,14 @@ trait CommonOrder
     use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
 
     /**
-     * @var float
+     * @var CalculationInterface
      */
-    private $total = 0.0;
+    private $calculation;
 
     /**
-     * @var string
+     * @var CurrencyInterface
      */
-    private $currency = 'USD';
+    private $currency;
 
     /**
      * @var CustomerInterface
@@ -53,19 +55,41 @@ trait CommonOrder
     }
 
     /**
-     * @return string
+     * @return CurrencyInterface
      */
-    public function getCurrency()
+    public function getCurrency(): CurrencyInterface
     {
         return $this->currency;
     }
 
-    /**
-     * @return float
-     */
-    public function getTotal()
+    public function getSubtotalAmount(): float
     {
-        return $this->total;
+        return $this->calculation->getSubtotal();
+    }
+
+    public function getDiscountAmount(): float
+    {
+        return $this->calculation->getDiscount();
+    }
+
+    public function getFirstTaxAmount(): float
+    {
+        return $this->calculation->getFirstTax();
+    }
+
+    public function getSecondTaxAmount(): float
+    {
+        return $this->calculation->getSecondTax();
+    }
+
+    public function getTaxAmount(): float
+    {
+        return $this->calculation->getTax();
+    }
+
+    public function getTotalAmount(): float
+    {
+        return $this->calculation->getTotal();
     }
 
     /**
@@ -109,18 +133,6 @@ trait CommonOrder
     {
         if (empty($value)) {
             throw new InvalidArgumentException('Currency code is required');
-        }
-    }
-
-    /**
-     * Validate if we got good total order value.
-     *
-     * @param float $value
-     */
-    protected function validateTotal($value)
-    {
-        if ($value <= 0) {
-            throw new InvalidArgumentException('Empty or credit orders are not supported');
         }
     }
 

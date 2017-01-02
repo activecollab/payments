@@ -19,6 +19,8 @@ interface SubscriptionInterface extends CommonOrderInterface, GatewayedObjectInt
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
 
+    const BILLING_PERIODS = [self::MONTHLY, self::YEARLY];
+
     public function getBillingPeriod(): string;
 
     public function getNextBillingTimestamp(): DateTimeValueInterface;

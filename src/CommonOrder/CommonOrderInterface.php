@@ -29,10 +29,17 @@ interface CommonOrderInterface extends ReferencedObjectInterface, InternallyIden
      */
     public function getCurrency();
 
-    /**
-     * @return float
-     */
-    public function getTotal();
+    public function getSubtotalAmount(): float;
+
+    public function getDiscountAmount(): float;
+
+    public function getFirstTaxAmount(): float;
+
+    public function getSecondTaxAmount(): float;
+
+    public function getTaxAmount(): float;
+
+    public function getTotalAmount(): float;
 
     /**
      * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]

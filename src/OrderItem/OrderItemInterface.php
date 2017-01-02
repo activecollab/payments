@@ -32,7 +32,17 @@ interface OrderItemInterface
 
     public function getDiscount(): ?DiscountInterface;
 
-    public function getCalculationPrecision(): int;
+    public function getSubtotalAmount(): float;
+
+    public function getDiscountAmount(): float;
+
+    public function getFirstTaxAmount(): float;
+
+    public function getSecondTaxAmount(): float;
+
+    public function getTaxAmount(): float;
+
+    public function getTotalAmount(): float;
 
     /**
      * Calculate totals, amounts, and taxes, and return calculation instance.

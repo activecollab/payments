@@ -12,6 +12,7 @@ namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Test\Fixtures\Currency;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\OrderItem;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
@@ -57,7 +58,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingCanBeSet()
     {
-        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
+        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, new Currency('USD'), [
             new OrderItem('SaaS', 1, 25),
         ]);
         $monthly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-11-11'));
@@ -67,7 +68,7 @@ class SubscriptionTest extends TestCase
         $this->assertInstanceOf(DateTimeValue::class, $next_billing_timestamp);
         $this->assertEquals('2015-11-11', $next_billing_timestamp->format('Y-m-d'));
 
-        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
+        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, new Currency('USD'), [
             new OrderItem('SaaS', 1, 25),
         ]);
         $yearly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-12-13'));
@@ -83,7 +84,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForMonthlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, new Currency('USD'), [
             new OrderItem('SaaS', 1, 25),
         ]);
 
@@ -98,7 +99,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForYearlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, new Currency('USD'), [
             new OrderItem('SaaS', 1, 25),
         ]);
 

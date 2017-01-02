@@ -117,14 +117,38 @@ class OrderItem implements OrderItemInterface
         return $this->second_tax_is_compound;
     }
 
-    public function getCalculationPrecision(): int
+    public function getSubtotalAmount(): float
     {
-        return 2;
+        return $this->calculateAmounts()->getSubtotal();
+    }
+
+    public function getDiscountAmount(): float
+    {
+        return $this->calculateAmounts()->getDiscount();
+    }
+
+    public function getFirstTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getFirstTax();
+    }
+
+    public function getSecondTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getSecondTax();
+    }
+
+    public function getTaxAmount(): float
+    {
+        return $this->calculateAmounts()->getTax();
+    }
+
+    public function getTotalAmount(): float
+    {
+        return $this->calculateAmounts()->getTotal();
     }
 
     public function calculateAmounts(bool $bulk = false): CalculationInterface
     {
-        return (new Calculator())
-            ->calculate($this, $this->getCalculationPrecision());
+        return (new Calculator())->calculate($this, 2);
     }
 }
