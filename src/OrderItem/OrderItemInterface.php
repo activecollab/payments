@@ -11,10 +11,13 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\OrderItem;
 
 use ActiveCollab\Payments\Discount\DiscountInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
 
 interface OrderItemInterface
 {
+    public function getOrder(): OrderInterface;
+
     public function getDescription(): string;
 
     public function getQuantity(): float;
