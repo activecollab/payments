@@ -17,16 +17,21 @@ class DiscountCalculatorTest extends TestCase
 {
     public function testPercentCalculator()
     {
-        $this->assertSame(25.00, (new Discount('25% off', 25, DiscountInterface::PERCENT))->calculateForAmount(100));
+        $this->assertSame(25.0, (new Discount('25% off', 25, DiscountInterface::PERCENT))->calculateForAmount(100));
     }
 
     public function testPercentUpToMaxAmount()
     {
-        $this->assertSame(100.00, (new Discount('25% off, up to $100', 25, DiscountInterface::PERCENT, 100.0))->calculateForAmount(1000));
+        $this->assertSame(100.0, (new Discount('25% off, up to $100', 25, DiscountInterface::PERCENT, 100.0))->calculateForAmount(1000));
     }
 
     public function testAmountCalculator()
     {
-        $this->assertSame(25.00, (new Discount('$25 off', 25, DiscountInterface::VALUE))->calculateForAmount(100));
+        $this->assertSame(25.0, (new Discount('$25 off', 25, DiscountInterface::VALUE))->calculateForAmount(100));
+    }
+
+    public function testAmountCantBeLargerThanOrderAmount()
+    {
+        $this->assertSame(5.0, (new Discount('$25 off', 25, DiscountInterface::VALUE))->calculateForAmount(5));
     }
 }

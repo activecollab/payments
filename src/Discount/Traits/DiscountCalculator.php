@@ -22,7 +22,13 @@ trait DiscountCalculator
             $discount = $this->calculateDiscountByRate($amount, $this->getValue());
         }
 
-        return $this->getDiscountUpToMaxAmount($discount, $this->getMaxAmount());
+        $max_amount = $this->getMaxAmount();
+
+        if (empty($max_amount)) {
+            $max_amount = $amount;
+        }
+
+        return $this->getDiscountUpToMaxAmount($discount, $max_amount);
     }
 
     private function calculateDiscountByRate(float $amount, float $discount_rate): float
