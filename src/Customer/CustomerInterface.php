@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\Customer;
 
 use ActiveCollab\Payments\Address\AddressInterface;
+use ActiveCollab\Payments\Address\CustomerAddressInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
@@ -29,7 +30,7 @@ interface CustomerInterface extends UserInterface
     public function getReference(GatewayInterface $gateway);
 
     /**
-     * Return our internal customer refernece (customer ID or code).
+     * Return our internal customer reference (customer ID or code).
      *
      * @return mixed
      */
@@ -41,7 +42,7 @@ interface CustomerInterface extends UserInterface
      * @param  GatewayInterface            $gateway
      * @return PaymentMethodInterface|null
      */
-    public function getDefaultPaymentMethod(GatewayInterface $gateway);
+    public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface;
 
     /**
      * Return all payment methods associated with this customer.
@@ -73,7 +74,7 @@ interface CustomerInterface extends UserInterface
      *
      * @return AddressInterface
      */
-    public function getAddresss();
+    public function getAddresss(): CustomerAddressInterface;
 
     /**
      * Return customer's phone number.

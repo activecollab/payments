@@ -28,7 +28,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     private $organisation_name = '';
 
     /**
-     * @var string
+     * @var AddressInterface
      */
     private $address = '';
 
@@ -38,10 +38,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     private $phone_number = '';
 
     /**
-     * Return customer's reference in the payment gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getReference(GatewayInterface $gateway)
     {
@@ -49,9 +46,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Return our internal customer refernece (customer ID or code).
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getOurReference()
     {
@@ -61,7 +56,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefaultPaymentMethod(GatewayInterface $gateway)
+    public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
     {
         return null;
     }
@@ -83,9 +78,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Return customer's organisation name (company, non-profit etc).
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getOrganisationName()
     {
@@ -93,10 +86,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Set customer's organisation name.
-     *
-     * @param  string $value
-     * @return $this
+     * {@inheritdoc}
      */
     public function &setOrganisationName($value)
     {
@@ -106,9 +96,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Return customer's address.
-     *
-     * @return AddressInterface
+     * {@inheritdoc}
      */
     public function getAddresss()
     {
@@ -116,10 +104,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Set customer's address.
-     *
-     * @param  AddressInterface $value
-     * @return $this
+     * {@inheritdoc}
      */
     public function &setAddress(AddressInterface $value)
     {
@@ -129,9 +114,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Return customer's phone number.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getPhoneNumber()
     {
@@ -139,10 +122,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     }
 
     /**
-     * Set phone number.
-     *
-     * @param  string $value
-     * @return $this
+     * {@inheritdoc}
      */
     public function &setPhoneNumber($value)
     {
