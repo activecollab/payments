@@ -23,108 +23,63 @@ use BadMethodCallException;
 class Customer extends IdentifiedVisitor implements CustomerInterface
 {
     /**
-     * @var string
+     * @var CustomerAddressInterface|null
      */
-    private $organisation_name = '';
+    private $address;
 
-    /**
-     * @var CustomerAddressInterface
-     */
-    private $address = '';
-
-    /**
-     * @var string
-     */
     private $phone_number = '';
 
-    /**
-     * {@inheritdoc}
-     */
     public function getReference(GatewayInterface $gateway)
     {
         return $this->getEmail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOurReference()
     {
         return $this->getEmail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listPaymentMethods(GatewayInterface $gateway): array
     {
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOrganisationName()
-    {
-        return $this->organisation_name;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function &setOrganisationName($value)
-    {
-        $this->organisation_name = trim($value);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAddresss(): CustomerAddressInterface
+    public function getAddresss(): ?CustomerAddressInterface
     {
         return $this->address;
     }
 
     /**
-     * {@inheritdoc}
+     * @param  CustomerAddressInterface|null $address
+     * @return CustomerInterface|$this
      */
-    public function &setAddress(CustomerAddressInterface $address)
+    public function &setAddress(CustomerAddressInterface $address = null): CustomerInterface
     {
         $this->address = $address;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
     /**
-     * {@inheritdoc}
+     * @param  string|null             $value
+     * @return CustomerInterface|$this
      */
-    public function &setPhoneNumber($value)
+    public function &setPhoneNumber(string $value = null): CustomerInterface
     {
         $this->phone_number = trim($value);
 
