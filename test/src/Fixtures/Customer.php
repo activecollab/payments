@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
-use ActiveCollab\Payments\Address\AddressInterface;
+use ActiveCollab\Payments\Address\CustomerAddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
@@ -28,7 +28,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     private $organisation_name = '';
 
     /**
-     * @var AddressInterface
+     * @var CustomerAddressInterface
      */
     private $address = '';
 
@@ -98,7 +98,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function getAddresss()
+    public function getAddresss(): CustomerAddressInterface
     {
         return $this->address;
     }
@@ -106,9 +106,9 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
     /**
      * {@inheritdoc}
      */
-    public function &setAddress(AddressInterface $value)
+    public function &setAddress(CustomerAddressInterface $address)
     {
-        $this->address = $value;
+        $this->address = $address;
 
         return $this;
     }

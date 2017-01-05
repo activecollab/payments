@@ -156,12 +156,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/user.git",
-                "reference": "34fb8e28ffaab2698b21088be5fc36449f7a1c60"
+                "reference": "cfae2f390f350d7c4c111a4a29d408bed09cbff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/user/zipball/34fb8e28ffaab2698b21088be5fc36449f7a1c60",
-                "reference": "34fb8e28ffaab2698b21088be5fc36449f7a1c60",
+                "url": "https://api.github.com/repos/activecollab/user/zipball/cfae2f390f350d7c4c111a4a29d408bed09cbff6",
+                "reference": "cfae2f390f350d7c4c111a4a29d408bed09cbff6",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +195,7 @@
             "keywords": [
                 "activecollab"
             ],
-            "time": "2017-01-01 16:57:30"
+            "time": "2017-01-05 19:13:46"
         },
         {
             "name": "nesbot/carbon",
