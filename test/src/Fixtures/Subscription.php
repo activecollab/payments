@@ -12,7 +12,6 @@ use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Order\CurrencyInterface;
-use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use Carbon\Carbon;
