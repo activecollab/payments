@@ -16,7 +16,7 @@ interface CustomerAddressInterface extends AddressInterface
 
     public function getLastName(): ?string;
 
-    public function getOrganisationName(): ?string;
+    public function getOrganizationName(): ?string;
 
     public function getTaxId(): ?string;
 }
