@@ -10,12 +10,12 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Customer;
 
-use ActiveCollab\Payments\Address\CustomerAddressInterface;
+use ActiveCollab\Payments\Common\AddressibleObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
 
-interface CustomerInterface extends UserInterface
+interface CustomerInterface extends AddressibleObjectInterface, UserInterface
 {
     public function getReference(GatewayInterface $gateway);
 
@@ -26,8 +26,4 @@ interface CustomerInterface extends UserInterface
     public function listPaymentMethods(GatewayInterface $gateway): array;
 
     public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface;
-
-    public function getAddresss(): ?CustomerAddressInterface;
-
-    public function getPhoneNumber(): ?string;
 }

@@ -12,33 +12,21 @@ namespace ActiveCollab\Payments\Address;
 
 interface AddressInterface
 {
-    /**
-     * @return string
-     */
-    public function getAddress();
+    public function getName(): string;
 
-    /**
-     * @return string
-     */
-    public function getAddressExtended();
+    public function isOrganization(): bool;
 
-    /**
-     * @return string
-     */
-    public function getCity();
+    public function getTaxId(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getZipCode();
+    public function getAddress(): string;
 
-    /**
-     * @return string
-     */
-    public function getRegion();
+    public function getAddressExtended(): ?string;
 
-    /**
-     * @return string
-     */
-    public function getCountryCode();
+    public function getCity(): string;
+
+    public function getZipCode(): string;
+
+    public function getRegion(): ?string;
+
+    public function getCountryCode(): string;
 }
