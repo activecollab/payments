@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
-use ActiveCollab\Payments\Address\CustomerAddressInterface;
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
@@ -23,7 +23,7 @@ use BadMethodCallException;
 class Customer extends IdentifiedVisitor implements CustomerInterface
 {
     /**
-     * @var CustomerAddressInterface|null
+     * @var AddressInterface|null
      */
     private $address;
 
@@ -54,16 +54,16 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         throw new BadMethodCallException('Not implemented yet');
     }
 
-    public function getAddresss(): ?CustomerAddressInterface
+    public function getAddress(): ?AddressInterface
     {
         return $this->address;
     }
 
     /**
-     * @param  CustomerAddressInterface|null $address
+     * @param  AddressInterface|null   $address
      * @return CustomerInterface|$this
      */
-    public function &setAddress(CustomerAddressInterface $address = null): CustomerInterface
+    public function &setAddress(AddressInterface $address = null): CustomerInterface
     {
         $this->address = $address;
 
