@@ -13,7 +13,7 @@ namespace ActiveCollab\Payments\Merchant;
 use ActiveCollab\Payments\Common\AddressibleObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 
-interface Merchant extends AddressibleObjectInterface
+interface MerchantInterface extends AddressibleObjectInterface
 {
     public function getReference(GatewayInterface $gateway);
 
