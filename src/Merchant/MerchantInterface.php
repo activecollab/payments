@@ -14,7 +14,7 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 
 interface MerchantInterface
 {
-    public function getReference(GatewayInterface $gateway);
+    public function getReference(GatewayInterface $gateway): string;
 
-    public function getOurReference();
+    public function getOurReference(): string;
 }
