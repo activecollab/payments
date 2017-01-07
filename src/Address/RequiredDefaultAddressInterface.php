@@ -14,5 +14,9 @@ interface RequiredDefaultAddressInterface
 {
     public function getDefaultAddress(): AddressInterface;
 
+    /**
+     * @param  AddressInterface         $address
+     * @return AddressesInterface|$this
+     */
     public function &setDefaultAddress(AddressInterface $address): AddressesInterface;
 }
