@@ -16,7 +16,7 @@ interface AddressesInterface
 {
     public function getAddresses(): ?Traversable;
 
-    public function addAddresses(AddressInterface ...$addresses): AddressesInterface;
+    public function &addAddresses(AddressInterface ...$addresses): AddressesInterface;
 
-    public function clearAddresses(): AddressesInterface;
+    public function &clearAddresses(): AddressesInterface;
 }
