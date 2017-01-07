@@ -10,9 +10,11 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Address;
 
+use Traversable;
+
 interface AddressesInterface
 {
-    public function getAddresses(): array;
+    public function getAddresses(): ?Traversable;
 
     public function addAddresses(AddressInterface ...$addresses): AddressesInterface;
 
