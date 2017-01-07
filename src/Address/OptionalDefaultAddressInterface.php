@@ -14,5 +14,5 @@ interface OptionalDefaultAddressInterface
 {
     public function getDefaultAddress(): ?AddressInterface;
 
-    public function setDefaultAddressInterface(?AddressInterface $address): AddressesInterface;
+    public function &setDefaultAddress(?AddressInterface $address): AddressesInterface;
 }
