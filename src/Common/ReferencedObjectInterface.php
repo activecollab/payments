@@ -12,5 +12,5 @@ namespace ActiveCollab\Payments\Common;
 
 interface ReferencedObjectInterface
 {
-    public function getReference($context = null): string;
+    public function getReference(): string;
 }

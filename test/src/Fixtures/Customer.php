@@ -29,7 +29,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
 
     private $phone_number = '';
 
-    public function getReference($context = null): string
+    public function getReference(): string
     {
         return $this->getEmail();
     }

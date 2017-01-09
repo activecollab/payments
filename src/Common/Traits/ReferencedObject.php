@@ -20,7 +20,7 @@ trait ReferencedObject
      */
     private $reference = '';
 
-    public function getReference($context = null): string
+    public function getReference(): string
     {
         return $this->reference;
     }
