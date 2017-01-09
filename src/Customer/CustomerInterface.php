@@ -17,8 +17,6 @@ use ActiveCollab\User\UserInterface;
 
 interface CustomerInterface extends ReferencedObjectInterface, UserInterface
 {
-//    public function getReference(GatewayInterface $gateway);
-
     public function getOurReference();
 
     public function getPaymentMethods(GatewayInterface $gateway): array;
