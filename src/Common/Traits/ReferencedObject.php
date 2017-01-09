@@ -18,14 +18,9 @@ trait ReferencedObject
     /**
      * @var string
      */
-    private $reference;
+    private $reference = '';
 
-    /**
-     * Return parent reference.
-     *
-     * @return string
-     */
-    public function getReference()
+    public function getReference($context = null): string
     {
         return $this->reference;
     }

@@ -29,7 +29,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
 
     private $phone_number = '';
 
-    public function getReference(GatewayInterface $gateway)
+    public function getReference($context = null): string
     {
         return $this->getEmail();
     }
@@ -44,7 +44,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return null;
     }
 
-    public function listPaymentMethods(GatewayInterface $gateway): array
+    public function getPaymentMethods(GatewayInterface $gateway): array
     {
         return [];
     }

@@ -11,11 +11,12 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\PaymentMethod;
 
 use ActiveCollab\DateValue\DateValueInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 
 /**
  * @package ActiveCollab\Payments\PaymentMethod
  */
-interface PaymentMethodInterface
+interface PaymentMethodInterface extends ReferencedObjectInterface
 {
     const CREDIT_CARD = 'credit_card';
     const PAYPAL = 'paypal';
@@ -42,13 +43,6 @@ interface PaymentMethodInterface
      * @return string
      */
     public function getPaymentMethodType();
-
-    /**
-     * Return payment method's reference on the gateway (ID).
-     *
-     * @return string|null
-     */
-    public function getReference();
 
     /**
      * Return our internal payment method reference.

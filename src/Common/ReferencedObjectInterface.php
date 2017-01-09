@@ -12,10 +12,5 @@ namespace ActiveCollab\Payments\Common;
 
 interface ReferencedObjectInterface
 {
-    /**
-     * Return parent reference.
-     *
-     * @return string
-     */
-    public function getReference();
+    public function getReference($context = null): string;
 }

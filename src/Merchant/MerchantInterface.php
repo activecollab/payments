@@ -10,11 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Merchant;
 
-use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 
-interface MerchantInterface
+interface MerchantInterface extends ReferencedObjectInterface
 {
-    public function getReference(GatewayInterface $gateway): string;
-
     public function getOurReference(): string;
 }
