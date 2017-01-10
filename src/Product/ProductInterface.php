@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Product;
 
+use ActiveCollab\Payments\Customer\CustomerInterface;
+
 interface ProductInterface
 {
+    public function getCustomer(): CustomerInterface;
 }

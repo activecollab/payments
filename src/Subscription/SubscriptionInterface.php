@@ -12,9 +12,9 @@ namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\GatewayedObjectInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\Payments\Product\ProductInterface;
 
-interface SubscriptionInterface extends CommonOrderInterface, GatewayedObjectInterface
+interface SubscriptionInterface extends GatewayedObjectInterface, ProductInterface
 {
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
