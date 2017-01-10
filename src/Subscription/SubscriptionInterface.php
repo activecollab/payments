@@ -24,10 +24,12 @@ interface SubscriptionInterface extends
     ReferencedObjectInterface,
     TimestampedObjectInterface
 {
+    const BILLING_PERIOD_NONE = 'none';
     const BILLING_PERIOD_MONTHLY = 'monthly';
     const BILLING_PERIOD_YEARLY = 'yearly';
 
     const BILLING_PERIODS = [
+        self::BILLING_PERIOD_NONE,
         self::BILLING_PERIOD_MONTHLY,
         self::BILLING_PERIOD_YEARLY
     ];
