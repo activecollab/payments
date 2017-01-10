@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\Gateway;
 
 use ActiveCollab\DateValue\DateValueInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
@@ -23,7 +24,7 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 /**
  * @package ActiveCollab\Payments
  */
-interface GatewayInterface
+interface GatewayInterface extends InternallyIdentifiedObjectInterface
 {
     /**
      * Return dispatcher instance.
@@ -38,13 +39,6 @@ interface GatewayInterface
      * @return string
      */
     public function getIdentifier(): string;
-
-    /**
-     * Return our gateway reference (ID).
-     *
-     * @return string
-     */
-    public function getOurReference(): string;
 
     /**
      * Return default payment method for the given customer.

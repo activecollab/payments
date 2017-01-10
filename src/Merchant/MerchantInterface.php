@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Merchant;
 
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 
-interface MerchantInterface extends ReferencedObjectInterface
+interface MerchantInterface extends InternallyIdentifiedObjectInterface, ReferencedObjectInterface
 {
-    public function getOurReference(): string;
 }

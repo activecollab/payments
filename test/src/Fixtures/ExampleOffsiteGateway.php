@@ -85,7 +85,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getOurReference(): string
+    public function getOurIdentifier(): string
     {
         return 'test';
     }

@@ -10,15 +10,14 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Customer;
 
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
 
-interface CustomerInterface extends ReferencedObjectInterface, UserInterface
+interface CustomerInterface extends InternallyIdentifiedObjectInterface, ReferencedObjectInterface, UserInterface
 {
-    public function getOurReference();
-
     public function getPaymentMethods(): ?iterable;
 
     public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable;

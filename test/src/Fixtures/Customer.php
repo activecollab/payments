@@ -34,7 +34,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return $this->getEmail();
     }
 
-    public function getOurReference()
+    public function getOurIdentifier(): string
     {
         return $this->getEmail();
     }
