@@ -50,6 +50,24 @@ class Subscription implements SubscriptionInterface
         $this->items = $items;
     }
 
+    private $status = SubscriptionInterface::STATUS_ACTIVE;
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    public function &setStatus(string $status): SubscriptionInterface
+    {
+        if (!in_array($status, SubscriptionInterface::STATUSES)) {
+            throw new InvalidArgumentException('Valid status is required.');
+        }
+
+        $this->status = $status;
+
+        return $this;
+    }
+
     /**
      * @var string
      */
@@ -103,9 +121,9 @@ class Subscription implements SubscriptionInterface
         /** @var DateTimeValueInterface|Carbon $result */
         $result = clone $reference;
 
-        if ($this->getBillingPeriod() == self::MONTHLY) {
+        if ($this->getBillingPeriod() == self::BILLING_PERIOD_MONTHLY) {
             $result->addMonth();
-        } elseif ($this->getBillingPeriod() == self::YEARLY) {
+        } elseif ($this->getBillingPeriod() == self::BILLING_PERIOD_YEARLY) {
             $result->addYear();
         }
 

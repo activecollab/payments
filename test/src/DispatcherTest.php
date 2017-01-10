@@ -73,7 +73,7 @@ class DispatcherTest extends TestCase
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, new Currency('USD'), [
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
             new OrderItem('Monthly SaaS cost', 1, 25),
         ]);
     }

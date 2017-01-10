@@ -122,7 +122,7 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  string $period
      * @return string
      */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string;
+    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string;
 
     /**
      * Return add-on ID based on add-on name (or code).

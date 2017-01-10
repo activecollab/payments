@@ -24,10 +24,27 @@ interface SubscriptionInterface extends
     ReferencedObjectInterface,
     TimestampedObjectInterface
 {
-    const MONTHLY = 'monthly';
-    const YEARLY = 'yearly';
+    const BILLING_PERIOD_MONTHLY = 'monthly';
+    const BILLING_PERIOD_YEARLY = 'yearly';
 
-    const BILLING_PERIODS = [self::MONTHLY, self::YEARLY];
+    const BILLING_PERIODS = [
+        self::BILLING_PERIOD_MONTHLY,
+        self::BILLING_PERIOD_YEARLY
+    ];
+
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_CANCELED = 'canceled';
+    const STATUS_DEACTIVATED = 'deactivated';
+
+    const STATUSES = [
+        self::STATUS_PENDING,
+        self::STATUS_ACTIVE,
+        self::STATUS_CANCELED,
+        self::STATUS_DEACTIVATED,
+    ];
+
+    public function getStatus(): string;
 
     public function getBillingPeriod(): string;
 

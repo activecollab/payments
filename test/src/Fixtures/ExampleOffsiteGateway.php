@@ -171,7 +171,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * {@inheritdoc}
      */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string
+    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string
     {
         return '';
     }
@@ -379,7 +379,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     {
         $customer = new Customer('Test', 'test@example.com', false);
 
-        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::MONTHLY, new Currency('USD'), [
+        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
             new OrderItem('SaaS', 1, 200),
         ]);
     }
