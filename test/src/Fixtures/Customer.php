@@ -39,12 +39,22 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return $this->getEmail();
     }
 
-    public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
+    public function getDefaultPaymentMethod(): ?PaymentMethodInterface
+    {
+
+    }
+
+    public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
     {
         return null;
     }
 
-    public function getPaymentMethods(GatewayInterface $gateway): array
+    public function getPaymentMethods(): ?iterable
+    {
+        return [];
+    }
+
+    public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable
     {
         return [];
     }

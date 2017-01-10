@@ -13,8 +13,8 @@ namespace ActiveCollab\Payments\CommonOrder;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
-use ActiveCollab\Payments\Order\CurrencyInterface;
 
 /**
  * @package ActiveCollab\Payments\CommonOrder

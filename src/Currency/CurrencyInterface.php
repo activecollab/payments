@@ -8,7 +8,7 @@
 
 declare(strict_types=1);
 
-namespace ActiveCollab\Payments\Order;
+namespace ActiveCollab\Payments\Currency;
 
 interface CurrencyInterface
 {

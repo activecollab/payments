@@ -13,9 +13,9 @@ namespace ActiveCollab\Payments\Test\Fixtures\Traits;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
+use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Order\Calculator\CalculationInterface;
-use ActiveCollab\Payments\Order\CurrencyInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use InvalidArgumentException;
 

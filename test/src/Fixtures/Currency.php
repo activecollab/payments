@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
-use ActiveCollab\Payments\Order\CurrencyInterface;
+use ActiveCollab\Payments\Currency\CurrencyInterface;
 
 class Currency implements CurrencyInterface
 {

@@ -21,13 +21,9 @@ interface CustomerInterface extends ReferencedObjectInterface, UserInterface
 
     public function getPaymentMethods(): ?iterable;
 
-//    public function getPaymentMethods(GatewayInterface $gateway): array;
-
     public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable;
 
     public function getDefaultPaymentMethod(): ?PaymentMethodInterface;
-
-//    public function getDefaultPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface;
 
     public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface;
 
