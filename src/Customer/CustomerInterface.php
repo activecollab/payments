@@ -14,17 +14,16 @@ use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
-use Traversable;
 
 interface CustomerInterface extends ReferencedObjectInterface, UserInterface
 {
     public function getOurReference();
 
-    public function getPaymentMethods(): ?Traversable;
+    public function getPaymentMethods(): ?iterable;
 
 //    public function getPaymentMethods(GatewayInterface $gateway): array;
 
-    public function getGatewayPaymentMethods(GatewayInterface $gateway): ?Traversable;
+    public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable;
 
     public function getDefaultPaymentMethod(): ?PaymentMethodInterface;
 
