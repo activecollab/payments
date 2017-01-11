@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9dad152387675ded89f0903902805321",
-    "content-hash": "cde9516d8a4fa1c4d4bcfd569d515532",
+    "hash": "a261e187ed509321526176d133d29b94",
+    "content-hash": "fdf452698b5c344528d99d3e79884be4",
     "packages": [
         {
             "name": "activecollab/datevalue",
@@ -152,24 +152,25 @@
         },
         {
             "name": "activecollab/user",
-            "version": "3.0.0",
+            "version": "v4.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/user.git",
-                "reference": "9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b"
+                "reference": "cfae2f390f350d7c4c111a4a29d408bed09cbff6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/user/zipball/9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b",
-                "reference": "9e2cd4e18b39a6ea319a3996e7c5a46d8f3ff24b",
+                "url": "https://api.github.com/repos/activecollab/user/zipball/cfae2f390f350d7c4c111a4a29d408bed09cbff6",
+                "reference": "cfae2f390f350d7c4c111a4a29d408bed09cbff6",
                 "shasum": ""
             },
             "require": {
                 "activecollab/humannameparser": "^1.0",
                 "activecollab/object": "^1.0",
-                "php": ">=5.6.0"
+                "php": ">=7.1"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.0",
                 "phpunit/phpunit": "^5.0"
             },
             "type": "library",
@@ -194,7 +195,7 @@
             "keywords": [
                 "activecollab"
             ],
-            "time": "2016-07-14 20:42:29"
+            "time": "2017-01-05 19:13:46"
         },
         {
             "name": "nesbot/carbon",
@@ -977,16 +978,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.4",
+            "version": "5.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "af91da3f2671006ff5d0628023de3b7ac4d1ef09"
+                "reference": "50fd2be8f3e23e91da825f36f08e5f9633076ffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/af91da3f2671006ff5d0628023de3b7ac4d1ef09",
-                "reference": "af91da3f2671006ff5d0628023de3b7ac4d1ef09",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/50fd2be8f3e23e91da825f36f08e5f9633076ffe",
+                "reference": "50fd2be8f3e23e91da825f36f08e5f9633076ffe",
                 "shasum": ""
             },
             "require": {
@@ -1055,7 +1056,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-12-13 16:19:44"
+            "time": "2016-12-28 07:18:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2160,7 +2161,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "activecollab/user": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
