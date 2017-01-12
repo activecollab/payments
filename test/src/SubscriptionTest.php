@@ -12,6 +12,7 @@ namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Currency;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\OrderItem;
@@ -107,5 +108,53 @@ class SubscriptionTest extends TestCase
 
         $this->assertInstanceOf(DateTimeValue::class, $next_billing_timestamp);
         $this->assertEquals('2016-10-15', $next_billing_timestamp->format('Y-m-d'));
+    }
+
+    public function testPendingSubscriptionCanBePurchased()
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
+            new OrderItem('SaaS', 1, 25),
+        ]);
+
+        $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
+        $this->assertTrue($subscription->canBePurchased());
+    }
+
+    /**
+     * @dataProvider provideNonPurchasableStatuses
+     * @param string $non_purchasable_status
+     */
+    public function testNonPurchasableSubscfriptionStatuses(string $non_purchasable_status)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
+            new OrderItem('SaaS', 1, 25),
+        ]);
+
+        $subscription->setStatus($non_purchasable_status);
+        $this->assertFalse($subscription->canBePurchased());
+    }
+
+    public function provideNonPurchasableStatuses()
+    {
+        return [
+            [SubscriptionInterface::STATUS_ACTIVE],
+            [SubscriptionInterface::STATUS_DEACTIVATED],
+            [SubscriptionInterface::STATUS_CANCELED],
+        ];
+    }
+
+    public function testPaidSubscriptionsCanBePurchased()
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
+            new OrderItem('SaaS', 1, 25),
+        ]);
+
+        $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
+
+        $this->assertFalse($subscription->isFree());
+        $this->assertTrue($subscription->canBePurchased());
+
+        $subscription->setIsFree(true);
+        $this->assertFalse($subscription->canBePurchased());
     }
 }

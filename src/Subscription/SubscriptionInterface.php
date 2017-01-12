@@ -55,4 +55,10 @@ interface SubscriptionInterface extends
     public function &setNextBillingTimestamp(DateTimeValueInterface $value): SubscriptionInterface;
 
     public function calculateNextBillingTimestamp(DateTimeValueInterface $reference): DateTimeValueInterface;
+
+    public function isFree(): bool;
+
+    public function isPaid(): bool;
+
+    public function canBePurchased(): bool;
 }

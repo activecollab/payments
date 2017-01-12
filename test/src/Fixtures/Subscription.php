@@ -13,6 +13,7 @@ use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface\Implementation as SubscriptionInterfaceImplementation;
 use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use Carbon\Carbon;
 use InvalidArgumentException;
@@ -22,7 +23,7 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use GatewayedObject, CommonOrder;
+    use GatewayedObject, CommonOrder, SubscriptionInterfaceImplementation;
 
     /**
      * Construct a new order instance.
@@ -128,6 +129,20 @@ class Subscription implements SubscriptionInterface
         }
 
         return $result;
+    }
+
+    private $is_free = false;
+
+    public function isFree(): bool
+    {
+        return $this->is_free;
+    }
+
+    public function &setIsFree(bool $value): SubscriptionInterface
+    {
+        $this->is_free = $value;
+
+        return $this;
     }
 
     /**
