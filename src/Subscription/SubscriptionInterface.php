@@ -31,7 +31,7 @@ interface SubscriptionInterface extends
     const BILLING_PERIODS = [
         self::BILLING_PERIOD_NONE,
         self::BILLING_PERIOD_MONTHLY,
-        self::BILLING_PERIOD_YEARLY
+        self::BILLING_PERIOD_YEARLY,
     ];
 
     const STATUS_PENDING = 'pending';

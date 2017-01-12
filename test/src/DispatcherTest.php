@@ -21,7 +21,6 @@ use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
 use ActiveCollab\Payments\Subscription\Rebill\RebillInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Test\Fixtures\Currency;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use ActiveCollab\Payments\Test\Fixtures\Order;
@@ -73,9 +72,7 @@ class DispatcherTest extends TestCase
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
-            new OrderItem('Monthly SaaS cost', 1, 25),
-        ]);
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::BILLING_PERIOD_MONTHLY);
     }
 
     /**

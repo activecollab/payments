@@ -10,11 +10,13 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\ReferencedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface\Implementation as SubscriptionInterfaceImplementation;
-use ActiveCollab\Payments\Test\Fixtures\Traits\CommonOrder;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
@@ -23,7 +25,12 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use GatewayedObject, CommonOrder, SubscriptionInterfaceImplementation;
+    use GatewayedObject, InternallyIdentifiedObject, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
+
+    /**
+     * @var CustomerInterface
+     */
+    private $customer;
 
     /**
      * Construct a new order instance.
@@ -32,23 +39,21 @@ class Subscription implements SubscriptionInterface
      * @param string                 $reference
      * @param DateTimeValueInterface $timestamp
      * @param string                 $period
-     * @param CurrencyInterface      $currency
-     * @param array                  $items
      */
-    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period, CurrencyInterface $currency, array $items)
+    public function __construct(CustomerInterface $customer, $reference, DateTimeValueInterface $timestamp, $period)
     {
         $this->validateCustomer($customer);
-        $this->validateOrderId($reference);
         $this->validatePeriod($period);
-        $this->validateCurrency($currency);
-        $this->validateItems($items);
 
         $this->customer = $customer;
         $this->setReference($reference);
         $this->setTimestamp($timestamp);
         $this->period = $period;
-        $this->currency = $currency;
-        $this->items = $items;
+    }
+
+    public function getCustomer(): CustomerInterface
+    {
+        return $this->customer;
     }
 
     private $status = SubscriptionInterface::STATUS_ACTIVE;
@@ -154,6 +159,18 @@ class Subscription implements SubscriptionInterface
     {
         if (!in_array($value, self::BILLING_PERIODS)) {
             throw new InvalidArgumentException('Monthly and yearly periods are supported.');
+        }
+    }
+
+    /**
+     * Validate if we got a good Customer instance.
+     *
+     * @param CustomerInterface $value
+     */
+    protected function validateCustomer(CustomerInterface $value)
+    {
+        if (empty($value->getFullName()) || empty($value->getEmail())) {
+            throw new InvalidArgumentException('Customer name and email address is expected');
         }
     }
 }

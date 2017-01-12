@@ -13,9 +13,7 @@ namespace ActiveCollab\Payments\Test;
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
-use ActiveCollab\Payments\Test\Fixtures\Currency;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
-use ActiveCollab\Payments\Test\Fixtures\OrderItem;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
 
 /**
@@ -59,9 +57,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingCanBeSet()
     {
-        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY);
         $monthly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-11-11'));
 
         $next_billing_timestamp = $monthly_subscription->getNextBillingTimestamp();
@@ -69,9 +65,7 @@ class SubscriptionTest extends TestCase
         $this->assertInstanceOf(DateTimeValue::class, $next_billing_timestamp);
         $this->assertEquals('2015-11-11', $next_billing_timestamp->format('Y-m-d'));
 
-        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
         $yearly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-12-13'));
 
         $next_billing_timestamp = $yearly_subscription->getNextBillingTimestamp();
@@ -85,9 +79,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForMonthlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();
 
@@ -100,9 +92,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForYearlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();
 
@@ -112,11 +102,9 @@ class SubscriptionTest extends TestCase
 
     public function testPendingSubscriptionCanBePurchased()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
-
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
         $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
+
         $this->assertTrue($subscription->canBePurchased());
     }
 
@@ -126,11 +114,9 @@ class SubscriptionTest extends TestCase
      */
     public function testNonPurchasableSubscfriptionStatuses(string $non_purchasable_status)
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
-
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
         $subscription->setStatus($non_purchasable_status);
+
         $this->assertFalse($subscription->canBePurchased());
     }
 
@@ -145,10 +131,7 @@ class SubscriptionTest extends TestCase
 
     public function testPaidSubscriptionsCanBePurchased()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 25),
-        ]);
-
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
         $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
 
         $this->assertFalse($subscription->isFree());

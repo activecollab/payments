@@ -143,9 +143,7 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
     {
-        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 200),
-        ]);
+        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period);
     }
 
     /**
@@ -379,9 +377,7 @@ class ExampleOffsiteGateway implements GatewayInterface
     {
         $customer = new Customer('Test', 'test@example.com', false);
 
-        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::BILLING_PERIOD_MONTHLY, new Currency('USD'), [
-            new OrderItem('SaaS', 1, 200),
-        ]);
+        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::BILLING_PERIOD_MONTHLY);
     }
 
     /**
