@@ -28,6 +28,11 @@ class Order implements OrderInterface
     use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
 
     /**
+     * @var string
+     */
+    private $status = OrderInterface::STATUS_NEW;
+
+    /**
      * @var CalculationInterface
      */
     private $calculation;
@@ -69,6 +74,26 @@ class Order implements OrderInterface
         $this->currency = $currency;
         $this->items = $items;
         $this->calculation = (new Calculator())->calculate($this, 2);
+    }
+
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param  string               $value
+     * @return $this|OrderInterface
+     */
+    public function &setStatus(string $value): OrderInterface
+    {
+        if (!in_array($value, OrderInterface::STATUSES)) {
+            throw new InvalidArgumentException('Valid status is required.');
+        }
+
+        $this->status = $value;
+
+        return $this;
     }
 
     public function getCustomer(): CustomerInterface

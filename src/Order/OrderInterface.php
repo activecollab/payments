@@ -22,6 +22,20 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
  */
 interface OrderInterface extends ReferencedObjectInterface, InternallyIdentifiedObjectInterface, TimestampedObjectInterface
 {
+    const STATUS_NEW = 'new';
+    const STATUS_PENDING = 'pending';
+    const STATUS_PAID = 'paid';
+    const STATUS_CANCELED = 'canceled';
+
+    const STATUSES = [
+        self:: STATUS_NEW,
+        self:: STATUS_PENDING,
+        self:: STATUS_PAID,
+        self:: STATUS_CANCELED,
+    ];
+
+    public function getStatus(): string;
+
     public function getCustomer(): CustomerInterface;
 
     public function getCurrency(): CurrencyInterface;
