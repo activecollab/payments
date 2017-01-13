@@ -11,7 +11,6 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\DateValue\DateValueInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -371,9 +370,9 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param  PaymentMethodInterface $payment_method
      * @param  string                 $action
      * @param  DateValueInterface     $first_billing_date
-     * @return CommonOrderInterface
+     * @return OrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
+    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): OrderInterface
     {
         $customer = new Customer('Test', 'test@example.com', false);
 
