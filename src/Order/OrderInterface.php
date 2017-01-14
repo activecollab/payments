@@ -15,6 +15,7 @@ use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
 use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Order\Calculator\CalculationInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 
 /**
@@ -61,4 +62,6 @@ interface OrderInterface extends
      * @return iterable|OrderItemInterface[]
      */
     public function getItems(): ?iterable;
+
+    public function calculateAmounts(bool $bulk = false): CalculationInterface;
 }

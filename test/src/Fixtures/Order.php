@@ -113,32 +113,32 @@ class Order implements OrderInterface
 
     public function getSubtotalAmount(): float
     {
-        return $this->calculation->getSubtotal();
+        return $this->calculateAmounts()->getSubtotal();
     }
 
     public function getDiscountAmount(): float
     {
-        return $this->calculation->getDiscount();
+        return $this->calculateAmounts()->getDiscount();
     }
 
     public function getFirstTaxAmount(): float
     {
-        return $this->calculation->getFirstTax();
+        return $this->calculateAmounts()->getFirstTax();
     }
 
     public function getSecondTaxAmount(): float
     {
-        return $this->calculation->getSecondTax();
+        return $this->calculateAmounts()->getSecondTax();
     }
 
     public function getTaxAmount(): float
     {
-        return $this->calculation->getTax();
+        return $this->calculateAmounts()->getTax();
     }
 
     public function getTotalAmount(): float
     {
-        return $this->calculation->getTotal();
+        return $this->calculateAmounts()->getTotal();
     }
 
     /**
@@ -147,6 +147,11 @@ class Order implements OrderInterface
     public function getItems(): ?iterable
     {
         return $this->items;
+    }
+
+    public function calculateAmounts(bool $bulk = false): CalculationInterface
+    {
+        return $this->calculation;
     }
 
     /**
