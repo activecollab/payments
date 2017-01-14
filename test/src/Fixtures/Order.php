@@ -106,6 +106,11 @@ class Order implements OrderInterface
         return $this->currency;
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->items);
+    }
+
     public function getSubtotalAmount(): float
     {
         return $this->calculation->getSubtotal();

@@ -20,7 +20,10 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 /**
  * @package ActiveCollab\Payments\Order
  */
-interface OrderInterface extends ReferencedObjectInterface, InternallyIdentifiedObjectInterface, TimestampedObjectInterface
+interface OrderInterface extends
+    ReferencedObjectInterface,
+    InternallyIdentifiedObjectInterface,
+    TimestampedObjectInterface
 {
     const STATUS_NEW = 'new';
     const STATUS_PENDING = 'pending';
@@ -39,6 +42,8 @@ interface OrderInterface extends ReferencedObjectInterface, InternallyIdentified
     public function getCustomer(): CustomerInterface;
 
     public function getCurrency(): CurrencyInterface;
+
+    public function isEmpty(): bool;
 
     public function getSubtotalAmount(): float;
 
