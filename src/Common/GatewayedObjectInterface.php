@@ -10,12 +10,14 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Common;
 
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+
 interface GatewayedObjectInterface
 {
     /**
      * Return parent gateway.
      *
-     * @return GatewayedObjectInterface
+     * @return GatewayInterface
      */
     public function getGateway();
 }
