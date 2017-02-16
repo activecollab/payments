@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Customer;
 
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
@@ -26,5 +27,5 @@ interface CustomerInterface extends InternallyIdentifiedObjectInterface, Referen
 
     public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface;
 
-    public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(GatewayInterface $gateway, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface;
 }

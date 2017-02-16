@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\Gateway;
 
 use ActiveCollab\DateValue\DateValueInterface;
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
@@ -59,11 +60,12 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * Create a payment method for the given customer and return the instance.
      *
      * @param  CustomerInterface      $customer
+     * @param  AddressInterface|null  $address
      * @param  bool                   $set_as_default
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface;
 
     /**
      * Return order by order ID.

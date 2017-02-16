@@ -59,7 +59,7 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
         return [];
     }
 
-    public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(GatewayInterface $gateway, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }
