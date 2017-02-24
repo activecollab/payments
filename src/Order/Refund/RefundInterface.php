@@ -24,37 +24,37 @@ interface RefundInterface extends GatewayedObjectInterface, ReferencedObjectInte
     /**
      * @return string
      */
-    public function getOrderReference();
+    public function getOrderReference(): string;
 
     /**
      * Return order by order ID.
      *
      * @return OrderInterface
      */
-    public function getOrder();
+    public function getOrder(): OrderInterface;
 
     /**
      * @return float
      */
-    public function getTotal();
+    public function getTotal(): float;
 
     /**
-     * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
+     * @return iterable|null
      */
-    public function getItems();
+    public function getItems(): ?iterable;
 
     /**
      * Set refund items, if refund was by line item.
      *
-     * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
-     * @return $this
+     * @param  iterable|null   $value
+     * @return RefundInterface
      */
-    public function &setItems(array $value);
+    public function &setItems(?iterable $value): RefundInterface;
 
     /**
      * Return true if this refund is partial.
      *
      * @return bool
      */
-    public function isPartial();
+    public function isPartial(): bool;
 }

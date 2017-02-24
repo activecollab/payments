@@ -72,22 +72,12 @@ class Refund implements RefundInterface
         $this->setGatewayByReference($gateway);
     }
 
-    /**
-     * Return reference (order ID).
-     *
-     * @return string
-     */
-    public function getOrderReference()
+    public function getOrderReference(): string
     {
         return $this->order_reference;
     }
 
-    /**
-     * Return order by order ID.
-     *
-     * @return OrderInterface
-     */
-    public function getOrder()
+    public function getOrder(): OrderInterface
     {
         if ($this->gateway instanceof GatewayInterface) {
             return $this->gateway->getOrderByReference($this->getOrderReference());
@@ -96,41 +86,24 @@ class Refund implements RefundInterface
         throw new RuntimeException('Gateway is not set');
     }
 
-    /**
-     * @return float
-     */
-    public function getTotal()
+    public function getTotal(): float
     {
         return $this->total;
     }
 
-    /**
-     * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
-     */
-    public function getItems()
+    public function getItems(): ?iterable
     {
         return $this->items;
     }
 
-    /**
-     * Set refund items, if refund was by line item.
-     *
-     * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
-     * @return $this
-     */
-    public function &setItems(array $value)
+    public function &setItems(?iterable $value): RefundInterface
     {
         $this->items = $value;
 
         return $this;
     }
 
-    /**
-     * Return true if this refund is partial.
-     *
-     * @return bool
-     */
-    public function isPartial()
+    public function isPartial(): bool
     {
         return $this->getTotal() < $this->getOrder()->getTotalAmount();
     }
