@@ -17,5 +17,5 @@ interface TimestampedObjectInterface
     /**
      * @return DateTimeValueInterface
      */
-    public function getTimestamp();
+    public function getTimestamp(): DateTimeValueInterface;
 }

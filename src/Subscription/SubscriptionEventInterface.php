@@ -21,12 +21,12 @@ interface SubscriptionEventInterface extends GatewayedObjectInterface, Timestamp
     /**
      * @return string
      */
-    public function getSubscriptionReference();
+    public function getSubscriptionReference(): string;
 
     /**
      * Return order by order ID.
      *
      * @return SubscriptionInterface
      */
-    public function getSubscription();
+    public function getSubscription(): SubscriptionInterface;
 }

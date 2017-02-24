@@ -41,7 +41,6 @@ class Customer extends IdentifiedVisitor implements CustomerInterface
 
     public function getDefaultPaymentMethod(): ?PaymentMethodInterface
     {
-
     }
 
     public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface

@@ -55,7 +55,7 @@ class Rebill implements RebillInterface
      *
      * @return DateTimeValueInterface
      */
-    public function getNextBillingTimestamp()
+    public function getNextBillingTimestamp(): DateTimeValueInterface
     {
         return $this->next_billing_timestamp;
     }

@@ -27,7 +27,7 @@ trait TimestampedObject
      *
      * @return DateTimeValueInterface
      */
-    public function getTimestamp()
+    public function getTimestamp(): DateTimeValueInterface
     {
         return $this->timestamp;
     }
@@ -36,7 +36,7 @@ trait TimestampedObject
      * @param  DateTimeValueInterface $timestamp
      * @return $this
      */
-    public function &setTimestamp($timestamp)
+    public function &setTimestamp(DateTimeValueInterface $timestamp)
     {
         $this->timestamp = $timestamp;
 

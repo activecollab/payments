@@ -15,10 +15,11 @@ use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Product\ProductInterface;
 
 interface SubscriptionInterface extends
-    GatewayedObjectInterface,
     InternallyIdentifiedObjectInterface,
     ProductInterface,
     ReferencedObjectInterface,
@@ -49,6 +50,10 @@ interface SubscriptionInterface extends
     public function getStatus(): string;
 
     public function getBillingPeriod(): string;
+
+    public function getPaymentMethod(): ?PaymentMethodInterface;
+
+    public function getGateway(): ?GatewayInterface;
 
     public function getNextBillingTimestamp(): DateTimeValueInterface;
 

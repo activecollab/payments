@@ -13,8 +13,9 @@ use ActiveCollab\Payments\Common\Traits\GatewayedObject;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
-use ActiveCollab\Payments\Currency\CurrencyInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface\Implementation as SubscriptionInterfaceImplementation;
 use Carbon\Carbon;
@@ -25,7 +26,7 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use GatewayedObject, InternallyIdentifiedObject, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
+    use InternallyIdentifiedObject, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
 
     /**
      * @var CustomerInterface
@@ -87,6 +88,34 @@ class Subscription implements SubscriptionInterface
     public function getBillingPeriod(): string
     {
         return $this->period;
+    }
+
+    private $gateway;
+
+    public function getGateway(): ?GatewayInterface
+    {
+        return $this->gateway;
+    }
+
+    public function &setGateway(?GatewayInterface $gateway)
+    {
+        $this->gateway = $gateway;
+
+        return $this;
+    }
+
+    private $payment_method;
+
+    public function getPaymentMethod(): ?PaymentMethodInterface
+    {
+        return $this->payment_method;
+    }
+
+    public function &setPaymentMethod(?PaymentMethodInterface $payment_method)
+    {
+        $this->payment_method = $payment_method;
+
+        return $this;
     }
 
     /**

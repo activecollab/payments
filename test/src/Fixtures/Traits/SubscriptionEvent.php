@@ -29,7 +29,7 @@ trait SubscriptionEvent
      *
      * @return string
      */
-    public function getSubscriptionReference()
+    public function getSubscriptionReference(): string
     {
         return $this->subscription_reference;
     }
@@ -50,7 +50,7 @@ trait SubscriptionEvent
      *
      * @return SubscriptionInterface
      */
-    public function getSubscription()
+    public function getSubscription(): SubscriptionInterface
     {
         if ($this->getGateway() instanceof GatewayInterface) {
             return $this->getGateway()->getSubscriptionByReference($this->getSubscriptionReference());

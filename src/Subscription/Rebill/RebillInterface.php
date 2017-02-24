@@ -23,5 +23,5 @@ interface RebillInterface extends SubscriptionEventInterface
      *
      * @return DateTimeValueInterface
      */
-    public function getNextBillingTimestamp();
+    public function getNextBillingTimestamp(): DateTimeValueInterface;
 }

@@ -25,7 +25,7 @@ trait InternallyIdentifiedObject
      *
      * @return string
      */
-    public function getOurIdentifier()
+    public function getOurIdentifier(): string
     {
         return $this->our_identifier;
     }
@@ -36,7 +36,7 @@ trait InternallyIdentifiedObject
      * @param  string $value
      * @return $this
      */
-    public function &setOurIdentifier($value)
+    public function &setOurIdentifier(string $value)
     {
         $this->our_identifier = trim($value);
 

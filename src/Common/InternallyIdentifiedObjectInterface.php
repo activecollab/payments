@@ -17,5 +17,5 @@ interface InternallyIdentifiedObjectInterface
      *
      * @return string
      */
-    public function getOurIdentifier();
+    public function getOurIdentifier(): string;
 }
