@@ -79,16 +79,6 @@ class ExampleOffsiteGateway implements GatewayInterface
         return 'test';
     }
 
-    public function getDefaultPaymentMethod(string $customer_id)
-    {
-        return null;
-    }
-
-    public function listPaymentMethods(string $customer_id): array
-    {
-        return [];
-    }
-
     public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented just yet');
