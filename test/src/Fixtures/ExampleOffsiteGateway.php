@@ -138,18 +138,17 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Refund #{$refund_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
     {
         return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    {
+        return $subscription;
+    }
+
+    public function cancelSubscription(SubscriptionInterface $subscription, ...$arguments): SubscriptionInterface
     {
         return $subscription;
     }

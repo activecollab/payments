@@ -98,15 +98,24 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
     /**
      * Update an existing interface for the given customer, that ordered a given product using a given payment method.
      *
-     * @param SubscriptionInterface  $subscription
-     * @param CustomerInterface      $customer
-     * @param PaymentMethodInterface $payment_method
-     * @param string                 $product_name
-     * @param string                 $period
-     * @param  array                  ...$arguments
+     * @param  SubscriptionInterface  $subscription
+     * @param  CustomerInterface      $customer
+     * @param  PaymentMethodInterface $payment_method
+     * @param  string                 $product_name
+     * @param  string                 $period
+     * @param  array                  $arguments
      * @return SubscriptionInterface
      */
     public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+
+    /**
+     * Cancel the subscription.
+     *
+     * @param  SubscriptionInterface $subscription
+     * @param  array                 $arguments
+     * @return SubscriptionInterface
+     */
+    public function cancelSubscription(SubscriptionInterface $subscription, ...$arguments): SubscriptionInterface;
 
     /**
      * Return subscription by subscription ID.
