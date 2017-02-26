@@ -21,6 +21,7 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use BadMethodCallException;
 use InvalidArgumentException;
 
 /**
@@ -87,15 +88,20 @@ class ExampleOffsiteGateway implements GatewayInterface
     {
         return [];
     }
-    
+
     public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
-        throw new \BadMethodCallException('Not implemented just yet');
+        throw new BadMethodCallException('Not implemented just yet');
     }
 
     public function updatePaymentMethod(PaymentMethodInterface $payment_method, CustomerInterface $customer, ?AddressInterface $address, ...$arguments): PaymentMethodInterface
     {
-        throw new \BadMethodCallException('Not implemented just yet');
+        throw new BadMethodCallException('Not implemented just yet');
+    }
+
+    public function removePaymentMethod(PaymentMethodInterface $payment_method): PaymentMethodInterface
+    {
+        throw new BadMethodCallException('Not implemented just yet');
     }
 
     public function getOrderByReference(string $order_reference): OrderInterface
