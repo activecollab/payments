@@ -12,6 +12,24 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 
 trait Implementation
 {
+    public function canBeActivated(): bool
+    {
+        return $this->getStatus() === SubscriptionInterface::STATUS_PENDING;
+    }
+
+    public function canBeCanceled(): bool
+    {
+        return in_array($this->getStatus(), [
+            SubscriptionInterface::STATUS_ACTIVE,
+            SubscriptionInterface::STATUS_DEACTIVATED,
+        ]);
+    }
+
+    public function canBeDeactivated(): bool
+    {
+        return $this->getStatus() === SubscriptionInterface::STATUS_ACTIVE;
+    }
+
     public function canBePurchased(): bool
     {
         if ($this->getStatus() != SubscriptionInterface::STATUS_PENDING) {

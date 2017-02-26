@@ -100,6 +100,75 @@ class SubscriptionTest extends TestCase
         $this->assertEquals('2016-10-15', $next_billing_timestamp->format('Y-m-d'));
     }
 
+    /**
+     * @dataProvider provideSubscriptionStatusesActivationMap
+     * @param string $status
+     * @param bool $can_be_activated
+     */
+    public function testSubscriptionsCanBeActivated($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeActivated());
+    }
+
+    public function provideSubscriptionStatusesActivationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, true],
+            [SubscriptionInterface::STATUS_ACTIVE, false],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, false],
+        ];
+    }
+
+    /**
+     * @dataProvider provideSubscriptionStatusesCancelationMap
+     * @param string $status
+     * @param bool $can_be_activated
+     */
+    public function testSubscriptionsCanBeCanceled($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeCanceled());
+    }
+
+    public function provideSubscriptionStatusesCancelationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, false],
+            [SubscriptionInterface::STATUS_ACTIVE, true],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, true],
+        ];
+    }
+
+    /**
+     * @dataProvider provideSubscriptionStatusesDectivationMap
+     * @param string $status
+     * @param bool $can_be_activated
+     */
+    public function testSubscriptionsCanBeDectivated($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeDeactivated());
+    }
+
+    public function provideSubscriptionStatusesDectivationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, false],
+            [SubscriptionInterface::STATUS_ACTIVE, true],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, false],
+        ];
+    }
+
     public function testPendingSubscriptionCanBePurchased()
     {
         $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);

@@ -49,6 +49,14 @@ interface SubscriptionInterface extends
 
     public function getStatus(): string;
 
+    public function canBeActivated(): bool;
+
+    public function canBeCanceled(): bool;
+
+    public function canBeDeactivated(): bool;
+
+    public function canBePurchased(): bool;
+
     public function getBillingPeriod(): string;
 
     public function getPaymentMethod(): ?PaymentMethodInterface;
@@ -64,6 +72,4 @@ interface SubscriptionInterface extends
     public function isFree(): bool;
 
     public function isPaid(): bool;
-
-    public function canBePurchased(): bool;
 }
