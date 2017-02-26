@@ -56,17 +56,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     private $dispatcher;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDispatcher(): DispatcherInterface
     {
         return $this->dispatcher;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function &setDispatcherByReference(DispatcherInterface $gateway): GatewayInterface
     {
         $this->dispatcher = $gateway;
@@ -74,49 +68,36 @@ class ExampleOffsiteGateway implements GatewayInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getIdentifier(): string
     {
         return 'test';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOurIdentifier(): string
     {
         return 'test';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDefaultPaymentMethod(string $customer_id)
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function listPaymentMethods(string $customer_id): array
     {
         return [];
     }
-
-    /**
-     * {@inheritdoc}
-     */
+    
     public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new \BadMethodCallException('Not implemented just yet');
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function updatePaymentMethod(PaymentMethodInterface $payment_method, CustomerInterface $customer, ?AddressInterface $address, ...$arguments): PaymentMethodInterface
+    {
+        throw new \BadMethodCallException('Not implemented just yet');
+    }
+
     public function getOrderByReference(string $order_reference): OrderInterface
     {
         if (isset($this->orders[$order_reference])) {
@@ -126,9 +107,6 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Order #{$order_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRefundByReference(string $refund_reference): RefundInterface
     {
         if (isset($this->refunds[$refund_reference])) {
@@ -153,9 +131,6 @@ class ExampleOffsiteGateway implements GatewayInterface
         return $subscription;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
     {
         if (isset($this->subscriptions[$subscription_reference])) {
@@ -165,25 +140,16 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAddOnIdByName(string $name): string
     {
         return $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDiscountIdByName(string $name): string
     {
         return $name;
