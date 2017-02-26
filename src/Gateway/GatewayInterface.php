@@ -77,10 +77,10 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
     public function updatePaymentMethod(PaymentMethodInterface $payment_method, CustomerInterface $customer, ?AddressInterface $address, ...$arguments): PaymentMethodInterface;
 
     /**
-     * @param  PaymentMethodInterface $payment_method
-     * @return PaymentMethodInterface
+     * @param  PaymentMethodInterface      $payment_method
+     * @return PaymentMethodInterface|null
      */
-    public function removePaymentMethod(PaymentMethodInterface $payment_method): PaymentMethodInterface;
+    public function removePaymentMethod(PaymentMethodInterface $payment_method): ?PaymentMethodInterface;
 
     /**
      * Return order by order ID.

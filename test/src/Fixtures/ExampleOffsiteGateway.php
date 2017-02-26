@@ -99,7 +99,7 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new BadMethodCallException('Not implemented just yet');
     }
 
-    public function removePaymentMethod(PaymentMethodInterface $payment_method): PaymentMethodInterface
+    public function removePaymentMethod(PaymentMethodInterface $payment_method): ?PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented just yet');
     }
