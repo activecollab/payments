@@ -103,7 +103,7 @@ class SubscriptionTest extends TestCase
     /**
      * @dataProvider provideSubscriptionStatusesActivationMap
      * @param string $status
-     * @param bool $can_be_activated
+     * @param bool   $can_be_activated
      */
     public function testSubscriptionsCanBeActivated($status, bool $can_be_activated)
     {
@@ -126,7 +126,7 @@ class SubscriptionTest extends TestCase
     /**
      * @dataProvider provideSubscriptionStatusesCancelationMap
      * @param string $status
-     * @param bool $can_be_activated
+     * @param bool   $can_be_activated
      */
     public function testSubscriptionsCanBeCanceled($status, bool $can_be_activated)
     {
@@ -149,7 +149,7 @@ class SubscriptionTest extends TestCase
     /**
      * @dataProvider provideSubscriptionStatusesDectivationMap
      * @param string $status
-     * @param bool $can_be_activated
+     * @param bool   $can_be_activated
      */
     public function testSubscriptionsCanBeDectivated($status, bool $can_be_activated)
     {

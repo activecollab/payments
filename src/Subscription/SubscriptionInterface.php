@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Common\GatewayedObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
