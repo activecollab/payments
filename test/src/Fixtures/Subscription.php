@@ -18,6 +18,7 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface\Implementation as SubscriptionInterfaceImplementation;
+use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 use Carbon\Carbon;
 use InvalidArgumentException;
 
@@ -50,6 +51,11 @@ class Subscription implements SubscriptionInterface
         $this->setReference($reference);
         $this->setTimestamp($timestamp);
         $this->period = $period;
+    }
+
+    public function getTaxCategory(): TaxCategoryInterface
+    {
+        return new TaxCategory(TaxCategoryInterface::SOFTWARE_SERVICES);
     }
 
     public function getCustomer(): CustomerInterface
