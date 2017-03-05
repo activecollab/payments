@@ -10,11 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Product;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
+use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
 interface ProductInterface
 {
-    public function getCustomer(): CustomerInterface;
-
-    public function getCategory(): ProductCategoryInterface;
+    public function getTaxCategory(): TaxCategoryInterface;
 }

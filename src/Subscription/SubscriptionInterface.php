@@ -14,6 +14,7 @@ use ActiveCollab\DateValue\DateTimeValueInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Product\ProductInterface;
@@ -45,6 +46,8 @@ interface SubscriptionInterface extends
         self::STATUS_CANCELED,
         self::STATUS_DEACTIVATED,
     ];
+
+    public function getCustomer(): CustomerInterface;
 
     public function getStatus(): string;
 
