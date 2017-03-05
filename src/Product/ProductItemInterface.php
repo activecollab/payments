@@ -10,11 +10,11 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Product;
 
-use ActiveCollab\Payments\Customer\CustomerInterface;
-
-interface ProductInterface
+interface ProductItemInterface
 {
-    public function getCustomer(): CustomerInterface;
+    public function getDescription(): string;
 
-    public function getCategory(): ProductCategoryInterface;
+    public function getQuantity(): float;
+
+    public function getUnitCost(): float;
 }
