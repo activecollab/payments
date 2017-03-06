@@ -9,13 +9,23 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
+use InvalidArgumentException;
 
 class TaxCategory implements TaxCategoryInterface
 {
-    private $category;
+    private $tax_category;
 
-    public function __construct(string $category)
+    public function __construct(string $tax_category)
     {
-        $this->category = $category;
+        if (!in_array($tax_category, self::CATEGORIES)) {
+            throw new InvalidArgumentException("Value '{$tax_category}' is not a valid tax category.");
+        }
+
+        $this->tax_category = $tax_category;
+    }
+
+    public function getTaxCategory(): string
+    {
+        return $this->tax_category;
     }
 }

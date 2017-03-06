@@ -39,4 +39,6 @@ interface TaxCategoryInterface
         self::RELIGIOUS_BOOKS,
         self::OTHER,
     ];
+
+    public function getTaxCategory(): string;
 }
