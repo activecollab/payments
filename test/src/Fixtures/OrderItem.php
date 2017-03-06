@@ -15,6 +15,7 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\Calculator;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
+use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 use InvalidArgumentException;
 use LogicException;
 
@@ -33,6 +34,7 @@ class OrderItem implements OrderItemInterface
     private $description;
     private $quantity;
     private $unit_cost;
+    private $tax_category;
     private $first_tax_rate;
     private $second_tax_rate;
     private $second_tax_is_compound;
@@ -100,6 +102,22 @@ class OrderItem implements OrderItemInterface
     public function getUnitCost(): float
     {
         return $this->unit_cost;
+    }
+
+    public function getTaxCategory(): TaxCategoryInterface
+    {
+        if ($this->tax_category) {
+            return $this->tax_category;
+        }
+
+        return new TaxCategory(TaxCategoryInterface::OTHER);
+    }
+
+    public function &setTaxCategory(?TaxCategoryInterface $tax_category)
+    {
+        $this->tax_category = $tax_category;
+
+        return $this;
     }
 
     public function getFirstTaxRate(): ?float

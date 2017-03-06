@@ -13,6 +13,7 @@ namespace ActiveCollab\Payments\OrderItem;
 use ActiveCollab\Payments\Discount\DiscountInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
+use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
 interface OrderItemInterface
 {
@@ -23,6 +24,8 @@ interface OrderItemInterface
     public function getQuantity(): float;
 
     public function getUnitCost(): float;
+
+    public function getTaxCategory(): TaxCategoryInterface;
 
     public function getFirstTaxRate(): ?float;
 
