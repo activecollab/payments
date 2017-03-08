@@ -25,5 +25,5 @@ interface TaxRatesForOrderInterface
 
     public function getSecondTaxRateFor(OrderItemInterface $order_item): ?float;
 
-    public function getSecondTaxRateIsCompoundFor(OrderItemInterface $order_item): ?bool;
+    public function getSecondTaxIsCompoundFor(OrderItemInterface $order_item): ?bool;
 }
