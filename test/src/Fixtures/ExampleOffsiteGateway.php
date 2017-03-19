@@ -17,6 +17,7 @@ use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
+use ActiveCollab\Payments\Order\Result\ResultInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\PreOrder\PreOrderInterface;
@@ -348,6 +349,39 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @return bool
      */
     public function canExecutePreOrder(PreOrderInterface $pre_order): bool
+    {
+        return true;
+    }
+
+    /**
+     * Execute order.
+     *
+     * @param  OrderInterface         $order
+     * @param  PaymentMethodInterface $payment_method
+     * @param  string                 $action
+     * @param  DateValueInterface     $first_billing_date
+     * @return ResultInterface
+     */
+    public function executeOrder(OrderInterface $order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): ResultInterface
+    {
+        return new Subscription(
+            new Customer('Test', 'test@example.com', false),
+            '2016-02-03',
+            new DateTimeValue(),
+            SubscriptionInterface::MONTHLY,
+            'USD',
+            200,
+            []
+        );
+    }
+
+    /**
+     * Return if gateway can execute order.
+     *
+     * @param  OrderInterface $order
+     * @return bool
+     */
+    public function canExecuteOrder(OrderInterface $order): bool
     {
         return true;
     }

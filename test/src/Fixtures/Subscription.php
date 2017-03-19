@@ -15,6 +15,8 @@ use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Order\OrderInterface;
+use ActiveCollab\Payments\Order\Result\ResultInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface\Implementation as SubscriptionInterfaceImplementation;
@@ -25,7 +27,7 @@ use InvalidArgumentException;
 /**
  * @package ActiveCollab\Payments\Subscription
  */
-class Subscription implements SubscriptionInterface
+class Subscription implements SubscriptionInterface, ResultInterface
 {
     use InternallyIdentifiedObject, ObjectInterfaceImplementation, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
 
@@ -221,5 +223,19 @@ class Subscription implements SubscriptionInterface
         if (empty($value->getFullName()) || empty($value->getEmail())) {
             throw new InvalidArgumentException('Customer name and email address is expected');
         }
+    }
+
+    private $order;
+
+    public function getOrder(): OrderInterface
+    {
+        return $this->order;
+    }
+
+    public function &setOrder(?OrderInterface $order)
+    {
+        $this->order = $order;
+
+        return $this;
     }
 }
