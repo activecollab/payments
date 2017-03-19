@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Product;
 
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
-interface ProductInterface
+interface ProductInterface extends ObjectInterface
 {
     public function canBePurchased(): bool;
 

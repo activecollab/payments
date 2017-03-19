@@ -57,8 +57,6 @@ interface SubscriptionInterface extends
 
     public function canBeDeactivated(): bool;
 
-    public function canBePurchased(): bool;
-
     public function getBillingPeriod(): string;
 
     public function getPaymentMethod(): ?PaymentMethodInterface;

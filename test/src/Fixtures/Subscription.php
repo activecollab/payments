@@ -9,6 +9,7 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Object\ObjectInterface\Implementation as ObjectInterfaceImplementation;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
@@ -26,12 +27,14 @@ use InvalidArgumentException;
  */
 class Subscription implements SubscriptionInterface
 {
-    use InternallyIdentifiedObject, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
+    use InternallyIdentifiedObject, ObjectInterfaceImplementation, ReferencedObject, SubscriptionInterfaceImplementation, TimestampedObject;
 
     /**
      * @var CustomerInterface
      */
     private $customer;
+
+    private $id = 1;
 
     /**
      * Construct a new order instance.
@@ -50,6 +53,18 @@ class Subscription implements SubscriptionInterface
         $this->setReference($reference);
         $this->setTimestamp($timestamp);
         $this->period = $period;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function &setId($value)
+    {
+        $this->id = $value;
+
+        return $this;
     }
 
     public function getTaxCategory(): TaxCategoryInterface
