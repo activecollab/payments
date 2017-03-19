@@ -10,13 +10,19 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Object\ObjectInterface\Implementation as ObjectInterfaceImplementation;
 use ActiveCollab\Payments\Discount\DiscountInterface;
 use ActiveCollab\Payments\Discount\Traits\DiscountCalculator;
 use ActiveCollab\Payments\Discount\Traits\DiscountValidator;
 
 class Discount implements DiscountInterface
 {
-    use DiscountCalculator, DiscountValidator;
+    use DiscountCalculator, DiscountValidator, ObjectInterfaceImplementation;
+
+    /**
+     * @var int
+     */
+    private $id = 1;
 
     /**
      * @var string
@@ -49,6 +55,18 @@ class Discount implements DiscountInterface
         $this->type = $type;
         $this->value = $value;
         $this->max_amount = $max_amount;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function &setId($value)
+    {
+        $this->id = $value;
+
+        return $this;
     }
 
     /**

@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Address;
 
-interface AddressInterface
+use ActiveCollab\Object\ObjectInterface;
+
+interface AddressInterface extends ObjectInterface
 {
     public function getName(): string;
 

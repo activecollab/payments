@@ -9,6 +9,7 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Object\ObjectInterface\Implementation as ObjectInterfaceImplementation;
 use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
 use ActiveCollab\Payments\Common\Traits\ReferencedObject;
 use ActiveCollab\Payments\Common\Traits\TimestampedObject;
@@ -25,7 +26,12 @@ use InvalidArgumentException;
  */
 class Order implements OrderInterface
 {
-    use InternallyIdentifiedObject, ReferencedObject, TimestampedObject;
+    use InternallyIdentifiedObject, ObjectInterfaceImplementation, ReferencedObject, TimestampedObject;
+
+    /**
+     * @var int
+     */
+    private $id = 1;
 
     /**
      * @var string
@@ -74,6 +80,18 @@ class Order implements OrderInterface
         $this->currency = $currency;
         $this->items = $items;
         $this->calculation = (new Calculator())->calculate($this, 2);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function &setId($value)
+    {
+        $this->id = $value;
+
+        return $this;
     }
 
     public function getStatus(): string

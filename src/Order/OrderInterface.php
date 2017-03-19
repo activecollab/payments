@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Order;
 
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 use ActiveCollab\Payments\Common\TimestampedObjectInterface;
@@ -24,6 +25,7 @@ use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 interface OrderInterface extends
     ReferencedObjectInterface,
     InternallyIdentifiedObjectInterface,
+    ObjectInterface,
     TimestampedObjectInterface
 {
     const STATUS_NEW = 'new';

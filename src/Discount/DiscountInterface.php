@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Discount;
 
+use ActiveCollab\Object\ObjectInterface;
+
 /**
  * @package ActiveCollab\Payments\Discount
  */
-interface DiscountInterface
+interface DiscountInterface extends ObjectInterface
 {
     const PERCENT = 'percent';
     const VALUE = 'fixed';

@@ -10,12 +10,13 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\OrderItem;
 
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\Discount\DiscountInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
 use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
-interface OrderItemInterface
+interface OrderItemInterface extends ObjectInterface
 {
     public function getOrder(): OrderInterface;
 

@@ -8,11 +8,16 @@
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Object\ObjectInterface\Implementation as ObjectInterfaceImplementation;
 use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 use InvalidArgumentException;
 
 class TaxCategory implements TaxCategoryInterface
 {
+    use ObjectInterfaceImplementation;
+
+    private $id = 1;
+
     private $tax_category;
 
     public function __construct(string $tax_category)
@@ -22,6 +27,18 @@ class TaxCategory implements TaxCategoryInterface
         }
 
         $this->tax_category = $tax_category;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function &setId($value)
+    {
+        $this->id = $value;
+
+        return $this;
     }
 
     public function getTaxCategory(): string

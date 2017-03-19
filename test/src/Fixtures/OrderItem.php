@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
+use ActiveCollab\Object\ObjectInterface\Implementation as ObjectInterfaceImplementation;
 use ActiveCollab\Payments\Discount\DiscountInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\OrderItem\Calculator\CalculationInterface;
@@ -21,6 +22,10 @@ use LogicException;
 
 class OrderItem implements OrderItemInterface
 {
+    use ObjectInterfaceImplementation;
+
+    private $id = 1;
+
     /**
      * @var OrderInterface
      */
@@ -59,6 +64,18 @@ class OrderItem implements OrderItemInterface
         $this->first_tax_rate = $first_tax_rate;
         $this->second_tax_rate = $second_tax_rate;
         $this->second_tax_is_compound = $second_tax_is_compound;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function &setId($value)
+    {
+        $this->id = $value;
+
+        return $this;
     }
 
     public function getOrder(): OrderInterface

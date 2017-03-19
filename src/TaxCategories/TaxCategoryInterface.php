@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\TaxCategories;
 
-interface TaxCategoryInterface
+use ActiveCollab\Object\ObjectInterface;
+
+interface TaxCategoryInterface extends ObjectInterface
 {
     const DIGITAL_GOODS = 'digital_goods';
     const CLOTHING = 'clothing';

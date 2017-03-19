@@ -11,13 +11,14 @@ declare(strict_types=1);
 namespace ActiveCollab\Payments\PaymentMethod;
 
 use ActiveCollab\DateValue\DateValueInterface;
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 
 /**
  * @package ActiveCollab\Payments\PaymentMethod
  */
-interface PaymentMethodInterface extends InternallyIdentifiedObjectInterface, ReferencedObjectInterface
+interface PaymentMethodInterface extends InternallyIdentifiedObjectInterface, ObjectInterface, ReferencedObjectInterface
 {
     const CREDIT_CARD = 'credit_card';
     const PAYPAL = 'paypal';

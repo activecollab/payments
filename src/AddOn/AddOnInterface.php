@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\AddOn;
 
+use ActiveCollab\Object\ObjectInterface;
+
 /**
  * @package ActiveCollab\Payments\AddOn
  */
-interface AddOnInterface
+interface AddOnInterface extends ObjectInterface
 {
     /**
      * @return string

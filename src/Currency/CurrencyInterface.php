@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Currency;
 
-interface CurrencyInterface
+use ActiveCollab\Object\ObjectInterface;
+
+interface CurrencyInterface extends ObjectInterface
 {
     public function getCode();
 

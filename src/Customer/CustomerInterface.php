@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Customer;
 
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
@@ -17,7 +18,7 @@ use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\User\UserInterface;
 
-interface CustomerInterface extends InternallyIdentifiedObjectInterface, ReferencedObjectInterface, UserInterface
+interface CustomerInterface extends InternallyIdentifiedObjectInterface, ObjectInterface, ReferencedObjectInterface, UserInterface
 {
     public function getPaymentMethods(): ?iterable;
 

@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Merchant;
 
+use ActiveCollab\Object\ObjectInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Common\ReferencedObjectInterface;
 
-interface MerchantInterface extends InternallyIdentifiedObjectInterface, ReferencedObjectInterface
+interface MerchantInterface extends InternallyIdentifiedObjectInterface, ObjectInterface, ReferencedObjectInterface
 {
 }

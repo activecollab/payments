@@ -10,7 +10,9 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Address;
 
-interface AddressesInterface
+use ActiveCollab\Object\ObjectInterface;
+
+interface AddressesInterface extends ObjectInterface
 {
     public function getAddresses(): ?iterable;
 
