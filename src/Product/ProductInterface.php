@@ -14,5 +14,7 @@ use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
 interface ProductInterface
 {
+    public function canBePurchased(): bool;
+
     public function getTaxCategory(): TaxCategoryInterface;
 }
