@@ -114,6 +114,13 @@ class Order implements OrderInterface
         return $this;
     }
 
+    public function activate(): OrderInterface
+    {
+        $this->setStatus(self::STATUS_PAID);
+
+        return $this;
+    }
+
     public function getCustomer(): CustomerInterface
     {
         return $this->customer;

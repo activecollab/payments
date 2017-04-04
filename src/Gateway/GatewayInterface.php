@@ -50,7 +50,12 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        bool $set_as_default,
+        ...$arguments
+    ): PaymentMethodInterface;
 
     /**
      * @param  PaymentMethodInterface $payment_method
@@ -59,7 +64,12 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function updatePaymentMethod(PaymentMethodInterface $payment_method, CustomerInterface $customer, ?AddressInterface $address, ...$arguments): PaymentMethodInterface;
+    public function updatePaymentMethod(
+        PaymentMethodInterface $payment_method,
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        ...$arguments
+    ): PaymentMethodInterface;
 
     /**
      * @param  PaymentMethodInterface      $payment_method
@@ -93,7 +103,12 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  mixed                  $arguments
      * @return SubscriptionInterface
      */
-    public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+    public function createSubscription(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments): SubscriptionInterface;
 
     /**
      * Update an existing interface for the given customer, that ordered a given product using a given payment method.
@@ -106,7 +121,13 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  array                  $arguments
      * @return SubscriptionInterface
      */
-    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+    public function updateSubscription(
+        SubscriptionInterface $subscription,
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period, ...$arguments
+    ): SubscriptionInterface;
 
     /**
      * Cancel the subscription.
@@ -132,7 +153,10 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * @param  string $period
      * @return string
      */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string;
+    public function getProductIdByNameAndBillingPeriod(
+        string $product_name,
+        string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY
+    ): string;
 
     /**
      * Return add-on ID based on add-on name (or code).
@@ -151,34 +175,12 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
     public function getDiscountIdByName(string $name): string;
 
     /**
-     * Execute pre-order.
-     *
-     * @param  PreOrderInterface      $pre_order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface     $first_billing_date
-     * @return OrderInterface
-     */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): OrderInterface;
-
-    /**
-     * Return if gateway can execute pre-order.
-     *
-     * @param  PreOrderInterface $pre_order
-     * @return bool
-     */
-    public function canExecutePreOrder(PreOrderInterface $pre_order): bool;
-
-    /**
      * Execute order.
      *
-     * @param  OrderInterface         $order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface     $first_billing_date
-     * @return ResultInterface
+     * @param  OrderInterface $order
+     * @return OrderInterface
      */
-    public function executeOrder(OrderInterface $order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): ResultInterface;
+    public function executeOrder(OrderInterface $order): OrderInterface;
 
     /**
      * Return if gateway can execute order.

@@ -20,7 +20,6 @@ use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\Order\Result\ResultInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
-use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use BadMethodCallException;
 use InvalidArgumentException;
@@ -327,52 +326,14 @@ class ExampleOffsiteGateway implements GatewayInterface
     }
 
     /**
-     * Execute pre-order.
-     *
-     * @param  PreOrderInterface      $pre_order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface     $first_billing_date
-     * @return OrderInterface
-     */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): OrderInterface
-    {
-        $customer = new Customer('Test', 'test@example.com', false);
-
-        return new Subscription($customer, '2016-01', new DateTimeValue(), SubscriptionInterface::BILLING_PERIOD_MONTHLY);
-    }
-
-    /**
-     * Return if gateway can execute pre-order.
-     *
-     * @param  PreOrderInterface $pre_order
-     * @return bool
-     */
-    public function canExecutePreOrder(PreOrderInterface $pre_order): bool
-    {
-        return true;
-    }
-
-    /**
      * Execute order.
      *
-     * @param  OrderInterface         $order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface     $first_billing_date
-     * @return ResultInterface
+     * @param  OrderInterface $order
+     * @return OrderInterface
      */
-    public function executeOrder(OrderInterface $order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): ResultInterface
+    public function executeOrder(OrderInterface $order): OrderInterface
     {
-        return new Subscription(
-            new Customer('Test', 'test@example.com', false),
-            '2016-02-03',
-            new DateTimeValue(),
-            SubscriptionInterface::MONTHLY,
-            'USD',
-            200,
-            []
-        );
+        return $order;
     }
 
     /**

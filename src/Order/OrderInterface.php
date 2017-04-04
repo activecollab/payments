@@ -40,6 +40,8 @@ interface OrderInterface extends
         self:: STATUS_CANCELED,
     ];
 
+    public function activate(): OrderInterface;
+
     public function getStatus(): string;
 
     public function getCustomer(): CustomerInterface;
