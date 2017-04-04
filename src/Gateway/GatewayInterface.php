@@ -90,50 +90,36 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      */
     public function getRefundByReference(string $refund_reference): RefundInterface;
 
-    /**
-     * Create a new subscription for the given customer that ordered a given product using a given payment method.
-     *
-     * @param  CustomerInterface      $customer
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $product_name
-     * @param  string                 $period
-     * @param  mixed                  $arguments
-     * @return SubscriptionInterface
-     */
+    public function createCharge(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        float $total_amount,
+        ?float $discount_amount,
+        ?float $tax_amount
+    ): string;
+
     public function createSubscription(
         CustomerInterface $customer,
         PaymentMethodInterface $payment_method,
         string $product_name,
         string $period,
-        ...$arguments): SubscriptionInterface;
+        ...$arguments
+    ): string;
 
-    /**
-     * Update an existing interface for the given customer, that ordered a given product using a given payment method.
-     *
-     * @param  SubscriptionInterface  $subscription
-     * @param  CustomerInterface      $customer
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $product_name
-     * @param  string                 $period
-     * @param  array                  $arguments
-     * @return SubscriptionInterface
-     */
     public function updateSubscription(
         SubscriptionInterface $subscription,
         CustomerInterface $customer,
         PaymentMethodInterface $payment_method,
         string $product_name,
-        string $period, ...$arguments
-    ): SubscriptionInterface;
+        string $period,
+        ...$arguments
+    ): void;
 
-    /**
-     * Cancel the subscription.
-     *
-     * @param  SubscriptionInterface $subscription
-     * @param  array                 $arguments
-     * @return SubscriptionInterface
-     */
-    public function cancelSubscription(SubscriptionInterface $subscription, ...$arguments): SubscriptionInterface;
+    public function cancelSubscription(
+        SubscriptionInterface $subscription,
+        ...$arguments
+    ): void;
 
     /**
      * Return subscription by subscription ID.
