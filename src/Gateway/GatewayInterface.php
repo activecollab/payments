@@ -10,16 +10,13 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Gateway;
 
-use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\Order\Result\ResultInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
-use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 
 /**
@@ -185,7 +182,7 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
     /**
      * Return if gateway can execute order.
      *
-     * @param  OrderInterface          $order
+     * @param  OrderInterface $order
      * @return bool
      */
     public function canExecuteOrder(OrderInterface $order): bool;
