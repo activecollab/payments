@@ -95,8 +95,8 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
         PaymentMethodInterface $payment_method,
         string $product_name,
         float $total_amount,
-        ?float $discount_amount,
-        ?float $tax_amount
+        float $discount_amount = null,
+        float $tax_amount = null
     ): string;
 
     public function createSubscription(
