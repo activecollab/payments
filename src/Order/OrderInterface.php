@@ -40,7 +40,11 @@ interface OrderInterface extends
         self:: STATUS_CANCELED,
     ];
 
-    public function activate(): OrderInterface;
+    public function pendingPayment(): OrderInterface;
+
+    public function pay(): OrderInterface;
+
+    public function cancel(): OrderInterface;
 
     public function getStatus(): string;
 
