@@ -15,6 +15,8 @@ use ActiveCollab\Payments\TaxCategories\TaxCategoryInterface;
 
 interface ProductInterface extends ObjectInterface
 {
+    public function getInvoicingContext();
+
     public function canBePurchased(): bool;
 
     public function getTaxCategory(): TaxCategoryInterface;

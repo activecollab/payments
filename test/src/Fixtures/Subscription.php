@@ -201,6 +201,11 @@ class Subscription implements SubscriptionInterface, ResultInterface
         return $this;
     }
 
+    public function getInvoicingContext()
+    {
+        return $this;
+    }
+
     /**
      * Validate period value.
      *

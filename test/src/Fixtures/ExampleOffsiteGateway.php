@@ -10,14 +10,12 @@ namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\Order\Result\ResultInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
@@ -79,12 +77,22 @@ class ExampleOffsiteGateway implements GatewayInterface
         return 'test';
     }
 
-    public function addPaymentMethod(CustomerInterface $customer, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function addPaymentMethod(
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        bool $set_as_default,
+        ...$arguments
+    ): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented just yet');
     }
 
-    public function updatePaymentMethod(PaymentMethodInterface $payment_method, CustomerInterface $customer, ?AddressInterface $address, ...$arguments): PaymentMethodInterface
+    public function updatePaymentMethod(
+        PaymentMethodInterface $payment_method,
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        ...$arguments
+    ): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented just yet');
     }
@@ -112,12 +120,25 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Refund #{$refund_reference} not found");
     }
 
-    public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    public function createSubscription(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): SubscriptionInterface
     {
         return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period);
     }
 
-    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    public function updateSubscription(
+        SubscriptionInterface $subscription,
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): SubscriptionInterface
     {
         return $subscription;
     }
@@ -136,7 +157,10 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
     }
 
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY): string
+    public function getProductIdByNameAndBillingPeriod(
+        string $product_name,
+        string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY
+    ): string
     {
         return '';
     }
@@ -177,7 +201,13 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotalAmount(), $this);
+        $refund = new Refund(
+            $order->getReference() . '-X',
+            $order->getReference(),
+            $timestamp,
+            $order->getTotalAmount(),
+            $this
+        );
 
         $this->refunds[$refund->getReference()] = $refund;
 
@@ -191,7 +221,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param OrderItemInterface[]        $items
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTimeValueInterface $timestamp = null)
+    public function triggerOrderPartiallyRefunded(
+        OrderInterface $order,
+        array $items = null,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->orders[$order->getReference()] = $order;
 
@@ -199,7 +233,13 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, 200, $this);
+        $refund = new Refund(
+            $order->getReference() . '-X',
+            $order->getReference(),
+            $timestamp,
+            200,
+            $this
+        );
 
         if (!empty($items)) {
             $refund->setItems($items);
@@ -229,7 +269,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param DateTimeValueInterface|null $timestamp
      * @param DateTimeValueInterface|null $next_billing_timestamp
      */
-    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
+    public function triggerSubscriptionRebill(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null,
+        DateTimeValueInterface $next_billing_timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -251,7 +295,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionChange(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionChange(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -269,7 +316,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionDeactivated(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -287,7 +337,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionFailedPayment(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
