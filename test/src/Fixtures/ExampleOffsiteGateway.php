@@ -19,6 +19,7 @@ use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\User\UserInterface;
 use BadMethodCallException;
 use InvalidArgumentException;
 
@@ -394,7 +395,7 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param  OrderInterface $order
      * @return OrderInterface
      */
-    public function executeOrder(OrderInterface $order): OrderInterface
+    public function executeOrder(OrderInterface $order, UserInterface $by = null): OrderInterface
     {
         return $order;
     }

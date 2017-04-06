@@ -18,6 +18,7 @@ use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\User\UserInterface;
 
 /**
  * @package ActiveCollab\Payments
@@ -161,9 +162,10 @@ interface GatewayInterface extends InternallyIdentifiedObjectInterface
      * Execute order.
      *
      * @param  OrderInterface $order
+     * @param  UserInterface  $by
      * @return OrderInterface
      */
-    public function executeOrder(OrderInterface $order): OrderInterface;
+    public function executeOrder(OrderInterface $order, UserInterface $by = null): OrderInterface;
 
     /**
      * Return if gateway can execute order.
