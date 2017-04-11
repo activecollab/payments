@@ -206,6 +206,11 @@ class Subscription implements SubscriptionInterface, ResultInterface
         return $this;
     }
 
+    public function isRecurringProduct(): bool
+    {
+        return true;
+    }
+
     /**
      * Validate period value.
      *

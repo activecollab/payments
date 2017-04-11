@@ -392,7 +392,8 @@ class ExampleOffsiteGateway implements GatewayInterface
     /**
      * Execute order.
      *
-     * @param  OrderInterface $order
+     * @param  OrderInterface     $order
+     * @param  UserInterface|null $by
      * @return OrderInterface
      */
     public function executeOrder(OrderInterface $order, UserInterface $by = null): OrderInterface

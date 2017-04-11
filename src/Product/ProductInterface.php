@@ -20,4 +20,6 @@ interface ProductInterface extends ObjectInterface
     public function canBePurchased(): bool;
 
     public function getTaxCategory(): TaxCategoryInterface;
+
+    public function isRecurringProduct(): bool;
 }
