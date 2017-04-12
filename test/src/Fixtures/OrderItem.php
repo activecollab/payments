@@ -111,6 +111,20 @@ class OrderItem implements OrderItemInterface
         return $this->description;
     }
 
+    private $short_description = '';
+
+    public function getShortDescription(): string
+    {
+        return $this->short_description;
+    }
+
+    public function setShortDescription(string $short_description): OrderItemInterface
+    {
+        $this->short_description = $short_description;
+
+        return $this;
+    }
+
     public function getQuantity(): float
     {
         return $this->quantity;

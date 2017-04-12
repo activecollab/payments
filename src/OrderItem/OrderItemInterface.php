@@ -22,6 +22,8 @@ interface OrderItemInterface extends ObjectInterface
 
     public function getDescription(): string;
 
+    public function getShortDescription(): string;
+
     public function getQuantity(): float;
 
     public function getUnitCost(): float;
