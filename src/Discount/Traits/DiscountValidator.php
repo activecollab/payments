@@ -32,7 +32,7 @@ trait DiscountValidator
 
     protected function validateDiscountValue(string $type, float $value)
     {
-        if ($type === DiscountInterface::PERCENT) {
+        if ($type === DiscountInterface::TYPE_PERCENT) {
             if ($value <= 0 || $value > 100) {
                 throw new InvalidArgumentException('Discount rate greather than 0 and lower or equal to 100 percent is required.');
             }
@@ -46,7 +46,7 @@ trait DiscountValidator
     protected function validateMaxDiscountAmount(string $type, ?float $max_amount)
     {
         if ($max_amount !== null) {
-            if ($type === DiscountInterface::VALUE) {
+            if ($type === DiscountInterface::TYPE_VALUE) {
                 throw new LogicException('Max amount is available only for percent discounts.');
             }
 

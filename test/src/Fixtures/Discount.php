@@ -44,7 +44,7 @@ class Discount implements DiscountInterface
      */
     private $max_amount;
 
-    public function __construct(string $name, float $value, string $type = DiscountInterface::PERCENT, float $max_amount = null)
+    public function __construct(string $name, float $value, string $type = DiscountInterface::TYPE_PERCENT, float $max_amount = null)
     {
         $this->validateDiscountName($name);
         $this->validateDiscountType($type);
@@ -94,7 +94,7 @@ class Discount implements DiscountInterface
      *
      * @return string
      */
-    public function getType(): string
+    public function getDiscountType(): string
     {
         return $this->type;
     }

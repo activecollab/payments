@@ -17,10 +17,15 @@ use ActiveCollab\Object\ObjectInterface;
  */
 interface DiscountInterface extends ObjectInterface
 {
+    /** @deprecated */
     const PERCENT = 'percent';
+    /** @deprecated */
     const VALUE = 'fixed';
 
-    const DISCOUNT_TYPES = [self::PERCENT, self::VALUE];
+    const TYPE_PERCENT = 'percent';
+    const TYPE_VALUE = 'fixed';
+
+    const DISCOUNT_TYPES = [self::TYPE_PERCENT, self::TYPE_VALUE];
 
     /**
      * Return discount name.
@@ -50,7 +55,7 @@ interface DiscountInterface extends ObjectInterface
      *
      * @return string
      */
-    public function getType(): string;
+    public function getDiscountType(): string;
 
     /**
      * Calcualte discount for the given amount.

@@ -21,7 +21,7 @@ class DiscountValidatorTest extends TestCase
      */
     public function testValidateName()
     {
-        new Discount('', 10, DiscountInterface::PERCENT);
+        new Discount('', 10, DiscountInterface::TYPE_PERCENT);
     }
 
     /**
@@ -41,7 +41,7 @@ class DiscountValidatorTest extends TestCase
      */
     public function testInvalidValueForPercent(float $invalid_discount_rate)
     {
-        new Discount('Invalid discount', $invalid_discount_rate, DiscountInterface::PERCENT);
+        new Discount('Invalid discount', $invalid_discount_rate, DiscountInterface::TYPE_PERCENT);
     }
 
     public function provideInvalidDiscountRates(): array
@@ -63,7 +63,7 @@ class DiscountValidatorTest extends TestCase
      */
     public function testInvalidValueForAmount(float $invalid_discount_amount)
     {
-        new Discount('Invalid discount', $invalid_discount_amount, DiscountInterface::VALUE);
+        new Discount('Invalid discount', $invalid_discount_amount, DiscountInterface::TYPE_VALUE);
     }
 
     public function provideInvalidDiscountAmounts(): array
@@ -83,7 +83,7 @@ class DiscountValidatorTest extends TestCase
      */
     public function testInvalidMaxValue(float $invalid_max_amount)
     {
-        new Discount('No discount', 5, DiscountInterface::PERCENT, $invalid_max_amount);
+        new Discount('No discount', 5, DiscountInterface::TYPE_PERCENT, $invalid_max_amount);
     }
 
     public function provideInvalidMaxAmount(): array
@@ -101,6 +101,6 @@ class DiscountValidatorTest extends TestCase
      */
     public function testMaxAmountIsNotAvailableForAmountDiscounts()
     {
-        new Discount('No discount', 15, DiscountInterface::VALUE, 100.00);
+        new Discount('No discount', 15, DiscountInterface::TYPE_VALUE, 100.00);
     }
 }

@@ -16,7 +16,7 @@ trait DiscountCalculator
 {
     public function calculateForAmount(float $amount): float
     {
-        if ($this->getType() === DiscountInterface::VALUE) {
+        if ($this->getDiscountType() === DiscountInterface::TYPE_VALUE) {
             $discount = $this->getValue();
         } else {
             $discount = $this->calculateDiscountByRate($amount, $this->getValue());
@@ -49,5 +49,5 @@ trait DiscountCalculator
 
     abstract public function getMaxAmount(): ?float;
 
-    abstract public function getType(): string;
+    abstract public function getDiscountType(): string;
 }
