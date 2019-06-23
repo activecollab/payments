@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=7.1",
-        "activecollab/datevalue": "v2.0.x-dev",
+        "activecollab/datevalue": "^2.0",
         "activecollab/user": "v4.0.x-dev"
     },
     "require-dev": {
