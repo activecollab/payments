@@ -16,11 +16,11 @@
     ],
     "require": {
         "php": ">=7.1",
-        "activecollab/datevalue": "^1.0",
+        "activecollab/datevalue": "^2.0",
         "activecollab/user": "v4.0.x-dev"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^1.0",
+        "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^5.0"
     },
     "minimum-stability": "stable",

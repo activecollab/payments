@@ -6,47 +6,27 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Common\GatewayedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
 
 /**
  * @package ActiveCollab\Payments\Subscription
  */
-interface SubscriptionEventInterface
+interface SubscriptionEventInterface extends GatewayedObjectInterface, TimestampedObjectInterface
 {
-    /**
-     * Return parent gateway.
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway();
-
-    /**
-     * Set parent gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
-
     /**
      * @return string
      */
-    public function getSubscriptionReference();
+    public function getSubscriptionReference(): string;
 
     /**
      * Return order by order ID.
      *
      * @return SubscriptionInterface
      */
-    public function getSubscription();
-
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
+    public function getSubscription(): SubscriptionInterface;
 }

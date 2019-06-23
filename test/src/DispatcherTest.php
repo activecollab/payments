@@ -6,6 +6,8 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
+declare(strict_types=1);
+
 namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
@@ -14,7 +16,6 @@ use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
-use ActiveCollab\Payments\OrderItem\OrderItem;
 use ActiveCollab\Payments\Subscription\Cancelation\CancelationInterface;
 use ActiveCollab\Payments\Subscription\Change\ChangeInterface;
 use ActiveCollab\Payments\Subscription\FailedPayment\FailedPaymentInterface;
@@ -23,6 +24,7 @@ use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\ExampleOffsiteGateway;
 use ActiveCollab\Payments\Test\Fixtures\Order;
+use ActiveCollab\Payments\Test\Fixtures\OrderItem;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
 
 /**
@@ -65,24 +67,12 @@ class DispatcherTest extends TestCase
         $this->gateway = new ExampleOffsiteGateway($this->dispatcher);
         $this->customer = new Customer('John Doe', 'john@example.com');
         $this->timestamp = new DateTimeValue('2015-10-15');
-        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', 1200, [
+        $this->order = new Order($this->customer, '2015-01', $this->timestamp, 'USD', [
             new OrderItem('Expensive product', 1, 1000),
             new OrderItem('Not so expensive product', 2, 100),
         ]);
 
-        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::MONTHLY, 'USD', 25, [
-            new OrderItem('Monthly SaaS cost', 1, 25),
-        ]);
-    }
-
-    /**
-     * Tear down test environment.
-     */
-    public function tearDown()
-    {
-        $this->gateway = $this->customer = $this->timestamp = $this->order = null;
-
-        parent::tearDown();
+        $this->subscription = new Subscription($this->customer, '2015-01', $this->timestamp, SubscriptionInterface::BILLING_PERIOD_MONTHLY);
     }
 
     /**
@@ -118,7 +108,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertEquals($refund->getTotal(), $order->getTotal());
+            $this->assertEquals($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertFalse($refund->isPartial());
 
@@ -142,7 +132,7 @@ class DispatcherTest extends TestCase
             $this->assertInstanceOf(OrderInterface::class, $order);
 
             $this->assertEquals($refund->getOrderReference(), $order->getReference());
-            $this->assertGreaterThan($refund->getTotal(), $order->getTotal());
+            $this->assertGreaterThan($refund->getTotal(), $order->getTotalAmount());
 
             $this->assertInternalType('array', $refund->getItems());
             $this->assertCount(1, $refund->getItems());

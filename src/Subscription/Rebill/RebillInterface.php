@@ -6,7 +6,7 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription\Rebill;
 
@@ -23,5 +23,5 @@ interface RebillInterface extends SubscriptionEventInterface
      *
      * @return DateTimeValueInterface
      */
-    public function getNextBillingTimestamp();
+    public function getNextBillingTimestamp(): DateTimeValueInterface;
 }

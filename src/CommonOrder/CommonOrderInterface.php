@@ -6,57 +6,39 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\CommonOrder;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Currency\CurrencyInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 
 /**
  * @package ActiveCollab\Payments\CommonOrder
  */
-interface CommonOrderInterface
+interface CommonOrderInterface extends ReferencedObjectInterface, InternallyIdentifiedObjectInterface, TimestampedObjectInterface
 {
-    /**
-     * @return string
-     */
-    public function getReference();
+    public function getCustomer(): CustomerInterface;
 
-    /**
-     * @return \ActiveCollab\Payments\Customer\CustomerInterface
-     */
-    public function getCustomer();
+    public function getCurrency(): CurrencyInterface;
 
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
+    public function getSubtotalAmount(): float;
 
-    /**
-     * @return string
-     */
-    public function getCurrency();
+    public function getDiscountAmount(): float;
 
-    /**
-     * @return float
-     */
-    public function getTotal();
+    public function getFirstTaxAmount(): float;
+
+    public function getSecondTaxAmount(): float;
+
+    public function getTaxAmount(): float;
+
+    public function getTotalAmount(): float;
 
     /**
      * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
      */
     public function getItems();
-
-    /**
-     * @return string
-     */
-    public function getOurIdentifier();
-
-    /**
-     * Set our identifier.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value);
 }

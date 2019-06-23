@@ -6,57 +6,70 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Subscription;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
+use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
+use ActiveCollab\Payments\Product\ProductInterface;
 
-/**
- * @package ActiveCollab\Payments\Subscription
- */
-interface SubscriptionInterface extends CommonOrderInterface
+interface SubscriptionInterface extends
+    InternallyIdentifiedObjectInterface,
+    ProductInterface,
+    ReferencedObjectInterface,
+    TimestampedObjectInterface
 {
-    const MONTHLY = 'monthly';
-    const YEARLY = 'yearly';
+    const BILLING_PERIOD_NONE = 'none';
+    const BILLING_PERIOD_MONTHLY = 'monthly';
+    const BILLING_PERIOD_YEARLY = 'yearly';
 
-    /**
-     * Return parent gateway.
-     *
-     * @return GatewayInterface
-     */
-    public function &getGateway();
+    const BILLING_PERIODS = [
+        self::BILLING_PERIOD_NONE,
+        self::BILLING_PERIOD_MONTHLY,
+        self::BILLING_PERIOD_YEARLY,
+    ];
 
-    /**
-     * Set parent gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
+    const STATUS_PENDING = 'pending';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_CANCELED = 'canceled';
+    const STATUS_DEACTIVATED = 'deactivated';
 
-    /**
-     * Return next billing timestamp.
-     *
-     * @return DateTimeValueInterface
-     */
-    public function getNextBillingTimestamp();
+    const STATUSES = [
+        self::STATUS_PENDING,
+        self::STATUS_ACTIVE,
+        self::STATUS_CANCELED,
+        self::STATUS_DEACTIVATED,
+    ];
 
-    /**
-     * Set next billing timestamp.
-     *
-     * @param  DateTimeValueInterface $value
-     * @return $this
-     */
-    public function &setNextBillingTimestamp(DateTimeValueInterface $value);
+    public function getCustomer(): CustomerInterface;
 
-    /**
-     * Calculate next billing period based on reference timestamp.
-     *
-     * @param  DateTimeValueInterface $reference
-     * @return DateTimeValueInterface
-     */
-    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference);
+    public function getStatus(): string;
+
+    public function canBeActivated(): bool;
+
+    public function canBeCanceled(): bool;
+
+    public function canBeDeactivated(): bool;
+
+    public function getBillingPeriod(): string;
+
+    public function getPaymentMethod(): ?PaymentMethodInterface;
+
+    public function getGateway(): ?GatewayInterface;
+
+    public function getNextBillingTimestamp(): DateTimeValueInterface;
+
+    public function &setNextBillingTimestamp(DateTimeValueInterface $value): SubscriptionInterface;
+
+    public function calculateNextBillingTimestamp(DateTimeValueInterface $reference): DateTimeValueInterface;
+
+    public function isFree(): bool;
+
+    public function isPaid(): bool;
 }

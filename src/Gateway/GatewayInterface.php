@@ -10,33 +10,27 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Gateway;
 
-use ActiveCollab\DateValue\DateValueInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\Payments\Address\AddressInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
-use ActiveCollab\Payments\PreOrder\PreOrderInterface;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\User\UserInterface;
 
 /**
  * @package ActiveCollab\Payments
  */
-interface GatewayInterface
+interface GatewayInterface extends InternallyIdentifiedObjectInterface
 {
     /**
      * Return dispatcher instance.
      *
      * @return DispatcherInterface
      */
-    public function &getDispatcher(): DispatcherInterface;
-
-    /**
-     * @param  DispatcherInterface $gateway
-     * @return GatewayInterface
-     */
-    public function &setDispatcher(DispatcherInterface $gateway): GatewayInterface;
+    public function getDispatcher(): DispatcherInterface;
 
     /**
      * Return gateway identifier.
@@ -46,37 +40,40 @@ interface GatewayInterface
     public function getIdentifier(): string;
 
     /**
-     * Return our gateway reference (ID).
-     *
-     * @return string
-     */
-    public function getOurReference(): string;
-
-    /**
-     * Return default payment method for the given customer.
-     *
-     * @param  string                      $customer_id
-     * @return PaymentMethodInterface|null
-     */
-    public function getDefaultPaymentMethod(string $customer_id);
-
-    /**
-     * Return an array of payment methods that we have stored for the given customer.
-     *
-     * @param  string                   $customer_id
-     * @return PaymentMethodInterface[]
-     */
-    public function listPaymentMethods(string $customer_id): array;
-
-    /**
      * Create a payment method for the given customer and return the instance.
      *
      * @param  CustomerInterface      $customer
+     * @param  AddressInterface|null  $address
      * @param  bool                   $set_as_default
      * @param  array                  $arguments
      * @return PaymentMethodInterface
      */
-    public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface;
+    public function addPaymentMethod(
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        bool $set_as_default,
+        ...$arguments
+    ): PaymentMethodInterface;
+
+    /**
+     * @param  PaymentMethodInterface $payment_method
+     * @param  CustomerInterface      $customer
+     * @param  AddressInterface|null  $address
+     * @param  array                  $arguments
+     * @return PaymentMethodInterface
+     */
+    public function updatePaymentMethod(
+        PaymentMethodInterface $payment_method,
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        ...$arguments
+    ): PaymentMethodInterface;
+
+    /**
+     * @param  PaymentMethodInterface      $payment_method
+     * @return PaymentMethodInterface|null
+     */
+    public function removePaymentMethod(PaymentMethodInterface $payment_method): ?PaymentMethodInterface;
 
     /**
      * Return order by order ID.
@@ -94,30 +91,36 @@ interface GatewayInterface
      */
     public function getRefundByReference(string $refund_reference): RefundInterface;
 
-    /**
-     * Create a new subscription for the given customer that ordered a given product using a given payment method.
-     *
-     * @param  CustomerInterface      $customer
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $product_name
-     * @param  string                 $period
-     * @param  mixed                  $arguments
-     * @return SubscriptionInterface
-     */
-    public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+    public function createCharge(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        float $total_amount,
+        float $discount_amount = null,
+        float $tax_amount = null
+    ): string;
 
-    /**
-     * Update an existing interface for the given customer, that ordered a given product using a given payment method.
-     *
-     * @param SubscriptionInterface  $subscription
-     * @param CustomerInterface      $customer
-     * @param PaymentMethodInterface $payment_method
-     * @param string                 $product_name
-     * @param string                 $period
-     * @param  array                  ...$arguments
-     * @return SubscriptionInterface
-     */
-    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface;
+    public function createSubscription(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): string;
+
+    public function updateSubscription(
+        SubscriptionInterface $subscription,
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): void;
+
+    public function cancelSubscription(
+        SubscriptionInterface $subscription,
+        ...$arguments
+    ): void;
 
     /**
      * Return subscription by subscription ID.
@@ -134,7 +137,10 @@ interface GatewayInterface
      * @param  string $period
      * @return string
      */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string;
+    public function getProductIdByNameAndBillingPeriod(
+        string $product_name,
+        string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY
+    ): string;
 
     /**
      * Return add-on ID based on add-on name (or code).
@@ -153,21 +159,19 @@ interface GatewayInterface
     public function getDiscountIdByName(string $name): string;
 
     /**
-     * Execute pre-order.
+     * Execute order.
      *
-     * @param  PreOrderInterface      $pre_order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface $first_billing_date
-     * @return CommonOrderInterface
+     * @param  OrderInterface $order
+     * @param  UserInterface  $by
+     * @return OrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface;
+    public function executeOrder(OrderInterface $order, UserInterface $by = null): OrderInterface;
 
     /**
-     * Return if gateway can execute pre-order.
+     * Return if gateway can execute order.
      *
-     * @param  PreOrderInterface $pre_order
+     * @param  OrderInterface $order
      * @return bool
      */
-    public function canExecutePreOrder(PreOrderInterface $pre_order): bool;
+    public function canExecuteOrder(OrderInterface $order): bool;
 }

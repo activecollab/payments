@@ -6,7 +6,7 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Test\Fixtures;
 
@@ -23,128 +23,72 @@ use BadMethodCallException;
 class Customer extends IdentifiedVisitor implements CustomerInterface
 {
     /**
-     * @var string
+     * @var AddressInterface|null
      */
-    private $organisation_name = '';
+    private $address;
 
-    /**
-     * @var string
-     */
-    private $address = '';
-
-    /**
-     * @var string
-     */
     private $phone_number = '';
 
-    /**
-     * Return customer's reference in the payment gateway.
-     *
-     * @param  GatewayInterface $gateway
-     * @return mixed
-     */
-    public function getReference(GatewayInterface $gateway)
+    public function getReference(): string
     {
         return $this->getEmail();
     }
 
-    /**
-     * Return our internal customer refernece (customer ID or code).
-     *
-     * @return mixed
-     */
-    public function getOurReference()
+    public function getOurIdentifier(): string
     {
         return $this->getEmail();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultPaymentMethod(GatewayInterface $gateway)
+    public function getDefaultPaymentMethod(): ?PaymentMethodInterface
+    {
+    }
+
+    public function getDefaultGatewayPaymentMethod(GatewayInterface $gateway): ?PaymentMethodInterface
     {
         return null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function listPaymentMethods(GatewayInterface $gateway): array
+    public function getPaymentMethods(): ?iterable
     {
         return [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addPaymentMethod(GatewayInterface $gateway, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function getGatewayPaymentMethods(GatewayInterface $gateway): ?iterable
+    {
+        return [];
+    }
+
+    public function addPaymentMethod(GatewayInterface $gateway, ?AddressInterface $address, bool $set_as_default, ...$arguments): PaymentMethodInterface
     {
         throw new BadMethodCallException('Not implemented yet');
     }
 
-    /**
-     * Return customer's organisation name (company, non-profit etc).
-     *
-     * @return string
-     */
-    public function getOrganisationName()
-    {
-        return $this->organisation_name;
-    }
-
-    /**
-     * Set customer's organisation name.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOrganisationName($value)
-    {
-        $this->organisation_name = trim($value);
-
-        return $this;
-    }
-
-    /**
-     * Return customer's address.
-     *
-     * @return AddressInterface
-     */
-    public function getAddresss()
+    public function getAddress(): ?AddressInterface
     {
         return $this->address;
     }
 
     /**
-     * Set customer's address.
-     *
-     * @param  AddressInterface $value
-     * @return $this
+     * @param  AddressInterface|null   $address
+     * @return CustomerInterface|$this
      */
-    public function &setAddress(AddressInterface $value)
+    public function &setAddress(AddressInterface $address = null): CustomerInterface
     {
-        $this->address = $value;
+        $this->address = $address;
 
         return $this;
     }
 
-    /**
-     * Return customer's phone number.
-     *
-     * @return string
-     */
-    public function getPhoneNumber()
+    public function getPhoneNumber(): ?string
     {
         return $this->phone_number;
     }
 
     /**
-     * Set phone number.
-     *
-     * @param  string $value
-     * @return $this
+     * @param  string|null             $value
+     * @return CustomerInterface|$this
      */
-    public function &setPhoneNumber($value)
+    public function &setPhoneNumber(string $value = null): CustomerInterface
     {
         $this->phone_number = trim($value);
 

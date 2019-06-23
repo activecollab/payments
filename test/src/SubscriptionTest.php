@@ -6,11 +6,13 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
+declare(strict_types=1);
+
 namespace ActiveCollab\Payments\Test;
 
 use ActiveCollab\DateValue\DateTimeValue;
 use ActiveCollab\Payments\Customer\CustomerInterface;
-use ActiveCollab\Payments\OrderItem\OrderItem;
+use ActiveCollab\Payments\Subscription\SubscriptionInterface;
 use ActiveCollab\Payments\Test\Fixtures\Customer;
 use ActiveCollab\Payments\Test\Fixtures\Subscription;
 
@@ -55,9 +57,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingCanBeSet()
     {
-        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $monthly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY);
         $monthly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-11-11'));
 
         $next_billing_timestamp = $monthly_subscription->getNextBillingTimestamp();
@@ -65,9 +65,7 @@ class SubscriptionTest extends TestCase
         $this->assertInstanceOf(DateTimeValue::class, $next_billing_timestamp);
         $this->assertEquals('2015-11-11', $next_billing_timestamp->format('Y-m-d'));
 
-        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $yearly_subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
         $yearly_subscription->setNextBillingTimestamp(new DateTimeValue('2015-12-13'));
 
         $next_billing_timestamp = $yearly_subscription->getNextBillingTimestamp();
@@ -81,9 +79,7 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForMonthlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::MONTHLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_MONTHLY);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();
 
@@ -96,13 +92,121 @@ class SubscriptionTest extends TestCase
      */
     public function testNextBillingOnForYearlySubscription()
     {
-        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::YEARLY, 'USD', 25, [
-            new OrderItem('SaaS', 1, 25),
-        ]);
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
 
         $next_billing_timestamp = $subscription->getNextBillingTimestamp();
 
         $this->assertInstanceOf(DateTimeValue::class, $next_billing_timestamp);
         $this->assertEquals('2016-10-15', $next_billing_timestamp->format('Y-m-d'));
+    }
+
+    /**
+     * @dataProvider provideSubscriptionStatusesActivationMap
+     * @param string $status
+     * @param bool   $can_be_activated
+     */
+    public function testSubscriptionsCanBeActivated($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeActivated());
+    }
+
+    public function provideSubscriptionStatusesActivationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, true],
+            [SubscriptionInterface::STATUS_ACTIVE, false],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, false],
+        ];
+    }
+
+    /**
+     * @dataProvider provideSubscriptionStatusesCancelationMap
+     * @param string $status
+     * @param bool   $can_be_activated
+     */
+    public function testSubscriptionsCanBeCanceled($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeCanceled());
+    }
+
+    public function provideSubscriptionStatusesCancelationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, false],
+            [SubscriptionInterface::STATUS_ACTIVE, true],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, true],
+        ];
+    }
+
+    /**
+     * @dataProvider provideSubscriptionStatusesDectivationMap
+     * @param string $status
+     * @param bool   $can_be_activated
+     */
+    public function testSubscriptionsCanBeDectivated($status, bool $can_be_activated)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($status);
+
+        $this->assertSame($can_be_activated, $subscription->canBeDeactivated());
+    }
+
+    public function provideSubscriptionStatusesDectivationMap()
+    {
+        return [
+            [SubscriptionInterface::STATUS_PENDING, false],
+            [SubscriptionInterface::STATUS_ACTIVE, true],
+            [SubscriptionInterface::STATUS_CANCELED, false],
+            [SubscriptionInterface::STATUS_DEACTIVATED, false],
+        ];
+    }
+
+    public function testPendingSubscriptionCanBePurchased()
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
+
+        $this->assertTrue($subscription->canBePurchased());
+    }
+
+    /**
+     * @dataProvider provideNonPurchasableStatuses
+     * @param string $non_purchasable_status
+     */
+    public function testNonPurchasableSubscfriptionStatuses(string $non_purchasable_status)
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus($non_purchasable_status);
+
+        $this->assertFalse($subscription->canBePurchased());
+    }
+
+    public function provideNonPurchasableStatuses()
+    {
+        return [
+            [SubscriptionInterface::STATUS_ACTIVE],
+            [SubscriptionInterface::STATUS_DEACTIVATED],
+            [SubscriptionInterface::STATUS_CANCELED],
+        ];
+    }
+
+    public function testPaidSubscriptionsCanBePurchased()
+    {
+        $subscription = new Subscription($this->customer, '123', $this->timestamp, Subscription::BILLING_PERIOD_YEARLY);
+        $subscription->setStatus(SubscriptionInterface::STATUS_PENDING);
+
+        $this->assertFalse($subscription->isFree());
+        $this->assertTrue($subscription->canBePurchased());
+
+        $subscription->setIsFree(true);
+        $this->assertFalse($subscription->canBePurchased());
     }
 }

@@ -6,91 +6,55 @@
  * (c) A51 doo <info@activecollab.com>. All rights reserved.
  */
 
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Order\Refund;
 
-use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface;
+use ActiveCollab\Payments\Common\GatewayedObjectInterface;
+use ActiveCollab\Payments\Common\InternallyIdentifiedObjectInterface;
+use ActiveCollab\Payments\Common\ReferencedObjectInterface;
+use ActiveCollab\Payments\Common\TimestampedObjectInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 
 /**
  * @package ActiveCollab\Payments\Refund
  */
-interface RefundInterface
+interface RefundInterface extends GatewayedObjectInterface, ReferencedObjectInterface, TimestampedObjectInterface, InternallyIdentifiedObjectInterface
 {
     /**
-     * Return parent gateway.
-     *
-     * @return \ActiveCollab\Payments\Gateway\GatewayInterface
-     */
-    public function &getGateway();
-
-    /**
-     * Set parent gateway.
-     *
-     * @param  \ActiveCollab\Payments\Gateway\GatewayInterface $gateway
-     * @return $this
-     */
-    public function &setGateway(GatewayInterface &$gateway);
-
-    /**
      * @return string
      */
-    public function getReference();
-
-    /**
-     * @return string
-     */
-    public function getOrderReference();
+    public function getOrderReference(): string;
 
     /**
      * Return order by order ID.
      *
      * @return OrderInterface
      */
-    public function getOrder();
-
-    /**
-     * @return DateTimeValueInterface
-     */
-    public function getTimestamp();
+    public function getOrder(): OrderInterface;
 
     /**
      * @return float
      */
-    public function getTotal();
+    public function getTotal(): float;
 
     /**
-     * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
+     * @return iterable|null
      */
-    public function getItems();
+    public function getItems(): ?iterable;
 
     /**
      * Set refund items, if refund was by line item.
      *
-     * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
-     * @return $this
+     * @param  iterable|null   $value
+     * @return RefundInterface
      */
-    public function &setItems(array $value);
-
-    /**
-     * @return string
-     */
-    public function getOurIdentifier();
-
-    /**
-     * Set our identifier.
-     *
-     * @param  string $value
-     * @return $this
-     */
-    public function &setOurIdentifier($value);
+    public function &setItems(?iterable $value): RefundInterface;
 
     /**
      * Return true if this refund is partial.
      *
      * @return bool
      */
-    public function isPartial();
+    public function isPartial(): bool;
 }

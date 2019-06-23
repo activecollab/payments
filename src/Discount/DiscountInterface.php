@@ -10,13 +10,22 @@ declare(strict_types=1);
 
 namespace ActiveCollab\Payments\Discount;
 
+use ActiveCollab\Object\ObjectInterface;
+
 /**
  * @package ActiveCollab\Payments\Discount
  */
-interface DiscountInterface
+interface DiscountInterface extends ObjectInterface
 {
-    const VALUE = 'fixed';
+    /** @deprecated */
     const PERCENT = 'percent';
+    /** @deprecated */
+    const VALUE = 'fixed';
+
+    const TYPE_PERCENT = 'percent';
+    const TYPE_VALUE = 'fixed';
+
+    const DISCOUNT_TYPES = [self::TYPE_PERCENT, self::TYPE_VALUE];
 
     /**
      * Return discount name.
@@ -30,12 +39,29 @@ interface DiscountInterface
      *
      * @return float
      */
-    public function getAmount(): float;
+    public function getValue(): float;
+
+    /**
+     * Return maximum amount that this discount can substract from the order.
+     *
+     * NULL is interepreted as "no max amount".
+     *
+     * @return float
+     */
+    public function getMaxAmount(): ?float;
 
     /**
      * Return type of discount (percentage or fixed).
      *
      * @return string
      */
-    public function getType(): string;
+    public function getDiscountType(): string;
+
+    /**
+     * Calcualte discount for the given amount.
+     *
+     * @param  float $amount
+     * @return float
+     */
+    public function calculateForAmount(float $amount): float;
 }

@@ -9,23 +9,17 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValue;
-use ActiveCollab\DateValue\DateValueInterface;
 use ActiveCollab\DateValue\DateTimeValueInterface;
-use ActiveCollab\Payments\CommonOrder\CommonOrderInterface;
+use ActiveCollab\Payments\Address\AddressInterface;
 use ActiveCollab\Payments\Customer\CustomerInterface;
 use ActiveCollab\Payments\Dispatcher\DispatcherInterface;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
-use ActiveCollab\Payments\Gateway\GatewayInterface\Implementation as GatewayInterfaceImplementation;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
 use ActiveCollab\Payments\PaymentMethod\PaymentMethodInterface;
-use ActiveCollab\Payments\PreOrder\PreOrderInterface;
-use ActiveCollab\Payments\Subscription\Cancelation\Cancelation;
-use ActiveCollab\Payments\Subscription\Change\Change;
-use ActiveCollab\Payments\Subscription\FailedPayment\FailedPayment;
-use ActiveCollab\Payments\Subscription\Rebill\Rebill;
 use ActiveCollab\Payments\Subscription\SubscriptionInterface;
+use ActiveCollab\User\UserInterface;
 use BadMethodCallException;
 use InvalidArgumentException;
 
@@ -34,8 +28,6 @@ use InvalidArgumentException;
  */
 class ExampleOffsiteGateway implements GatewayInterface
 {
-    use GatewayInterfaceImplementation;
-
     /**
      * @var OrderInterface[]
      */
@@ -56,52 +48,61 @@ class ExampleOffsiteGateway implements GatewayInterface
      */
     public function __construct(DispatcherInterface &$dispatcher)
     {
-        $this->setDispatcher($dispatcher);
+        $this->setDispatcherByReference($dispatcher);
     }
 
     /**
-     * {@inheritdoc}
+     * @var DispatcherInterface
      */
+    private $dispatcher;
+
+    public function getDispatcher(): DispatcherInterface
+    {
+        return $this->dispatcher;
+    }
+
+    protected function &setDispatcherByReference(DispatcherInterface $gateway): GatewayInterface
+    {
+        $this->dispatcher = $gateway;
+
+        return $this;
+    }
+
     public function getIdentifier(): string
     {
         return 'test';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOurReference(): string
+    public function getOurIdentifier(): string
     {
         return 'test';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultPaymentMethod(string $customer_id)
+    public function addPaymentMethod(
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        bool $set_as_default,
+        ...$arguments
+    ): PaymentMethodInterface
     {
-        return null;
+        throw new BadMethodCallException('Not implemented just yet');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function listPaymentMethods(string $customer_id): array
+    public function updatePaymentMethod(
+        PaymentMethodInterface $payment_method,
+        CustomerInterface $customer,
+        ?AddressInterface $address,
+        ...$arguments
+    ): PaymentMethodInterface
     {
-        return [];
+        throw new BadMethodCallException('Not implemented just yet');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addPaymentMethod(CustomerInterface $customer, bool $set_as_default, ...$arguments): PaymentMethodInterface
+    public function removePaymentMethod(PaymentMethodInterface $payment_method): ?PaymentMethodInterface
     {
-        throw new \BadMethodCallException('Not implemented just yet');
+        throw new BadMethodCallException('Not implemented just yet');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getOrderByReference(string $order_reference): OrderInterface
     {
         if (isset($this->orders[$order_reference])) {
@@ -111,9 +112,6 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Order #{$order_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRefundByReference(string $refund_reference): RefundInterface
     {
         if (isset($this->refunds[$refund_reference])) {
@@ -123,25 +121,44 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Refund #{$refund_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function createSubscription(CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    public function createCharge(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        float $total_amount,
+        float $discount_amount = null,
+        float $tax_amount = null
+    ): string
     {
-        return new Subscription($customer, '2016-02-03', new DateTimeValue(), $period, 'USD', 200, []);
+        return '2016-02-04';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function updateSubscription(SubscriptionInterface $subscription, CustomerInterface $customer, PaymentMethodInterface $payment_method, $product_name, string $period, ...$arguments): SubscriptionInterface
+    public function createSubscription(
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): string
     {
-        return $subscription;
+        return '2016-02-03';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    public function updateSubscription(
+        SubscriptionInterface $subscription,
+        CustomerInterface $customer,
+        PaymentMethodInterface $payment_method,
+        string $product_name,
+        string $period,
+        ...$arguments
+    ): void
+    {
+    }
+
+    public function cancelSubscription(SubscriptionInterface $subscription, ...$arguments): void
+    {
+    }
+
     public function getSubscriptionByReference(string $subscription_reference): SubscriptionInterface
     {
         if (isset($this->subscriptions[$subscription_reference])) {
@@ -151,25 +168,19 @@ class ExampleOffsiteGateway implements GatewayInterface
         throw new InvalidArgumentException("Subscription #{$subscription_reference} not found");
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getProductIdByNameAndBillingPeriod(string $product_name, string $period = SubscriptionInterface::MONTHLY): string
+    public function getProductIdByNameAndBillingPeriod(
+        string $product_name,
+        string $period = SubscriptionInterface::BILLING_PERIOD_MONTHLY
+    ): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAddOnIdByName(string $name): string
     {
         return $name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDiscountIdByName(string $name): string
     {
         return $name;
@@ -201,8 +212,13 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, $order->getTotal());
-        $refund->setGateway($this);
+        $refund = new Refund(
+            $order->getReference() . '-X',
+            $order->getReference(),
+            $timestamp,
+            $order->getTotalAmount(),
+            $this
+        );
 
         $this->refunds[$refund->getReference()] = $refund;
 
@@ -216,7 +232,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param OrderItemInterface[]        $items
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerOrderPartiallyRefunded(OrderInterface $order, array $items = null, DateTimeValueInterface $timestamp = null)
+    public function triggerOrderPartiallyRefunded(
+        OrderInterface $order,
+        array $items = null,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->orders[$order->getReference()] = $order;
 
@@ -224,8 +244,13 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $refund = new Refund($order->getReference() . '-X', $order->getReference(), $timestamp, 200);
-        $refund->setGateway($this);
+        $refund = new Refund(
+            $order->getReference() . '-X',
+            $order->getReference(),
+            $timestamp,
+            200,
+            $this
+        );
 
         if (!empty($items)) {
             $refund->setItems($items);
@@ -255,7 +280,11 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param DateTimeValueInterface|null $timestamp
      * @param DateTimeValueInterface|null $next_billing_timestamp
      */
-    public function triggerSubscriptionRebill(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null, DateTimeValueInterface $next_billing_timestamp = null)
+    public function triggerSubscriptionRebill(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null,
+        DateTimeValueInterface $next_billing_timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -267,9 +296,7 @@ class ExampleOffsiteGateway implements GatewayInterface
             $next_billing_timestamp = $subscription->calculateNextBillingTimestamp($timestamp);
         }
 
-        $rebill = new Rebill($subscription->getReference(), $timestamp, $next_billing_timestamp);
-        $rebill->setGateway($this);
-
+        $rebill = new Rebill($subscription->getReference(), $timestamp, $next_billing_timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionRebill($this, $subscription, $rebill);
     }
 
@@ -279,7 +306,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionChange(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionChange(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -287,9 +317,7 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $change = new Change($subscription->getReference(), $timestamp);
-        $change->setGateway($this);
-
+        $change = new Change($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionChanged($this, $subscription, $change);
     }
 
@@ -299,7 +327,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionDeactivated(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionDeactivated(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -307,9 +338,7 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $cancelation = new Cancelation($subscription->getReference(), $timestamp);
-        $cancelation->setGateway($this);
-
+        $cancelation = new Cancelation($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionDeactivated($this, $subscription, $cancelation);
     }
 
@@ -319,7 +348,10 @@ class ExampleOffsiteGateway implements GatewayInterface
      * @param SubscriptionInterface       $subscription
      * @param DateTimeValueInterface|null $timestamp
      */
-    public function triggerSubscriptionFailedPayment(SubscriptionInterface $subscription, DateTimeValueInterface $timestamp = null)
+    public function triggerSubscriptionFailedPayment(
+        SubscriptionInterface $subscription,
+        DateTimeValueInterface $timestamp = null
+    )
     {
         $this->subscriptions[$subscription->getReference()] = $subscription;
 
@@ -327,9 +359,7 @@ class ExampleOffsiteGateway implements GatewayInterface
             $timestamp = new DateTimeValue();
         }
 
-        $failed_payment = new FailedPayment($subscription->getReference(), $timestamp);
-        $failed_payment->setGateway($this);
-
+        $failed_payment = new FailedPayment($subscription->getReference(), $timestamp, $this);
         $this->getDispatcher()->triggerSubscriptionPaymentFailed($this, $subscription, $failed_payment);
     }
 
@@ -360,34 +390,24 @@ class ExampleOffsiteGateway implements GatewayInterface
     }
 
     /**
-     * Execute pre-order.
+     * Execute order.
      *
-     * @param  PreOrderInterface      $pre_order
-     * @param  PaymentMethodInterface $payment_method
-     * @param  string                 $action
-     * @param  DateValueInterface     $first_billing_date
-     * @return CommonOrderInterface
+     * @param  OrderInterface     $order
+     * @param  UserInterface|null $by
+     * @return OrderInterface
      */
-    public function executePreOrder(PreOrderInterface $pre_order, PaymentMethodInterface $payment_method, string $action, DateValueInterface $first_billing_date = null): CommonOrderInterface
+    public function executeOrder(OrderInterface $order, UserInterface $by = null): OrderInterface
     {
-        return new Subscription(
-            new Customer('Test', 'test@example.com', false),
-            '2016-02-03',
-            new DateTimeValue(),
-            SubscriptionInterface::MONTHLY,
-            'USD',
-            200,
-            []
-        );
+        return $order;
     }
 
     /**
-     * Return if gateway can execute pre-order.
+     * Return if gateway can execute order.
      *
-     * @param  PreOrderInterface $pre_order
+     * @param  OrderInterface $order
      * @return bool
      */
-    public function canExecutePreOrder(PreOrderInterface $pre_order): bool
+    public function canExecuteOrder(OrderInterface $order): bool
     {
         return true;
     }

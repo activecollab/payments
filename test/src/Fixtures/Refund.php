@@ -9,14 +9,14 @@
 namespace ActiveCollab\Payments\Test\Fixtures;
 
 use ActiveCollab\DateValue\DateTimeValueInterface;
+use ActiveCollab\Payments\Common\Traits\GatewayedObject;
+use ActiveCollab\Payments\Common\Traits\InternallyIdentifiedObject;
+use ActiveCollab\Payments\Common\Traits\ReferencedObject;
+use ActiveCollab\Payments\Common\Traits\TimestampedObject;
 use ActiveCollab\Payments\Gateway\GatewayInterface;
 use ActiveCollab\Payments\Order\OrderInterface;
 use ActiveCollab\Payments\Order\Refund\RefundInterface;
 use ActiveCollab\Payments\OrderItem\OrderItemInterface;
-use ActiveCollab\Payments\Traits\Gateway;
-use ActiveCollab\Payments\Traits\OurIdentifier;
-use ActiveCollab\Payments\Traits\Reference;
-use ActiveCollab\Payments\Traits\Timestamp;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -25,7 +25,7 @@ use RuntimeException;
  */
 class Refund implements RefundInterface
 {
-    use Gateway, Reference, Timestamp, OurIdentifier;
+    use GatewayedObject, ReferencedObject, TimestampedObject, InternallyIdentifiedObject;
 
     /**
      * @var string
@@ -49,8 +49,9 @@ class Refund implements RefundInterface
      * @param string                 $order_reference
      * @param DateTimeValueInterface $timestamp
      * @param float                  $total
+     * @param GatewayInterface|null  $gateway
      */
-    public function __construct($refund_reference, $order_reference, DateTimeValueInterface $timestamp, $total)
+    public function __construct($refund_reference, $order_reference, DateTimeValueInterface $timestamp, $total, GatewayInterface &$gateway = null)
     {
         if (empty($refund_reference)) {
             throw new InvalidArgumentException('Refund # is required');
@@ -64,28 +65,19 @@ class Refund implements RefundInterface
             throw new InvalidArgumentException('Empty or credit orders are not supported');
         }
 
-        $this->reference = $refund_reference;
+        $this->setReference($refund_reference);
         $this->order_reference = $order_reference;
-        $this->timestamp = $timestamp;
+        $this->setTimestamp($timestamp);
         $this->total = (float) $total;
+        $this->setGatewayByReference($gateway);
     }
 
-    /**
-     * Return reference (order ID).
-     *
-     * @return string
-     */
-    public function getOrderReference()
+    public function getOrderReference(): string
     {
         return $this->order_reference;
     }
 
-    /**
-     * Return order by order ID.
-     *
-     * @return OrderInterface
-     */
-    public function getOrder()
+    public function getOrder(): OrderInterface
     {
         if ($this->gateway instanceof GatewayInterface) {
             return $this->gateway->getOrderByReference($this->getOrderReference());
@@ -94,42 +86,25 @@ class Refund implements RefundInterface
         throw new RuntimeException('Gateway is not set');
     }
 
-    /**
-     * @return float
-     */
-    public function getTotal()
+    public function getTotal(): float
     {
         return $this->total;
     }
 
-    /**
-     * @return \ActiveCollab\Payments\OrderItem\OrderItemInterface[]
-     */
-    public function getItems()
+    public function getItems(): ?iterable
     {
         return $this->items;
     }
 
-    /**
-     * Set refund items, if refund was by line item.
-     *
-     * @param  \ActiveCollab\Payments\OrderItem\OrderItemInterface[] $value
-     * @return $this
-     */
-    public function &setItems(array $value)
+    public function &setItems(?iterable $value): RefundInterface
     {
         $this->items = $value;
 
         return $this;
     }
 
-    /**
-     * Return true if this refund is partial.
-     *
-     * @return bool
-     */
-    public function isPartial()
+    public function isPartial(): bool
     {
-        return $this->getTotal() < $this->getOrder()->getTotal();
+        return $this->getTotal() < $this->getOrder()->getTotalAmount();
     }
 }
