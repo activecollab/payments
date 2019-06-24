@@ -17,7 +17,7 @@
     "require": {
         "php": ">=7.1",
         "activecollab/datevalue": "^2.0",
-        "activecollab/user": "v4.0.x-dev"
+        "activecollab/user": "^4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",

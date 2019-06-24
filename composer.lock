@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "862f42181537ec8aec5344fe467be1f2",
+    "content-hash": "d02fe8697a308bd294921bce11106556",
     "packages": [
         {
             "name": "activecollab/datevalue",
@@ -152,16 +152,16 @@
         },
         {
             "name": "activecollab/user",
-            "version": "v4.0.x-dev",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/activecollab/user.git",
-                "reference": "dc6371205e89713b9f3347ff8753dc79f7ae626e"
+                "reference": "6fa07d4a3e345cefce0491d2efe5d83b3867169b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/activecollab/user/zipball/dc6371205e89713b9f3347ff8753dc79f7ae626e",
-                "reference": "dc6371205e89713b9f3347ff8753dc79f7ae626e",
+                "url": "https://api.github.com/repos/activecollab/user/zipball/6fa07d4a3e345cefce0491d2efe5d83b3867169b",
+                "reference": "6fa07d4a3e345cefce0491d2efe5d83b3867169b",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +195,7 @@
             "keywords": [
                 "activecollab"
             ],
-            "time": "2019-06-23T18:07:23+00:00"
+            "time": "2019-06-23T18:22:56+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -3044,9 +3044,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "activecollab/user": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
